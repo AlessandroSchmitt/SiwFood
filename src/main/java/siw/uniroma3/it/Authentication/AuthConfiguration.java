@@ -1,4 +1,4 @@
-package siw.uniroma3.it.model;
+package siw.uniroma3.it.Authentication;
 
 import javax.sql.DataSource;
 
@@ -25,8 +25,8 @@ public class AuthConfiguration {
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 	auth.jdbcAuthentication()
 	.dataSource(dataSource)
-	.authoritiesByUsernameQuery("SELECT username, role from credentials WHERE username=?")
-	.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credentials WHERE username=?");
+	.authoritiesByUsernameQuery("SELECT username, ruolo from credenziali WHERE username=?")
+	.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM credenziali WHERE username=?");
 	}
 	
 	@Bean
