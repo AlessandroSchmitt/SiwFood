@@ -30,7 +30,7 @@ public class AuthenticationController {
 
 	@GetMapping(value = "/login")
 	public String showLoginForm(Model model) {
-		return "formLogin.html";
+		return "FormLogin.html";
 	}
 
 	@GetMapping(value = "/")

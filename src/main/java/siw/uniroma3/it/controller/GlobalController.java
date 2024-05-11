@@ -5,17 +5,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-import siw.uniroma3.it.model.Utente;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @ControllerAdvice
 public class GlobalController {
-	@ModelAttribute("DettagliUtente")
-	public Utente getUtente() {
-		Utente utente = null;
+	@ModelAttribute("UserDetails")
+	
+	public UserDetails getUtente() {
+		UserDetails  utente = null;
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-			utente = (Utente) SecurityContextHolder.getContext().getAuthentication().getPrincipal();}
+			utente = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();}
 		return utente;
 	}
 }
