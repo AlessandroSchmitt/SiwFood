@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static siw.uniroma3.it.model.Credenziali.ADMIN_ROLE;
+
 @Configuration
 @EnableWebSecurity
 public class AuthConfiguration {
@@ -79,4 +81,5 @@ public class AuthConfiguration {
 	.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 	.clearAuthentication(true).permitAll();
 	return httpSecurity.build();
+	}
 }
