@@ -2,9 +2,7 @@ package siw.uniroma3.it.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +18,7 @@ public class Utente {
 	private String email;
 	private LocalDate dataDiNascita;
 	
-	@OneToOne(mappedBy = "utente", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne
     private Credenziali credenziali;
 
 	public Long getId() {

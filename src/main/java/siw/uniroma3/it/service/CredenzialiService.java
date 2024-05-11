@@ -11,15 +11,15 @@ public class CredenzialiService {
 	@Autowired
     private CredenzialiRepository credenzialiRepository;
 
-    public Credenziali getCredentials(Long id) {
+    public Credenziali getCredenziali(Long id) {
         return credenzialiRepository.findById(id).orElse(null);
     }
 
-    public Credenziali getCredentials(String username) {
+    public Credenziali getCredenziali(String username) {
         return credenzialiRepository.findByUsername(username).orElse(null);
     }
 
-    public Credenziali saveCredentials(Credenziali credentials) {
-        return credenzialiRepository.save(credentials);
+    public Credenziali saveCredenziali(Credenziali credenziali) {
+        return credenzialiRepository.save(credenziali);
     }
 }
