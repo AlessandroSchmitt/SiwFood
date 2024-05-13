@@ -18,7 +18,7 @@ public class Utente {
 	private String email;
 	private LocalDate dataDiNascita;
 	
-	@OneToOne
+	@OneToOne(mappedBy="utente")
     private Credenziali credenziali;
 
 	public Long getId() {
