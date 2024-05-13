@@ -30,7 +30,7 @@ public class AuthenticationController {
 
 	@GetMapping(value = "/login")
 	public String showLoginForm(Model model) {
-		return "FormLogin.html";
+		return "formLogin.html";
 	}
 
 	@GetMapping(value = "/")
@@ -54,7 +54,7 @@ public class AuthenticationController {
 		UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credenziali credenziali = credenzialiService.getCredenziali(userDetails.getUsername());
 		if(credenziali.getRuolo().equals(Credenziali.ADMIN_ROLE)) {
-			return "indexAdmin.html";
+			return "indexAmministratore.html";
 		}
 		return "index.html";
 	}
@@ -71,7 +71,7 @@ public class AuthenticationController {
 				model.addAttribute("utente", utente);
 				return "registrationSuccesful.html";
 			}
-			return "registraUtente.html";
+			return "formRegistraUtente.html";
 	}
 	
 }
