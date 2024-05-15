@@ -27,35 +27,32 @@
 				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 			</form>
 			<a type="button" class="btn btn-primary" href="/login">Login</a>
-			<a type="button" class="btn btn-success" href="/register">Sign Up</a>
 		</div>
 	</nav>
 
 	<div class="jumbotron jumbotron-fluid vh-50 mt-3">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-md-6 d-flex justify-content-center">
-					<div class="text-center">
-						<div class="text-center mt-5">
-							<img src="/images/logo.jpeg" class="rounded-4 img-fluid mb-4" alt="Logo SiwFood"
-								style="width: 30%; max-width: 350px;">
-
-							<h1 class="display-4">Benvenuti su SiwFood!</h1>
-							<p class="lead mb-4">
-								Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina che unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e un tributo al potere evocativo del cibo. 
-								Un viaggio sensoriale che inizia dal primo sguardo e continua in un crescendo di sensazioni, invitandovi a sperimentare e riscoprire la magia nascosta nelle creazioni stellate. 
-								Venite a esplorare con noi la sublime arte culinaria, laddove ogni dettaglio conta e ogni assaggio è un ricordo indelebile.
-							</p>
-						</div>
+				<div class="col-md-8"> <!-- Modificato da col-md-6 a col-md-8 per una maggiore larghezza -->
+					<div class="text-center mt-5">
+						<img src="/images/logo.jpeg" class="rounded-4 img-fluid mb-4 logo-hover" alt="Logo SiwFood"
+							style="width: 30%; max-width: 350px;">
+	
+						<p class="lead mb-4" style="text-align: justify;"> <!-- Aggiunto style per giustificare il testo -->
+							Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina che unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e un tributo al potere evocativo del cibo. 
+							Un viaggio sensoriale che inizia dal primo sguardo e continua in un crescendo di sensazioni, invitandovi a sperimentare e riscoprire la magia nascosta nelle creazioni stellate. 
+							Venite a esplorare con noi la sublime arte culinaria, laddove ogni dettaglio conta e ogni assaggio è un ricordo indelebile.
+						</p>
 					</div>
-				</div>
-				<div class="text-center mt-4">
-					<a class="btn btn-primary btn-lg" href="/ricette" role="button">Esplora le Ricette</a>
-					<a class="btn btn-success btn-lg" href="/cuochi" role="button">Scopri i Cuochi</a>
+					<div class="text-center mt-4">
+						<a class="btn btn-primary btn-lg" href="/ricette" role="button">Ricette</a>
+						<a class="btn btn-success btn-lg" href="/cuochi" role="button">Cuochi</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<!-- Footer -->
 	<footer class="mt-5 text-center text-lg-start text-white">
 		<div class="container p-4 pb-0">
