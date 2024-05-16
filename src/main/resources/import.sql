@@ -1,12 +1,12 @@
 -- Inserimenti dei cuochi
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Bruno', 'Barbieri', '1962-01-12', '/images/cuochi/Bruno-Barbieri.jpeg');
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Antonino', 'Cannavacciuolo', '1975-11-21', '/images/cuochi/Antonino-Cannavacciuolo.jpeg');
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Carlo', 'Cracco', '1965-10-08', '/images/cuochi/Carlo-Cracco.jpeg');
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Gordon', 'Ramsay', '1966-11-08', '/images/cuochi/Gordon-Ramsay.jpeg');
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Max', 'Mariola', '1976-05-18', '/images/cuochi/Max-Mariola.jpeg');
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Massimo', 'Bottura', '1962-09-30', '/images/cuochi/Massimo-Bottura.jpeg');
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Gennaro', 'Contaldo', '1949-01-21', '/images/cuochi/Gennaro-Contaldo.jpeg');
-INSERT INTO cuoco (id, nome, cognome, data_di_nascita, url_image) VALUES(nextval('cuoco_seq'), 'Leonardo', 'Crozzoli', '1949-01-21', '/images/cuochi/Leonardo-Crozzoli.jpg');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Bruno', 'Barbieri', '1962-01-12', '{/images/cuochi/Bruno-Barbieri.jpeg}');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Antonino', 'Cannavacciuolo', '1975-11-21', '{/images/cuochi/Antonino-Cannavacciuolo.jpeg}');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Carlo', 'Cracco', '1965-10-08', '{/images/cuochi/Carlo-Cracco.jpeg}');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Gordon', 'Ramsay', '1966-11-08', '{/images/cuochi/Gordon-Ramsay.jpeg}');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Max', 'Mariola', '1976-05-18', '{/images/cuochi/Max-Mariola.jpeg}');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Massimo', 'Bottura', '1962-09-30', '{/images/cuochi/Massimo-Bottura.jpeg}');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Gennaro', 'Contaldo', '1949-01-21', '{/images/cuochi/Gennaro-Contaldo.jpeg}');
+INSERT INTO cuoco (id, nome, cognome, data_di_nascita, urls_images) VALUES(nextval('cuoco_seq'), 'Leonardo', 'Crozzoli', '1949-01-21', '{/images/cuochi/Leonardo-Crozzoli.jpg}');
 
 
 -- Inserimenti delle ricette

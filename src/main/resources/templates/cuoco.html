@@ -11,7 +11,7 @@
     <div class="mt-5"></div>
     <div class="row mb-4">
         <div class="col-md-4">
-            <img th:src="${cuoco.urlImage}" class="cuoco-img img-fluid rounded" alt="Immagine Cuoco"/>
+            <img th:src="${cuoco.urlsImages[0]}" class="cuoco-img img-fluid rounded" alt="Immagine Cuoco"/>
         </div>
         <div class="col-md-8">
             <h1 th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Bruno Barbieri</h1>

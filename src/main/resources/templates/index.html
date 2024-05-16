@@ -4,87 +4,90 @@
 <head th:replace="~{fragments/header :: header(title='SiwFood - Homepage')}"></head>
 
 <body>
-<!-- Include la navbar -->
-<div th:replace="~{fragments/navbar :: navbar}"></div>
+	<!-- Include la navbar -->
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="jumbotron jumbotron-fluid vh-50 mt-3 fade-in">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="text-center">
-                    <div class="text-center mt-5">
-                        <img src="/images/logo.jpeg" class="rounded-4 img-fluid mb-4 logo-hover" alt="Logo SiwFood"
-                             style="width: 30%; max-width: 350px;">
-                        <p class="lead mb-4" style="text-align: justify;">
-                            <!-- Aggiunto style per giustificare il testo -->
-                            Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la
-                            semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di
-                            sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina che
-                            unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e un
-                            tributo al potere evocativo del cibo.
-                            Un viaggio sensoriale che inizia dal primo sguardo e continua in un crescendo di sensazioni,
-                            invitandovi a sperimentare e riscoprire la magia nascosta nelle creazioni stellate.
-                            Venite a esplorare con noi la sublime arte culinaria, laddove ogni dettaglio conta e ogni
-                            assaggio è un ricordo indelebile.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <a class="btn btn-primary btn-lg" href="/ricette" role="button">Esplora le Ricette</a>
-                <a class="btn btn-success btn-lg" href="/cuochi" role="button">Scopri i Cuochi</a>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="jumbotron jumbotron-fluid vh-50 mt-3 fade-in">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 d-flex justify-content-center">
+					<div class="text-center">
+						<div class="text-center mt-5">
+							<img src="/images/logo.jpeg" class="rounded-4 img-fluid mb-4 logo-hover" alt="Logo SiwFood"
+								style="width: 30%; max-width: 350px;">
+							<p class="lead mb-4" style="text-align: justify;">
+								<!-- Aggiunto style per giustificare il testo -->
+								Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la
+								semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di
+								sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina
+								che
+								unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e un
+								tributo al potere evocativo del cibo.
+								Un viaggio sensoriale che inizia dal primo sguardo e continua in un crescendo di
+								sensazioni,
+								invitandovi a sperimentare e riscoprire la magia nascosta nelle creazioni stellate.
+								Venite a esplorare con noi la sublime arte culinaria, laddove ogni dettaglio conta e
+								ogni
+								assaggio è un ricordo indelebile.
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="text-center mt-4">
+					<a class="btn btn-primary btn-lg" href="/ricette" role="button">Esplora le Ricette</a>
+					<a class="btn btn-success btn-lg" href="/cuochi" role="button">Scopri i Cuochi</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<!-- Include il footer -->
-<div th:replace="~{fragments/footer :: footer}"></div>
+	<!-- Include il footer -->
+	<div th:replace="~{fragments/footer :: footer}"></div>
 
-<!-- Privacy Modal -->
-<div id="privacy-modal" class="modal fade-in">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>
-            Siw Food considera il trattamento lecito, corretto e trasparente dei dati
-            personali una azione prioritaria al fine di instaurare e mantenere un rapporto di fiducia con gli
-            utenti, il personale e i terzi interessati. Il sito web provvede al trattamento
-            dei dati personali per lo svolgimento dei propri fini comunicativi, nei limiti stabiliti dallo Statuto,
-            dalle leggi e dai regolamenti vigenti e in ogni caso nel rispetto dei diritti e delle libertà
-            fondamentali, nonché della dignità dell’interessato, con riferimento particolare alla riservatezza,
-            all’identità personale e al diritto alla protezione dei dati personali.
-        </p>
-    </div>
-</div>
+	<!-- Privacy Modal -->
+	<div id="privacy-modal" class="modal fade-in">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p>
+				Siw Food considera il trattamento lecito, corretto e trasparente dei dati
+				personali una azione prioritaria al fine di instaurare e mantenere un rapporto di fiducia con gli
+				utenti, il personale e i terzi interessati. Il sito web provvede al trattamento
+				dei dati personali per lo svolgimento dei propri fini comunicativi, nei limiti stabiliti dallo Statuto,
+				dalle leggi e dai regolamenti vigenti e in ogni caso nel rispetto dei diritti e delle libertà
+				fondamentali, nonché della dignità dell’interessato, con riferimento particolare alla riservatezza,
+				all’identità personale e al diritto alla protezione dei dati personali.
+			</p>
+		</div>
+	</div>
 
-<!-- Optional JavaScript -->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var modal = document.getElementById("privacy-modal");
-        var link = document.getElementById("privacy-link");
-        var span = document.getElementsByClassName("close")[0];
-        link.onclick = function () {
-            modal.style.display = "block";
-        }
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    })
-</script>
-<!-- Optional JavaScript -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
-        integrity="sha384-lOUI+NRDwAS0FqNkuHSzpJvDkpZ4P97XjWehoGQnoa7eS+bv3WumZNnq6q5nqdJX" crossorigin="anonymous">
-</script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-XXXXXX"
-        crossorigin="anonymous"></script>
+	<!-- Optional JavaScript -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var modal = document.getElementById("privacy-modal");
+			var link = document.getElementById("privacy-link");
+			var span = document.getElementsByClassName("close")[0];
+			link.onclick = function () {
+				modal.style.display = "block";
+			}
+			span.onclick = function () {
+				modal.style.display = "none";
+			}
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+		})
+	</script>
+	<!-- Optional JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">
+		</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+		integrity="sha384-lOUI+NRDwAS0FqNkuHSzpJvDkpZ4P97XjWehoGQnoa7eS+bv3WumZNnq6q5nqdJX" crossorigin="anonymous">
+		</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-XXXXXX"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

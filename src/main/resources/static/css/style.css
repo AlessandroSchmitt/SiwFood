@@ -3,7 +3,7 @@ body {
     padding-top: 3rem !important;
     padding-bottom: 60px; /* Altezza del footer */
     margin: 0;
-    background-color: #f8f5f0 !important; /* Panna */
+    background: #f8f5f0;
 }
 
 html, body {
@@ -15,10 +15,12 @@ a {
     color: #4a5e54; /* Verde scuro elegante */
 }
 
+
 .jumbotron {
     text-align: center;
     background-color: #f8f5f0 !important; /* Panna */
 }
+
 
 /* Bottoni */
 .btn-primary,
@@ -63,7 +65,7 @@ a {
 }
 
 .form-container .btn-primary:hover {
-    background-color: #3d5048;
+    background-color: #d4af37 !important; ;
 }
 
 /* Navbar */
@@ -215,23 +217,6 @@ footer p, footer h6 {
     border-radius: 5px;
 }
 
-.carousel-inner {
-    margin: 0; /* Rimuove eventuali margini */
-    padding: 0; /* Rimuove eventuali padding */
-}
-
-.carousel-item {
-    margin: 0; /* Rimuove eventuali margini */
-    padding: 0; /* Rimuove eventuali padding */
-}
-
-.carousel-item img {
-    width: 100%; /* Cambiato da auto a 100% */
-    max-height: 300px;
-    object-fit: contain;
-    transition: transform 0.5s ease;
-}
-
 .carousel-item img:hover {
     transform: scale(1.1);
 }
@@ -254,11 +239,6 @@ footer p, footer h6 {
     padding: 10px;
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-    margin: 0; /* Rimuove eventuali margini */
-    padding: 0; /* Rimuove eventuali padding */
-}
 
 /* Animazione di fade-in */
 .fade-in {

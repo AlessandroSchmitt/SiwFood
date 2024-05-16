@@ -16,8 +16,6 @@ public class CuocoController {
 	@Autowired
 	private CuocoService cuocoService;
 	
-	
-
 	@GetMapping(value="/admin/formNewCuoco")
 	public String formNewCuoco(Model model) {
 		model.addAttribute("cuoco", new Cuoco());

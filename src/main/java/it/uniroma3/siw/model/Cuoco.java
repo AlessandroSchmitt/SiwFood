@@ -18,7 +18,7 @@ public class Cuoco {
 	private String nome;
 	private String cognome;
 	private LocalDate dataDiNascita;
-	private String urlImage;
+	private List<String> urlsImages;
 	
 	@OneToMany(mappedBy = "cuoco")  
 	private List<Ricetta> ricette;
@@ -53,11 +53,13 @@ public class Cuoco {
 	public void setDataDiNascita(LocalDate dataDiNascita) {
 		this.dataDiNascita = dataDiNascita;
 	}
-	public String getUrlImage() {
-		return urlImage;
+	
+	public List<String> getUrlsImages() {
+		return urlsImages;
 	}
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
-	}
+	
+	public void setUrlsImages(List<String> urlsImages) {
+		this.urlsImages = urlsImages;
+	} 
 	
 }
