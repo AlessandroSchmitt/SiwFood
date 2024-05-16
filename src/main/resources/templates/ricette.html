@@ -7,34 +7,34 @@
 <!-- Include la navbar -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-//carosello in ricette.html
+<!-- carosello -->
+<!-- carosello migliorato -->
 <div class="container mt-5">
-    <h1 class="mb-4">Ricette</h1>
-    <div th:if="${ricette==null || ricette.isEmpty()}" class="alert alert-warning">
+    <h1 class="mb-4 text-center">Ricette</h1>
+    <div th:if="${ricette==null || ricette.isEmpty()}" class="alert alert-warning text-center">
         Non ci sono ricette nel sistema
     </div>
-    <div class="container mt-5">
-        <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div th:each="ricetta, stat : ${ricette}"
-                     th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
-                    <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">
-                        <img th:src="${ricetta.urlsImages[0]}" class="d-block w-100" th:alt="'Slide ' + ${stat.count}">
-                    </a>
-                    <div class="carousel-caption">
-                        <h5 th:text="${ricetta.nome}"></h5>
+    <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div th:each="ricetta, stat : ${ricette}"
+                 th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
+                <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}" class="d-block position-relative">
+                    <img th:src="${ricetta.urlsImages[0]}" class="d-block w-100 rounded"
+                         th:alt="'Slide ' + ${stat.count}">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3 position-absolute bottom-0 start-50 translate-middle-x w-75">
+                        <h5 th:text="${ricetta.nome}" class="text-white mb-0"></h5>
                     </div>
-                </div>
+                </a>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#recipeCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#recipeCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#recipeCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#recipeCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </div>
 
