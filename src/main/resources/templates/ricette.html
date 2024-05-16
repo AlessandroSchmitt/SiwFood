@@ -33,7 +33,7 @@
             <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div th:each="ricetta, stat : ${ricette}" th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
-                        <a th:href="@{'/ricetta.html?id=' + ${ricetta.id}}">
+                        <a th:href="@{'/ricetta' + '/' + ${ricetta.id}}">
                             <img th:src="${ricetta.urlsImages[0]}" class="d-block w-100" th:alt="'Slide ' + ${stat.count}">
                         </a>
                         <div class="carousel-caption">
