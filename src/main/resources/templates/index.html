@@ -20,15 +20,12 @@
 								Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la
 								semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di
 								sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina
-								che
-								unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e un
-								tributo al potere evocativo del cibo.
-								Un viaggio sensoriale che inizia dal primo sguardo e continua in un crescendo di
-								sensazioni,
-								invitandovi a sperimentare e riscoprire la magia nascosta nelle creazioni stellate.
-								Venite a esplorare con noi la sublime arte culinaria, laddove ogni dettaglio conta e
-								ogni
-								assaggio è un ricordo indelebile.
+								che unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e
+								un tributo al potere evocativo del cibo. Un viaggio sensoriale che inizia dal primo
+								sguardo e continua in un crescendo di sensazioni, invitandovi a sperimentare e
+								riscoprire la magia nascosta nelle creazioni stellate. Venite a esplorare con noi la
+								sublime arte culinaria, laddove ogni dettaglio conta e ogni assaggio è un ricordo
+								indelebile.
 							</p>
 						</div>
 					</div>
@@ -41,9 +38,27 @@
 		</div>
 	</div>
 
+	<!-- Sezione Quiz -->
+	<div id="quiz-section" class="container mt-5">
+		<h2 class="text-center">Quiz su Cuochi e Ricette</h2>
+		<div id="quiz-container" class="text-center">
+			<a id="start-quiz" class="btn btn-warning" th:href="@{/templates/quiz.html}">Inizia il Quiz</a>
+			<div id="quiz-content" class="mt-4" style="display:none;">
+				<div id="question-container" class="mb-3">
+					<p id="question-text"></p>
+				</div>
+				<div id="options-container" class="mb-3">
+					<!-- Le opzioni verranno inserite dinamicamente qui -->
+				</div>
+				<button id="next-question" class="btn btn-primary" style="display:none;">Prossima Domanda</button>
+				<p id="quiz-result" class="mt-3" style="display:none;"></p>
+			</div>
+		</div>
+	</div>
+
 	<!-- Include il footer -->
 	<div th:replace="~{fragments/footer :: footer}"></div>
-		
+
 	<!-- Optional JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">

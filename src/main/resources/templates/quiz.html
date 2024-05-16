@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/header :: header(title='SiwFood - Quiz')}"></head>
+
+<body>
+	<script>
+		const quizData = [
+			{
+				question: "Chi è conosciuto come il 'Re dei Cuochi'?",
+				options: ["Gordon Ramsay", "Alain Ducasse", "Auguste Escoffier", "Massimo Bottura"],
+				answer: "Auguste Escoffier"
+			},
+			{
+				question: "Quale è l'ingrediente principale della 'Carbonara'?",
+				options: ["Pancetta", "Prosciutto", "Salame", "Guanciale"],
+				answer: "Guanciale"
+			},
+			// Aggiungi altre domande qui
+		];
+
+		let currentQuestionIndex = 0;
+		let score = 0;
+
+		$(document).ready(function () {
+			displayQuestion();
+
+			$('#next-question').click(function () {
+				const selectedOption = $('input[name="option"]:checked').val();
+				if (selectedOption) {
+					if (selectedOption === quizData[currentQuestionIndex].answer) {
+						score++;
+					}
+					currentQuestionIndex++;
+					if (currentQuestionIndex < quizData.length) {
+						displayQuestion();
+					} else {
+						displayResult();
+					}
+				} else {
+					alert("Seleziona un'opzione per continuare.");
+				}
+			});
+		});
+
+		function displayQuestion() {
+			const currentQuestion = quizData[currentQuestionIndex];
+			$('#question-text').text(currentQuestion.question);
+			$('#options-container').empty();
+			currentQuestion.options.forEach(option => {
+				$('#options-container').append(`
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="option" value="${option}">
+                        <label class="form-check-label">${option}</label>
+                    </div>
+                `);
+			});
+			$('#next-question').show();
+		}
+
+		function displayResult() {
+			$('#quiz-content').hide();
+			$('#quiz-result').text(`Hai risposto correttamente a ${score} domande su ${quizData.length}`).show();
+		}
+	</script>
+
+	<div id="quiz-content">
+		<div id="question-container" class="mb-3">
+			<p id="question-text"></p>
+		</div>
+		<div id="options-container" class="mb-3">
+			<!-- Le opzioni verranno inserite dinamicamente qui -->
+		</div>
+		<button id="next-question" class="btn btn-primary" style="display:none;">Prossima Domanda</button>
+		<p id="quiz-result" class="mt-3" style="display:none;"></p>
+	</div>
+</body>
+
+</html>
