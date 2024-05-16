@@ -4,70 +4,60 @@
 <head th:replace="~{fragments/header :: header(title='SiwFood - Homepage')}"></head>
 
 <body>
-	<!-- Include la navbar -->
-	<div th:replace="~{fragments/navbar :: navbar}"></div>
+    <!-- Include la navbar -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-	<div class="jumbotron jumbotron-fluid vh-50 mt-3 fade-in">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-6 d-flex justify-content-center">
-					<div class="text-center">
-						<div class="text-center mt-5">
-							<img src="/images/logo.jpeg" class="rounded-4 img-fluid mb-4 logo-hover" alt="Logo SiwFood"
-								style="width: 30%; max-width: 350px;">
-							<p class="lead mb-4" style="text-align: justify;">
-								<!-- Aggiunto style per giustificare il testo -->
-								Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la
-								semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di
-								sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina
-								che unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e
-								un tributo al potere evocativo del cibo. Un viaggio sensoriale che inizia dal primo
-								sguardo e continua in un crescendo di sensazioni, invitandovi a sperimentare e
-								riscoprire la magia nascosta nelle creazioni stellate. Venite a esplorare con noi la
-								sublime arte culinaria, laddove ogni dettaglio conta e ogni assaggio è un ricordo
-								indelebile.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="text-center mt-4">
-					<a class="btn btn-primary btn-lg" href="/ricette" role="button">Esplora le Ricette</a>
-					<a class="btn btn-success btn-lg" href="/cuochi" role="button">Scopri i Cuochi</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="jumbotron jumbotron-fluid vh-50 mt-3 fade-in">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 d-flex justify-content-center">
+                    <div class="text-center">
+                        <div class="text-center mt-5">
+                            <img src="/images/logo.jpeg" class="rounded-4 img-fluid mb-4 logo-hover" alt="Logo SiwFood"
+                                style="width: 30%; max-width: 350px;">
+                            <p class="lead mb-4" style="text-align: justify;">
+                                <!-- Aggiunto style per giustificare il testo -->
+                                Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la
+                                semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di
+                                sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina
+                                che unisce tradizione e innovazione, dove ogni ricetta è una finestra aperta sul mondo e
+                                un tributo al potere evocativo del cibo. Un viaggio sensoriale che inizia dal primo
+                                sguardo e continua in un crescendo di sensazioni, invitandovi a sperimentare e
+                                riscoprire la magia nascosta nelle creazioni stellate. Venite a esplorare con noi la
+                                sublime arte culinaria, laddove ogni dettaglio conta e ogni assaggio è un ricordo
+                                indelebile.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a class="btn btn-primary btn-lg" href="/ricette" role="button">Esplora le Ricette</a>
+                    <a class="btn btn-success btn-lg" href="/cuochi" role="button">Scopri i Cuochi</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- Sezione Quiz -->
-	<div id="quiz-section" class="container mt-5">
-		<h2 class="text-center">Quiz su Cuochi e Ricette</h2>
-		<div id="quiz-container" class="text-center">
-			<a id="start-quiz" class="btn btn-warning" th:href="@{/templates/quiz.html}">Inizia il Quiz</a>
-			<div id="quiz-content" class="mt-4" style="display:none;">
-				<div id="question-container" class="mb-3">
-					<p id="question-text"></p>
-				</div>
-				<div id="options-container" class="mb-3">
-					<!-- Le opzioni verranno inserite dinamicamente qui -->
-				</div>
-				<button id="next-question" class="btn btn-primary" style="display:none;">Prossima Domanda</button>
-				<p id="quiz-result" class="mt-3" style="display:none;"></p>
-			</div>
-		</div>
-	</div>
+    <!-- Sezione Quiz -->
+    <div id="quiz-section" class="container mt-5">
+        <h2 class="text-center">Quiz su Cuochi e Ricette</h2>
+        <div id="quiz-container" class="text-center">
+            <a id="start-quiz" class="btn btn-warning" href="/quiz">Inizia il Quiz</a>
+        </div>
+    </div>
 
-	<!-- Include il footer -->
-	<div th:replace="~{fragments/footer :: footer}"></div>
+    <!-- Include il footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
 
-	<!-- Optional JavaScript -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">
-		</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
-		integrity="sha384-lOUI+NRDwAS0FqNkuHSzpJvDkpZ4P97XjWehoGQnoa7eS+bv3WumZNnq6q5nqdJX" crossorigin="anonymous">
-		</script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-XXXXXX"
-		crossorigin="anonymous"></script>
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+        integrity="sha384-lOUI+NRDwAS0FqNkuHSzpJvDkpZ4P97XjWehoGQnoa7eS+bv3WumZNnq6q5nqdJX" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-XXXXXX"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
