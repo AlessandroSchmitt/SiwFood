@@ -43,42 +43,7 @@
 
 	<!-- Include il footer -->
 	<div th:replace="~{fragments/footer :: footer}"></div>
-
-	<!-- Privacy Modal -->
-	<div id="privacy-modal" class="modal fade-in">
-		<div class="modal-content">
-			<span class="close">&times;</span>
-			<p>
-				Siw Food considera il trattamento lecito, corretto e trasparente dei dati
-				personali una azione prioritaria al fine di instaurare e mantenere un rapporto di fiducia con gli
-				utenti, il personale e i terzi interessati. Il sito web provvede al trattamento
-				dei dati personali per lo svolgimento dei propri fini comunicativi, nei limiti stabiliti dallo Statuto,
-				dalle leggi e dai regolamenti vigenti e in ogni caso nel rispetto dei diritti e delle libertà
-				fondamentali, nonché della dignità dell’interessato, con riferimento particolare alla riservatezza,
-				all’identità personale e al diritto alla protezione dei dati personali.
-			</p>
-		</div>
-	</div>
-
-	<!-- Optional JavaScript -->
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			var modal = document.getElementById("privacy-modal");
-			var link = document.getElementById("privacy-link");
-			var span = document.getElementsByClassName("close")[0];
-			link.onclick = function () {
-				modal.style.display = "block";
-			}
-			span.onclick = function () {
-				modal.style.display = "none";
-			}
-			window.onclick = function (event) {
-				if (event.target == modal) {
-					modal.style.display = "none";
-				}
-			}
-		})
-	</script>
+		
 	<!-- Optional JavaScript -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">
