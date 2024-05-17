@@ -217,10 +217,6 @@ footer p, footer h6 {
     border-radius: 5px;
 }
 
-.carousel-item img:hover {
-    transform: scale(1.1);
-}
-
 .carousel-caption {
     position: absolute;
     bottom: 10px;

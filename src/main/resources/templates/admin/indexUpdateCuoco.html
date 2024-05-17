@@ -2,44 +2,53 @@
 <html lang="it">
 
 <!-- Include header -->
-<head th:replace="~{fragments/header :: header(title='SiwFood - Gestione Cuochi')}"></head>
+<head th:replace="~{fragments/header :: header(title='SiwFood - Gestione Cuochi')}">
+    <style>
+        .image-container {
+            height: 280px; /* Altezza fissa per le immagini */
+        }
+        .image-container img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
+</head>
 
 <body>
-	<!-- Include la navbar -->
-	<div th:replace="~{fragments/navbarAdmin :: navbarAdmin}"></div>
+    <!-- Include la navbar -->
+    <div th:replace="~{fragments/navbarAdmin :: navbarAdmin}"></div>
 
-	<div class="container mt-5">
-		<h2 class="text-center mb-4">Lista dei Cuochi</h2>
-		<div th:if="${cuochi == null || cuochi.isEmpty()}" class="alert alert-warning">
-			Non ci sono cuochi nel sistema
-		</div>
-		<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-			<div class="col" th:each="cuoco : ${cuochi}">
-				<div class="card">
-					<div class="image-container overflow-hidden">
-						<img th:src="${cuoco.urlsImages[0]}" class="card-img-top h-100 w-100"
-							style="object-fit: cover; object-position: top;" alt="Immagine Cuoco" />
-					</div>
-					<div class="card-footer d-flex flex-column text-center mt-3">
-						<h5 class="card-title" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome Cuoco</h5>
-						<div class="mt-3">
-							<div class="d-flex">
-								<a th:href="@{'/admin/edit/cuoco/' + ${cuoco.id}}"
-									class="btn btn-primary flex-grow-1 me-1">Modifica</a>
-								<form th:action="@{'/admin/delete/cuoco/' + ${cuoco.id}}" method="post"
-									class="flex-grow-1">
-									<button type="submit" class="btn btn-danger w-100">Elimina</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Lista dei Cuochi</h2>
+        <div th:if="${cuochi == null || cuochi.isEmpty()}" class="alert alert-warning">
+            Non ci sono cuochi nel sistema
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col" th:each="cuoco : ${cuochi}">
+                <div class="card h-100">
+                    <div class="image-container overflow-hidden">
+                        <img th:src="${cuoco.urlsImages[0]}" class="card-img-top" alt="Immagine Cuoco" />
+                    </div>
+                    <div class="card-footer d-flex flex-column text-center mt-3">
+                        <h5 class="card-title" th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}">Nome Cuoco</h5>
+                        <div class="mt-3">
+                            <div class="d-flex">
+                                <a th:href="@{'/admin/edit/cuoco/' + ${cuoco.id}}" class="btn btn-primary flex-grow-1 me-1">Modifica</a>
+                                <form th:action="@{'/admin/delete/cuoco/' + ${cuoco.id}}" method="post" class="flex-grow-1">
+                                    <button type="submit" class="btn btn-danger w-100">Elimina</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- Include il footer -->
-	<div th:replace="~{fragments/footer :: footer}"></div>
+    <!-- Include il footer -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 
 </html>
