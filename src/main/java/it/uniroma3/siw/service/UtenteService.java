@@ -12,12 +12,16 @@ public class UtenteService {
 	@Autowired
     private UtenteRepository utenteRepository;
 
-    public Utente getUser(Long id) {
+    public Utente getUtente(Long id) {
         return utenteRepository.findById(id).orElse(null);
     }
 
-    public Utente saveUser(Utente utente) {
+    public Utente saveUtente(Utente utente) {
         return utenteRepository.save(utente);
     }
+    
+	public Iterable<Utente> findAll() {
+		return utenteRepository.findAll();
+	}
 
 }

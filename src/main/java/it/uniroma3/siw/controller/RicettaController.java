@@ -24,4 +24,10 @@ public class RicettaController {
 		model.addAttribute("ricetta", this.ricettaService.findById(id));
 		return "ricetta.html";
 	}
+	
+	@GetMapping(value = "/admin/ricette")
+	public String indexRicette(Model model) {
+		model.addAttribute("ricette", ricettaService.findAll());
+		return "admin/ricette.html";
+	}
 }

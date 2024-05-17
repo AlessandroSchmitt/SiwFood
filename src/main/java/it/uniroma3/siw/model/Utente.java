@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Utente {
@@ -17,9 +16,6 @@ public class Utente {
 	private String cognome;
 	private String email;
 	private LocalDate dataDiNascita;
-	
-	@OneToOne
-    private Credenziali credenziali;
 
 	public Long getId() {
 		return id;
@@ -59,14 +55,6 @@ public class Utente {
 
 	public void setDataDiNascita(LocalDate dataDiNascita) {
 		this.dataDiNascita = dataDiNascita;
-	}
-
-	public Credenziali getCredenziali() {
-		return credenziali;
-	}
-
-	public void setCredenziali(Credenziali credenziali) {
-		this.credenziali = credenziali;
 	}
 	
 }
