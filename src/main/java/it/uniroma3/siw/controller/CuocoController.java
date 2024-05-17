@@ -44,26 +44,26 @@ public class CuocoController {
 
 	@PostMapping("/admin/delete/cuoco/{id}")
 	public String deleteCuoco(@PathVariable("id") Long id) {
-	    Cuoco cuoco = cuocoService.findById(id);
-	    if (cuoco != null) {
-	        // Elimina tutti i file associati al cuoco
-	        try {
-	            for (String urlImage : cuoco.getUrlsImages()) {
-	                Path path = Paths.get(UPLOADED_FOLDER).resolve(Paths.get(urlImage).getFileName().toString());
-	                if (Files.exists(path)) {
-	                    Files.delete(path);
-	                }
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        cuocoService.deleteById(id);
-	    }
-	    return "redirect:/admin/cuochi";
+		Cuoco cuoco = cuocoService.findById(id);
+		if (cuoco != null) {
+			// Elimina tutti i file associati al cuoco
+			try {
+				for (String urlImage : cuoco.getUrlsImages()) {
+					Path path = Paths.get(UPLOADED_FOLDER).resolve(Paths.get(urlImage).getFileName().toString());
+					if (Files.exists(path)) {
+						Files.delete(path);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			cuocoService.deleteById(id);
+		}
+		return "redirect:/admin/indexUpdateCuoco";
 	}
 
 	@GetMapping("/admin/edit/cuoco/{id}")
-	public String formEditCuoco(@PathVariable("id") Long id, Model model) {
+	public String formModifyCuoco(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("cuoco", this.cuocoService.findById(id));
 		return "admin/formModifyCuoco.html";
 	}
@@ -91,7 +91,7 @@ public class CuocoController {
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("messaggioErrore", "Errore nella cancellazione dell'immagine esistente");
-				return "admin/formModifyCuoco.html";
+				return "admin/formModifyCuoco";
 			}
 
 			// Salva il nuovo file nel server
@@ -101,7 +101,7 @@ public class CuocoController {
 					Files.createDirectories(uploadDir);
 				}
 
-				String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+				String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename(); // Usa il nome originale del file
 				Path path = uploadDir.resolve(fileName);
 				Files.write(path, file.getBytes());
 
@@ -112,12 +112,13 @@ public class CuocoController {
 			} catch (IOException e) {
 				e.printStackTrace();
 				model.addAttribute("messaggioErrore", "Errore nel caricamento dell'immagine");
-				return "admin/formModifyCuoco.html";
+				return "admin/formModifyCuoco";
 			}
 		}
 
 		// Salva le modifiche del cuoco
 		cuocoService.save(existingCuoco);
-		return "redirect:/admin/cuochi";
+		return "redirect:/admin/indexUpdateCuoco";
 	}
+
 }

@@ -2,7 +2,6 @@
 <html lang="it">
 
 <!-- Include header -->
-
 <head th:replace="~{fragments/header :: header(title='SiwFood - Gestione Cuochi')}"></head>
 
 <body>
@@ -11,9 +10,6 @@
 
 	<div class="container mt-5">
 		<h2 class="text-center mb-4">Lista dei Cuochi</h2>
-		<div class="text-center mb-4">
-			<a class="btn btn-primary btn-lg" href="/formNewCuoco" role="button">Aggiungi Nuovo Cuoco</a>
-		</div>
 		<div th:if="${cuochi == null || cuochi.isEmpty()}" class="alert alert-warning">
 			Non ci sono cuochi nel sistema
 		</div>

@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Cuoco {
 	private LocalDate dataDiNascita;
 	private List<String> urlsImages;
 	
-	@OneToMany(mappedBy = "cuoco")  
+	@OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL, orphanRemoval = true)  
 	private List<Ricetta> ricette;
 	
 	public List<Ricetta> getRicette() {
