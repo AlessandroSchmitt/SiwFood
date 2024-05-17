@@ -62,11 +62,40 @@ public class CuocoController {
 		return "redirect:/admin/indexUpdateCuoco";
 	}
 
-	@GetMapping("/admin/edit/cuoco/{id}")
-	public String formModifyCuoco(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("cuoco", this.cuocoService.findById(id));
-		return "admin/formModifyCuoco.html";
+	//---------- sto lavorando su questo -----------
+	@GetMapping("/admin/new/cuoco")
+	public String formNewCuoco(Model model) {
+	    model.addAttribute("cuoco", new Cuoco());
+	    return "admin/formNewCuoco.html";
 	}
+
+	@PostMapping("/admin/new/cuoco")
+	public String addNewCuoco(@ModelAttribute("cuoco") Cuoco cuoco, @RequestParam("fileImage") MultipartFile file, Model model) {
+	    if (!file.isEmpty()) {
+	        try {
+	            Path uploadDir = Paths.get(UPLOADED_FOLDER);
+	            if (!Files.exists(uploadDir)) {
+	                Files.createDirectories(uploadDir);
+	            }
+
+	            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+	            Path path = uploadDir.resolve(fileName);
+	            Files.write(path, file.getBytes());
+
+	            List<String> urlsImages = new ArrayList<>();
+	            urlsImages.add("/cuochi2/" + fileName);
+	            cuoco.setUrlsImages(urlsImages);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            model.addAttribute("messaggioErrore", "Errore nel caricamento dell'immagine");
+	            return "admin/formNewCuoco";
+	        }
+	    }
+
+	    cuocoService.save(cuoco);
+	    return "redirect:/admin/indexUpdateCuoco";
+	}
+
 
 	@PostMapping("/admin/update/cuoco/{id}")
 	public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute("cuoco") Cuoco cuoco,
