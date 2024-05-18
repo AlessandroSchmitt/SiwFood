@@ -3,7 +3,7 @@ body {
     padding-top: 3rem !important;
     padding-bottom: 60px; /* Altezza del footer */
     margin: 0;
-    background: #f8f5f0;
+    background: #e6e2dc;
 }
 
 html, body {
@@ -41,7 +41,7 @@ a {
 
 .btn-outline-primary,
 .btn-outline-success {
-    color: #d4af37; /* Testo oro elegante */
+    color: #b0c4de; /* Testo oro elegante */
 }
 
 .btn-primary:hover,
@@ -51,11 +51,11 @@ a {
 .form-container .btn-primary:hover,
 .form-container .btn-success:hover {
     color: #fff; /* Testo bianco */
-    background-color: #d4af37; /* Oro elegante scuro per hover */
+    background-color: #b0c4de; /* Oro elegante scuro per hover */
 }
 
 .btn:hover {
-    background-color: #d4af37; /* Cambia colore del pulsante su hover */
+    background-color: #b0c4de; /* Cambia colore del pulsante su hover */
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -65,22 +65,36 @@ a {
 }
 
 .form-container .btn-primary:hover {
-    background-color: #d4af37 !important; ;
+    background-color: #b0c4de !important; ;
 }
 
 /* Navbar */
 .navbar {
-    background-color: #e1ddd8; /* Panna leggermente più scuro */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombreggiatura tra la navbar e la parte principale */
+    background-color: #3d5048;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Ombreggiatura tra la navbar e la parte principale */
 }
 
 .navbar .btn {
     margin-right: 10px; /* Aggiungi spazio a destra tra i pulsanti */
 }
 
+/* Scritte della navbar in bianco */
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .form-inline input {
+    color: white;
+}
+
+/* Cambia colore del testo dei link al passaggio del mouse */
+.navbar .nav-link:hover,
+.navbar .navbar-brand:hover {
+    color: #b0c4de !important; /* Colore leggermente più chiaro per l'hover */
+}
+
 .form-inline {
     margin-right: 10px; /* Aggiungi spazio a destra tra i pulsanti */
 }
+
 
 /* Footer */
 footer {
@@ -100,7 +114,7 @@ footer a {
 }
 
 footer a:hover {
-    color: #f8f5f0; /* Panna */
+    color: #f8f5f0 !important; /* Panna */
 }
 
 footer .text-white {
