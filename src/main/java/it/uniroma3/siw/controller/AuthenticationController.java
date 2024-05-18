@@ -55,7 +55,7 @@ public class AuthenticationController {
 		if(credenziali.getRuolo().equals(Credenziali.ADMIN_ROLE)) {
 			return "admin/indexAdmin.html";
 		}
-		return "index.html";
+		return "success.html";
 	}
 	
 	@PostMapping(value= {"/register"})
@@ -68,7 +68,7 @@ public class AuthenticationController {
 				credenziali.setUtente(utente);
 				credenzialiService.saveCredenziali(credenziali);
 				model.addAttribute("utente", utente);
-				return "success.html";
+				return "redirect:/login";
 			}
 			return "register.html";
 	}
