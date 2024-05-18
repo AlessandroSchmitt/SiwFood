@@ -2,13 +2,25 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header(title='SiwFood - Register')}"></head>
 <body>
+    <style>
+        body {
+            background-image: url('/images/sfondo.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-            <div class="form-container">
-                <h2 class="mb-4">Registrazione</h2>
-                <form th:action="@{/register}" method="post">
-                    <div class="row mb-3">
+        <div class="col-md-6 col-lg-4"> <!-- Ridotto da col-md-8 col-lg-6 a col-md-6 col-lg-4 -->
+            <div class="form-container" style="padding: 1rem;"> <!-- Ridotto padding -->
+                <form id="registrationForm" th:action="@{/register}" method="post" onsubmit="return validatePasswords()">
+                    <div class="row mb-2"> <!-- Ridotto margin-bottom -->
                         <div class="col">
                             <label for="nome" class="form-label">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" required>
@@ -18,19 +30,19 @@
                             <input type="text" class="form-control" id="cognome" name="cognome" required>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="dataDiNascita " class="form-label">Data di Nascita</label>
+                    <div class="mb-2"> <!-- Ridotto margin-bottom -->
+                        <label for="dataDiNascita" class="form-label">Data di Nascita</label>
                         <input type="date" class="form-control" id="dataDiNascita" name="dataDiNascita" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2"> <!-- Ridotto margin-bottom -->
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2"> <!-- Ridotto margin-bottom -->
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2"> <!-- Ridotto margin-bottom -->
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
                             <input type="password" class="form-control" id="password" name="password" required>
@@ -39,16 +51,16 @@
                             </button>
                         </div>
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-2"> <!-- Ridotto margin-bottom -->
                         <label for="confirmPassword" class="form-label">Conferma Password</label>
                         <div class="input-group">
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
-                                   required>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
                             <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
                     </div>
+                    <div id="passwordError" class="text-danger mb-2" style="display: none;">Le password non corrispondono.</div> <!-- Ridotto margin-bottom -->
                     <button type="submit" class="btn btn-primary btn-lg w-100">Registrati</button>
                 </form>
             </div>
@@ -86,6 +98,17 @@
             this.innerHTML = '<i class="bi bi-eye"></i>';
         }
     });
+
+    function validatePasswords() {
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        if (password !== confirmPassword) {
+            document.getElementById('passwordError').style.display = 'block';
+            return false;
+        }
+        document.getElementById('passwordError').style.display = 'none';
+        return true;
+    }
 </script>
 </body>
 </html>
