@@ -62,7 +62,6 @@ public class CuocoController {
 		return "redirect:/admin/indexUpdateCuoco";
 	}
 
-	//---------- sto lavorando su questo -----------
 	@GetMapping("/admin/new/cuoco")
 	public String formNewCuoco(Model model) {
 	    model.addAttribute("cuoco", new Cuoco());
@@ -96,6 +95,16 @@ public class CuocoController {
 	    return "redirect:/admin/indexUpdateCuoco";
 	}
 
+	@GetMapping("/admin/edit/cuoco/{id}")
+	public String formModifyCuoco(@PathVariable("id") Long id, Model model) {
+	    Cuoco cuoco = cuocoService.findById(id);
+	    if (cuoco != null) {
+	        model.addAttribute("cuoco", cuoco);
+	        return "admin/formModifyCuoco.html";
+	    } else {
+	        return "redirect:/admin/indexUpdateCuoco";
+	    }
+	}
 
 	@PostMapping("/admin/update/cuoco/{id}")
 	public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute("cuoco") Cuoco cuoco,
