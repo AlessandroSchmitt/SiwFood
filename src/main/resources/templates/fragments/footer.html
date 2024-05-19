@@ -59,12 +59,12 @@
 					Siw Food considera il trattamento lecito, corretto e trasparente dei dati
 					personali una azione prioritaria al fine di instaurare e mantenere un rapporto di fiducia con gli
 					utenti, il personale e i terzi interessati. Il sito web provvede al trattamento
-					dei dati personali per lo svolgimento dei propri fini comunicativi, nei limiti stabiliti dallo
-					Statuto,
+					dei dati personali per lo svolgimento dei propri fini comunicativi, nei limiti stabiliti dallo Statuto,
 					dalle leggi e dai regolamenti vigenti e in ogni caso nel rispetto dei diritti e delle libertà
 					fondamentali, nonché della dignità dell’interessato, con riferimento particolare alla riservatezza,
 					all’identità personale e al diritto alla protezione dei dati personali.
 				</p>
+				<button id="privacy-ok-button" class="btn btn-primary">OK</button>
 			</div>
 		</div>
 
@@ -74,10 +74,15 @@
 				var modal = document.getElementById("privacy-modal");
 				var link = document.getElementById("privacy-link");
 				var span = document.getElementsByClassName("close")[0];
+				var okButton = document.getElementById("privacy-ok-button");
+
 				link.onclick = function () {
 					modal.style.display = "block";
 				}
 				span.onclick = function () {
+					modal.style.display = "none";
+				}
+				okButton.onclick = function () {
 					modal.style.display = "none";
 				}
 				window.onclick = function (event) {

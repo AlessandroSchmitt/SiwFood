@@ -50,13 +50,52 @@
 	<!-- Include il footer -->
 	<div th:replace="~{fragments/footer :: footer}"></div>
 
+	<!-- Modale delle regole d'uso -->
+	<div id="rules-modal" class="modal fade-in">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<p>
+				Benvenuti su SiwFood! 
+				Questo sito vi permette di consultare cuochi e le relative ricette, nel caso anche voi voleste condividere le vostre creazioni.. aggiungere le vostre ricette e gestire i vostri ingredienti. 
+				cosa aspettate fate subito la registrazione e travestitevi da cuochi!!
+				Vi invitiamo a rispettare le regole del sito: non condividete contenuti offensivi o inappropriati e 
+				assicuratevi di mantenere un comportamento rispettoso verso tutti gli utenti. 
+				Grazie e buon divertimento!
+			</p>
+			<button id="ok-button" class="btn btn-primary">OK</button>
+		</div>
+	</div>
+
 	<!-- Optional JavaScript -->
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			var modal = document.getElementById("rules-modal");
+			var span = document.getElementsByClassName("close")[0];
+			var okButton = document.getElementById("ok-button");
+
+			// Mostra il modale automaticamente al caricamento della pagina
+			modal.style.display = "block";
+
+			span.onclick = function () {
+				modal.style.display = "none";
+			}
+			okButton.onclick = function () {
+				modal.style.display = "none";
+			}
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+		})
+	</script>
+
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">
-		</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/dist/umd/popper.min.js"
 		integrity="sha384-lOUI+NRDwAS0FqNkuHSzpJvDkpZ4P97XjWehoGQnoa7eS+bv3WumZNnq6q5nqdJX" crossorigin="anonymous">
-		</script>
+	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-XXXXXX"
 		crossorigin="anonymous"></script>
 </body>
