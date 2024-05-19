@@ -8,15 +8,22 @@ import it.uniroma3.siw.repository.RicettaRepository;
 
 @Service
 public class RicettaService {
-	@Autowired
-	private RicettaRepository ricettaRepository;
-	
-	public Ricetta findById(Long id) {
-		return ricettaRepository.findById(id).get();
-	}
-	
-	public Iterable<Ricetta> findAll() {
-		return ricettaRepository.findAll();
-	}
+    @Autowired
+    private RicettaRepository ricettaRepository;
 
+    public Ricetta findById(Long id) {
+        return ricettaRepository.findById(id).orElse(null);
+    }
+
+    public Iterable<Ricetta> findAll() {
+        return ricettaRepository.findAll();
+    }
+
+    public Ricetta save(Ricetta ricetta) {
+        return ricettaRepository.save(ricetta);
+    }
+
+    public void deleteById(Long id) {
+        ricettaRepository.deleteById(id);
+    }
 }

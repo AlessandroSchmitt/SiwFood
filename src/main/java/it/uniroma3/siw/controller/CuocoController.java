@@ -35,6 +35,13 @@ public class CuocoController {
 		model.addAttribute("cuochi", cuocoService.findAll());
 		return "cuochi.html";
 	}
+	
+	@GetMapping("/cuoco/indexCuoco")
+	public String indexCuoco(Model model) {
+	    // Aggiungi eventuali attributi al modello se necessario
+	    return "cuoco/indexCuoco";
+	}
+
 
 	@GetMapping("/cuoco/{id}")
 	public String getCuoco(@PathVariable("id") Long id, Model model) {
