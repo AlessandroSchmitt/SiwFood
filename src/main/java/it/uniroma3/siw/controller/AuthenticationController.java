@@ -55,6 +55,9 @@ public class AuthenticationController {
 		if(credenziali.getRuolo().equals(Credenziali.ADMIN_ROLE)) {
 			return "admin/indexAdmin.html";
 		}
+		if(credenziali.getRuolo().equals(Credenziali.DEFAULT_ROLE)) {
+			return "cuoco/indexCuoco.html";
+		}
 		return "success.html";
 	}
 	
