@@ -1,6 +1,7 @@
 package it.uniroma3.siw.Authentication;
 
 import static it.uniroma3.siw.model.Credenziali.ADMIN_ROLE;
+import static it.uniroma3.siw.model.Credenziali.DEFAULT_ROLE;
 
 import javax.sql.DataSource;
 
@@ -52,6 +53,8 @@ public class AuthConfiguration {
 	.requestMatchers(HttpMethod.POST,"/register", "/login").permitAll()
 	.requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
 	.requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
+	.requestMatchers(HttpMethod.GET, "/cuoco/**").hasAnyAuthority(DEFAULT_ROLE)
+
 
 	// tutti gli utenti autenticati possono accere alle pagine rimanenti
 
