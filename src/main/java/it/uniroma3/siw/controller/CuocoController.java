@@ -21,7 +21,7 @@ public class CuocoController {
 	@Autowired
 	private CuocoService cuocoService;
 
-	private static String UPLOADED_FOLDER = "uploads/cuochi2/";
+	private static String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
 	private static final Logger logger = Logger.getLogger(CuocoController.class.getName());
 
 	@GetMapping(value = "/admin/indexUpdateCuoco")
@@ -89,7 +89,7 @@ public class CuocoController {
 	            Files.write(path, file.getBytes());
 
 	            List<String> urlsImages = new ArrayList<>();
-	            urlsImages.add("/cuochi2/" + fileName);
+	            urlsImages.add("/cuochiAggiunti/" + fileName);
 	            cuoco.setUrlsImages(urlsImages);
 	        } catch (IOException e) {
 	            e.printStackTrace();
@@ -152,7 +152,7 @@ public class CuocoController {
 
 				// Imposta il nuovo URL dell'immagine
 				List<String> newUrlsImages = new ArrayList<>();
-				newUrlsImages.add("/cuochi2/" + fileName);
+				newUrlsImages.add("/cuochiAggiunti/" + fileName);
 				existingCuoco.setUrlsImages(newUrlsImages);
 			} catch (IOException e) {
 				e.printStackTrace();
