@@ -6,7 +6,7 @@
     <!-- Include la navbar -->
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <!-- carosello migliorato -->
+    <!-- Carosello per Ricette -->
     <div class="container mt-5">
         <h1 class="mb-4 text-center">Ricette</h1>
         <div th:if="${ricette == null || ricette.isEmpty()}" class="alert alert-warning text-center">
@@ -33,6 +33,28 @@
             <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </a>
+        </div>
+
+        <!-- Lista delle Ricette -->
+        <div class="mt-5">
+            <h2 class="text-center">Lista delle Ricette</h2>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item p-0" th:each="ricetta : ${ricette}">
+                        <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="text-decoration-none text-dark d-block">
+                            <div class="row align-items-center m-3">
+                                <div class="col-md-2">
+                                    <img th:src="${ricetta.urlsImages[0]}" class="img-fluid rounded" alt="Immagine Ricetta">
+                                </div>
+                                <div class="col-md-10">
+                                    <h5 th:text="${ricetta.nome}"></h5>
+                                    <p class="mb-0" th:text="${ricetta.descrizione}"></p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
