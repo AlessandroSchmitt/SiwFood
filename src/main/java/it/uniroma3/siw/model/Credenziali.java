@@ -21,7 +21,7 @@ public class Credenziali {
 	private String ruolo;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Utente utente;
+    private Cuoco cuoco;
 
 	public Long getId() {
 		return id;
@@ -55,11 +55,11 @@ public class Credenziali {
 		this.ruolo = ruolo;
 	}
 
-	public Utente getUtente() {
-		return utente;
+	public Cuoco getCuoco() {
+		return cuoco;
 	}
 
-	public void setUtente(Utente utente) {
-		this.utente = utente;
+	public void setCuoco(Cuoco cuoco) {
+		this.cuoco = cuoco;
 	}
 }
