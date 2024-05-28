@@ -27,8 +27,7 @@
 			<div class="col-md-6 col-lg-4">
 				<div class="form-container"
 					style="padding: 1rem; background-color: rgba(255, 255, 255, 0.8); border-radius: 10px;">
-					<form id="registrationForm" th:action="@{/register}" method="post"
-						onsubmit="return validatePasswords()">
+					<form id="registrationForm" th:action="@{/register}" method="post" enctype="multipart/form-data" onsubmit="return validatePasswords()">
 						<div class="form-floating mb-3">
 							<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
 							<label for="nome">Nome</label>
