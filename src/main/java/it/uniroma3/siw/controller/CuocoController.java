@@ -7,163 +7,114 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.service.CuocoService;
+import it.uniroma3.siw.service.FileService;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 @Controller
 public class CuocoController {
-	@Autowired
-	private CuocoService cuocoService;
 
-	private static String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
-	private static final Logger logger = Logger.getLogger(CuocoController.class.getName());
+    @Autowired
+    private CuocoService cuocoService;
 
-	@GetMapping(value = "/admin/indexUpdateCuoco")
-	public String indexUpdateCuochi(Model model) {
-		model.addAttribute("cuochi", cuocoService.findAll());
-		return "admin/indexUpdateCuoco.html";
-	}
+    @Autowired
+    private FileService fileService;
 
-	@GetMapping("/cuochi")
-	public String showCuochi(Model model) {
-		model.addAttribute("cuochi", cuocoService.findAll());
-		return "cuochi.html";
-	}
-	
-	@GetMapping("/cuoco/indexCuoco")
-	public String indexCuoco(Model model) {
-	    // Aggiungi eventuali attributi al modello se necessario
-	    return "cuoco/indexCuoco";
-	}
+    private static final Logger logger = Logger.getLogger(CuocoController.class.getName());
+    private static String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
 
+    @GetMapping("/admin/indexUpdateCuoco")
+    public String indexUpdateCuochi(Model model) {
+        model.addAttribute("cuochi", cuocoService.findAll());
+        return "admin/indexUpdateCuoco.html";
+    }
 
-	@GetMapping("/cuoco/{id}")
-	public String getCuoco(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("cuoco", this.cuocoService.findById(id));
-		return "cuoco.html";
-	}
+    @GetMapping("/cuochi")
+    public String showCuochi(Model model) {
+        model.addAttribute("cuochi", cuocoService.findAll());
+        return "cuochi.html";
+    }
 
-	@PostMapping("/admin/delete/cuoco/{id}")
-	public String deleteCuoco(@PathVariable("id") Long id) {
-		Cuoco cuoco = cuocoService.findById(id);
-		if (cuoco != null) {
-			// Elimina tutti i file associati al cuoco
-			try {
-				for (String urlImage : cuoco.getUrlsImages()) {
-					Path path = Paths.get(UPLOADED_FOLDER).resolve(Paths.get(urlImage).getFileName().toString());
-					if (Files.exists(path)) {
-						Files.delete(path);
-					}
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			cuocoService.deleteById(id);
-		}
-		return "redirect:/admin/indexUpdateCuoco";
-	}
+    @GetMapping("/cuoco/indexCuoco")
+    public String indexCuoco(Model model) {
+        return "cuoco/indexCuoco";
+    }
 
-	@GetMapping("/admin/new/cuoco")
-	public String formNewCuoco(Model model) {
-	    model.addAttribute("cuoco", new Cuoco());
-	    return "admin/formNewCuoco.html";
-	}
+    @GetMapping("/cuoco/{id}")
+    public String getCuoco(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("cuoco", this.cuocoService.findById(id));
+        return "cuoco.html";
+    }
 
-	@PostMapping("/admin/new/cuoco")
-	public String addNewCuoco(@ModelAttribute("cuoco") Cuoco cuoco, @RequestParam("fileImage") MultipartFile file, Model model) {
-	    if (!file.isEmpty()) {
-	        try {
-	            Path uploadDir = Paths.get(UPLOADED_FOLDER);
-	            if (!Files.exists(uploadDir)) {
-	                Files.createDirectories(uploadDir);
-	            }
+    @GetMapping("/admin/new/cuoco")
+    public String formNewCuoco(Model model) {
+        model.addAttribute("cuoco", new Cuoco());
+        return "admin/formNewCuoco.html";
+    }
 
-	            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-	            Path path = uploadDir.resolve(fileName);
-	            Files.write(path, file.getBytes());
+    @PostMapping("/admin/new/cuoco")
+    public String addNewCuoco(@ModelAttribute("cuoco") Cuoco cuoco, @RequestParam("fileImage") MultipartFile file, Model model) {
+        if (!file.isEmpty()) {
+            try {
+                String imageUrl = fileService.saveFile(file, UPLOADED_FOLDER);
+                cuoco.setUrlsImages(List.of(imageUrl));
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("messaggioErrore", "Errore nel caricamento dell'immagine");
+                return "admin/formNewCuoco";
+            }
+        }
 
-	            List<String> urlsImages = new ArrayList<>();
-	            urlsImages.add("/cuochiAggiunti/" + fileName);
-	            cuoco.setUrlsImages(urlsImages);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            model.addAttribute("messaggioErrore", "Errore nel caricamento dell'immagine");
-	            return "admin/formNewCuoco";
-	        }
-	    }
+        cuocoService.save(cuoco);
+        return "redirect:/admin/indexUpdateCuoco";
+    }
 
-	    cuocoService.save(cuoco);
-	    return "redirect:/admin/indexUpdateCuoco";
-	}
+    @GetMapping("/admin/edit/cuoco/{id}")
+    public String formModifyCuoco(@PathVariable("id") Long id, Model model) {
+        Cuoco cuoco = cuocoService.findById(id);
+        if (cuoco != null) {
+            model.addAttribute("cuoco", cuoco);
+            return "admin/formModifyCuoco.html";
+        } else {
+            return "redirect:/admin/indexUpdateCuoco";
+        }
+    }
 
-	@GetMapping("/admin/edit/cuoco/{id}")
-	public String formModifyCuoco(@PathVariable("id") Long id, Model model) {
-	    Cuoco cuoco = cuocoService.findById(id);
-	    if (cuoco != null) {
-	        model.addAttribute("cuoco", cuoco);
-	        return "admin/formModifyCuoco.html";
-	    } else {
-	        return "redirect:/admin/indexUpdateCuoco";
-	    }
-	}
+    @PostMapping("/admin/update/cuoco/{id}")
+    public String updateCuoco(@PathVariable("id") Long id,
+                              @ModelAttribute("cuoco") Cuoco cuoco,
+                              @RequestParam("fileImage") MultipartFile file,
+                              Model model) {
+        Cuoco existingCuoco = cuocoService.findById(id);
 
-	@PostMapping("/admin/update/cuoco/{id}")
-	public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute("cuoco") Cuoco cuoco,
-			@RequestParam("fileImage") MultipartFile file, Model model) {
-		Cuoco existingCuoco = cuocoService.findById(id);
+        if (existingCuoco != null) {
+            try {
+                cuocoService.updateCuoco(existingCuoco, cuoco, file);
+                return "redirect:/admin/indexUpdateCuoco";
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("messaggioErrore", "Errore nella gestione dell'immagine");
+                return "admin/formModifyCuoco.html";
+            }
+        } else {
+            model.addAttribute("messaggioErrore", "Cuoco non trovato");
+            return "admin/formModifyCuoco.html";
+        }
+    }
+    
+    @PostMapping("/admin/delete/cuoco/{id}")
+    public String deleteCuoco(@PathVariable("id") Long id, Model model) {
+        try {
+            cuocoService.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("messaggioErrore", "Errore nell'eliminazione del cuoco");
+            return "admin/indexUpdateCuoco";
+        }
+        return "redirect:/admin/indexUpdateCuoco";
+    }
 
-		// Aggiorna i dettagli del cuoco
-		existingCuoco.setNome(cuoco.getNome());
-		existingCuoco.setCognome(cuoco.getCognome());
-		existingCuoco.setDataDiNascita(cuoco.getDataDiNascita());
-
-		if (!file.isEmpty()) {
-			// Elimina il file esistente
-			try {
-				if (!existingCuoco.getUrlsImages().isEmpty()) {
-					Path oldPath = Paths.get(UPLOADED_FOLDER)
-							.resolve(Paths.get(existingCuoco.getUrlsImages().get(0)).getFileName().toString());
-					if (Files.exists(oldPath)) {
-						Files.delete(oldPath);
-					}
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-				model.addAttribute("messaggioErrore", "Errore nella cancellazione dell'immagine esistente");
-				return "admin/formModifyCuoco";
-			}
-
-			// Salva il nuovo file nel server
-			try {
-				Path uploadDir = Paths.get(UPLOADED_FOLDER);
-				if (!Files.exists(uploadDir)) {
-					Files.createDirectories(uploadDir);
-				}
-
-				String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename(); // Usa il nome originale del file
-				Path path = uploadDir.resolve(fileName);
-				Files.write(path, file.getBytes());
-
-				// Imposta il nuovo URL dell'immagine
-				List<String> newUrlsImages = new ArrayList<>();
-				newUrlsImages.add("/cuochiAggiunti/" + fileName);
-				existingCuoco.setUrlsImages(newUrlsImages);
-			} catch (IOException e) {
-				e.printStackTrace();
-				model.addAttribute("messaggioErrore", "Errore nel caricamento dell'immagine");
-				return "admin/formModifyCuoco";
-			}
-		}
-
-		// Salva le modifiche del cuoco
-		cuocoService.save(existingCuoco);
-		return "redirect:/admin/indexUpdateCuoco";
-	}
 
 }
