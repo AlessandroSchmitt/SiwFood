@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Cuoco;
@@ -23,6 +25,10 @@ public class CuocoController {
 
     @Autowired
     private FileService fileService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     private static final Logger logger = Logger.getLogger(CuocoController.class.getName());
     private static String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
@@ -80,15 +86,19 @@ public class CuocoController {
             return "admin/formNewCuoco";
         }
 
+        // Crittografa la password prima di salvarla
+        String encodedPassword = passwordEncoder.encode(password);
+
         Credenziali credenziali = new Credenziali();
         credenziali.setUsername(username);
-        credenziali.setPassword(password);
+        credenziali.setPassword(encodedPassword);
         credenziali.setCuoco(cuoco);
         credenziali.setRuolo(Credenziali.COUCO_ROLE);
 
         cuocoService.registerCuoco(cuoco, credenziali);
         return "redirect:/admin/indexUpdateCuoco";
     }
+
 
     @GetMapping("/admin/edit/cuoco/{id}")
     public String formModifyCuoco(@PathVariable("id") Long id, Model model) {
