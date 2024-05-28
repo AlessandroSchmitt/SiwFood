@@ -4,19 +4,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import it.uniroma3.siw.model.Utente;
+import it.uniroma3.siw.model.Cuoco;
 
 @Component
-public class UtenteValidator implements Validator{
+public class CuocoValidator implements Validator{
 	
 	final Integer MAX_NAME_LENGTH = 100;
     final Integer MIN_NAME_LENGTH = 2;
 
     @Override
     public void validate(Object o, Errors errors) {
-        Utente utente = (Utente) o;
-        String nome = utente.getNome().trim();
-        String cognome = utente.getCognome().trim();
+        Cuoco cuoco = (Cuoco) o;
+        String nome = cuoco.getNome().trim();
+        String cognome = cuoco.getCognome().trim();
 
         if (nome.isEmpty())
             errors.rejectValue("nome", "required");
@@ -31,6 +31,6 @@ public class UtenteValidator implements Validator{
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return Utente.class.equals(clazz);
+        return Cuoco.class.equals(clazz);
     }
 }

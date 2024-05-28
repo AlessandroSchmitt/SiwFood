@@ -26,7 +26,7 @@
                     <tr th:each="cuoco : ${cuochi}">
                         <td>
                             <div style="height: 100px; width: 100px;">
-                                <img th:src="${cuoco.urlsImages[0]}" alt="Immagine Cuoco" style="height: 100%; width: 100%; object-fit: cover; object-position: center;">
+                                <img th:if="${cuoco.urlsImages != null and !cuoco.urlsImages.isEmpty()}" th:src="${cuoco.urlsImages[0]}" alt="Immagine Cuoco" style="height: 100%; width: 100%; object-fit: cover; object-position: center;">
                             </div>
                         </td>
                         <td style="width: 50%;">

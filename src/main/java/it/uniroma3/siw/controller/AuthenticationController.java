@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import it.uniroma3.siw.model.Credenziali;
-import it.uniroma3.siw.model.Utente;
+import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.service.CredenzialiService;
 
 @Controller
@@ -22,7 +22,7 @@ public class AuthenticationController {
 	
 	@GetMapping(value = "/register")
 	public String showRegisterForm(Model model) {
-		model.addAttribute("utente", new Utente());
+		model.addAttribute("cuoco", new Cuoco());
 		model.addAttribute("credenziali", new Credenziali());
 		return "register.html";
 	}
@@ -62,15 +62,15 @@ public class AuthenticationController {
 	}
 	
 	@PostMapping(value= {"/register"})
-	public String registerUser(@ModelAttribute("utente") Utente utente,
+	public String registerUser(@ModelAttribute("cuoco") Cuoco cuoco,
 		BindingResult utenteBindingResult, 
 		@ModelAttribute("credenziali") Credenziali credenziali,
 		BindingResult credenzialiBindingResult,
 		Model model) {
 			if(!utenteBindingResult.hasErrors() && ! credenzialiBindingResult.hasErrors()) {
-				credenziali.setUtente(utente);
+				credenziali.setCuoco(cuoco);
 				credenzialiService.saveCredenziali(credenziali);
-				model.addAttribute("utente", utente);
+				model.addAttribute("cuoco", cuoco);
 				return "redirect:/login";
 			}
 			return "register.html";

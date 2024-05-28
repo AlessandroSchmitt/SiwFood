@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Cuoco;
-import it.uniroma3.siw.model.Ricetta;
 import it.uniroma3.siw.repository.CuocoRepository;
 import jakarta.transaction.Transactional;
 
@@ -29,16 +29,37 @@ public class CuocoService {
         return cuocoRepository.findById(id).get();
     }
 
-    public Iterable<Cuoco> findAll() {
-        return cuocoRepository.findAll();
-    }
-
     public boolean existsByNomeAndCognome(String nome, String cognome) {
         return cuocoRepository.existsByNomeAndCognome(nome, cognome);
     }
 
     public void save(Cuoco cuoco) {
         cuocoRepository.save(cuoco);
+    }
+    
+    public void registerCuoco(Cuoco cuoco, Credenziali credenziali, MultipartFile file) throws IOException {
+        if (!existsByNomeAndCognome(cuoco.getNome(), cuoco.getCognome())) {
+            List<String> fileUrls = new ArrayList<>();
+            String fileUrl = fileService.saveFile(file, UPLOADED_FOLDER);
+            fileUrls.add(fileUrl);
+            
+            cuoco.setUrlsImages(fileUrls);
+
+            credenziali.setCuoco(cuoco);
+            credenziali.setRuolo(Credenziali.COUCO_ROLE);
+
+            save(cuoco);
+        }
+    }
+    
+    public void registerCuoco(Cuoco cuoco, Credenziali credenziali) throws IOException {
+        if (!existsByNomeAndCognome(cuoco.getNome(), cuoco.getCognome())) {
+
+            credenziali.setCuoco(cuoco);
+            credenziali.setRuolo(Credenziali.COUCO_ROLE);
+
+            save(cuoco);
+        }
     }
 
     @Transactional
@@ -78,4 +99,16 @@ public class CuocoService {
 
         cuocoRepository.save(existingCuoco);
     }
+    
+    public Cuoco getCuoco(Long id) {
+        return cuocoRepository.findById(id).orElse(null);
+    }
+
+    public Cuoco saveCuoco(Cuoco cuoco) {
+        return cuocoRepository.save(cuoco);
+    }
+    
+	public Iterable<Cuoco> findAll() {
+		return cuocoRepository.findAll();
+	}
 }
