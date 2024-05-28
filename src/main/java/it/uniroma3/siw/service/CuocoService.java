@@ -7,7 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.repository.CuocoRepository;
+import it.uniroma3.siw.repository.CredenzialiRepository;
 import jakarta.transaction.Transactional;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +21,10 @@ public class CuocoService {
 
     @Autowired
     private CuocoRepository cuocoRepository;
+    
+    @Autowired
+    private CredenzialiRepository credenzialiRepository;
+
 
     @Autowired
     private FileService fileService;
@@ -66,6 +72,12 @@ public class CuocoService {
     public void deleteById(Long id) {
         Optional<Cuoco> cuoco = cuocoRepository.findById(id);
         if (cuoco.isPresent()) {
+            // Elimina le credenziali associate
+            Credenziali credenziali = credenzialiRepository.findByCuoco(cuoco.get());
+            if (credenziali != null) {
+                credenzialiRepository.delete(credenziali);
+            }
+
             // Elimina l'immagine del cuoco
             if (!cuoco.get().getUrlsImages().isEmpty()) {
                 try {
@@ -75,8 +87,11 @@ public class CuocoService {
                 }
             }
 
-            // Elimina il cuoco
+            // Elimina il cuoco dal database
             cuocoRepository.deleteById(id);
+        } else {
+            // Log se il cuoco non viene trovato
+            System.out.println("Cuoco non trovato con ID: " + id);
         }
     }
 
