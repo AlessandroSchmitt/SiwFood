@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.service.CuocoService;
 import it.uniroma3.siw.service.FileService;
@@ -55,7 +57,13 @@ public class CuocoController {
     }
 
     @PostMapping("/admin/new/cuoco")
-    public String addNewCuoco(@ModelAttribute("cuoco") Cuoco cuoco, @RequestParam("fileImage") MultipartFile file, Model model) {
+    public String addNewCuoco(@ModelAttribute("cuoco") Cuoco cuoco,
+                              @RequestParam("username") String username,
+                              @RequestParam("email") String email,
+                              @RequestParam("password") String password,
+                              @RequestParam("confirmPassword") String confirmPassword,
+                              @RequestParam("fileImage") MultipartFile file,
+                              Model model) {
         if (!file.isEmpty()) {
             try {
                 String imageUrl = fileService.saveFile(file, UPLOADED_FOLDER);
@@ -67,7 +75,18 @@ public class CuocoController {
             }
         }
 
-        cuocoService.save(cuoco);
+        if (!password.equals(confirmPassword)) {
+            model.addAttribute("messaggioErrore", "Le password non coincidono");
+            return "admin/formNewCuoco";
+        }
+
+        Credenziali credenziali = new Credenziali();
+        credenziali.setUsername(username);
+        credenziali.setPassword(password);
+        credenziali.setCuoco(cuoco);
+        credenziali.setRuolo(Credenziali.COUCO_ROLE);
+
+        cuocoService.registerCuoco(cuoco, credenziali);
         return "redirect:/admin/indexUpdateCuoco";
     }
 
@@ -115,6 +134,4 @@ public class CuocoController {
         }
         return "redirect:/admin/indexUpdateCuoco";
     }
-
-
 }
