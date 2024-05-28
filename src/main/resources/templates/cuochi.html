@@ -18,7 +18,7 @@
                 <div th:each="cuoco, stat : ${cuochi}"
                     th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
                     <a th:href="@{'/cuoco/' + ${cuoco.id}}" class="d-block position-relative">
-                        <img th:src="@{${cuoco.urlsImages[0]}}" class="d-block w-100 rounded"
+                        <img th:src="${cuoco.urlsImages[0]}" class="d-block w-100 rounded"
                             th:alt="'Slide ' + ${stat.count}">
                         <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3 position-absolute bottom-0 start-50 translate-middle-x w-75">
                             <h5 th:text="${cuoco.nome + ' ' + cuoco.cognome}" class="text-white mb-0"></h5>
