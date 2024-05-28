@@ -25,9 +25,6 @@ public class Cuoco {
 	@OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL, orphanRemoval = true)  
 	private List<Ricetta> ricette;
 	
-	@OneToOne(mappedBy = "cuoco", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Credenziali credenziali;
-	
 	public List<Ricetta> getRicette() {
 		return ricette;
 	}
