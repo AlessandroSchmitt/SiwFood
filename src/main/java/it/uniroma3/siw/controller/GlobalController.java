@@ -38,7 +38,6 @@ public class GlobalController {
         return null;
     }
     
-    
     @ModelAttribute("cuocoCorrente")
     public Cuoco getCuoco() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
