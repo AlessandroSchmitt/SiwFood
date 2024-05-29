@@ -28,6 +28,7 @@ public class Cuoco {
 	@OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL, orphanRemoval = true)  
 	private List<Ricetta> ricette;
 	
+	/* getter e setter */
 	public List<Ricetta> getRicette() {
 		return ricette;
 	}
@@ -66,5 +67,4 @@ public class Cuoco {
 	public void setUrlsImages(List<String> urlsImages) {
 		this.urlsImages = urlsImages;
 	} 
-	
 }

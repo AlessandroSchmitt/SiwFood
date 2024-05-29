@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Ricetta {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -25,11 +26,10 @@ public class Ricetta {
 	
 	@OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RigaRicetta> righeRicetta;
-	
     @ManyToOne 
 	private Cuoco cuoco; 
 
-	
+    /* getter e setter */
 	public Long getId() {
 		return id;
 	}

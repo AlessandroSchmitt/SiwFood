@@ -9,18 +9,19 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class RigaRicetta {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 	@Column(nullable = false)
-	private String quantita; //q.b, 200g, 1/2 bicchiere etc.
+	private String quantita; 
 	
 	@ManyToOne
 	private Ingrediente ingrediente;
-	
 	@ManyToOne
 	private Ricetta ricetta;
 	
+	/* getter e setter */
 	public Long getId() {
 		return Id;
 	}
@@ -45,6 +46,4 @@ public class RigaRicetta {
 	public void setRicetta(Ricetta ricetta) {
 		this.ricetta = ricetta;
 	}
-
-
 }

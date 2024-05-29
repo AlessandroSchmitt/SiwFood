@@ -8,13 +8,14 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Ingrediente {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(nullable = false)
 	private String nome;
 
-	
+	/* getter e setter */
 	public Long getId() {
 		return id;
 	}
@@ -27,8 +28,4 @@ public class Ingrediente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	
-	
-
 }

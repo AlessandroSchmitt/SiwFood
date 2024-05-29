@@ -10,6 +10,7 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class Credenziali {
+	/* costanti per la gestione dell'accesso preferenziale */
 	public static final String COUCO_ROLE = "CUOCO";
 	public static final String ADMIN_ROLE = "ADMIN";
 	
@@ -25,7 +26,8 @@ public class Credenziali {
 	
 	@OneToOne(cascade = CascadeType.ALL)
     private Cuoco cuoco;
-
+	
+	/* getter e setter */
 	public Long getId() {
 		return id;
 	}
