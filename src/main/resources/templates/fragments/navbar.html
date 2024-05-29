@@ -28,10 +28,10 @@
 
                     <!-- Elementi visibili per cuochi -->
                     <li class="nav-item" th:if="${ruolo == 'CUOCO'}">
-                        <a class="nav-link" href="/leMieRicette">Le mie Ricette</a>
+                        <a class="nav-link" href="/cuoco/ricetteCuoco">Le mie Ricette</a>
                     </li>
                     <li class="nav-item" th:if="${ruolo == 'CUOCO'}">
-                        <a class="nav-link" href="/addRicetta">Aggiungi Ricetta</a>
+                        <a class="nav-link" href="/cuoco/aggiungiRicetta">Aggiungi Ricetta</a>
                     </li>
                     <li class="nav-item" th:if="${ruolo == 'CUOCO'}">
                         <a class="nav-link" href="/cuoco/indexIUpdateIngrediente">Gestione Ingredienti</a>
