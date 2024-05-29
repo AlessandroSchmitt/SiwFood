@@ -48,14 +48,12 @@ public class Ricetta {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-
 	public Cuoco getCuoco() {
 		return cuoco;
 	}
 	public void setCuoco(Cuoco cuoco) {
 		this.cuoco = cuoco;
 	}
-
 	public List<RigaRicetta> getRigheRicetta() {
 		return righeRicetta;
 	}
