@@ -20,6 +20,7 @@ public class Ricetta {
 	private String nome;
 	@Column(length = 2000)
 	private String descrizione;
+	@Column(nullable = false)
 	private List<String> urlsImages;
 	
 	@OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL, orphanRemoval = true)
