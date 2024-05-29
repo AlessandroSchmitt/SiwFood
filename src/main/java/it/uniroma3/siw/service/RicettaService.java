@@ -28,9 +28,12 @@ public class RicettaService {
     private IngredienteService ingredienteService;
     
     @Autowired
+    private CuocoService cuocoService;
+    
+    @Autowired
     private FileService fileService;
     
-    private static final String UPLOAD_DIR = "uploads/ricetteAggiunte/";
+    private static final String UPLOAD_DIR = "uploads/ricetteCuoco/";
     
     // Trova una ricetta per ID
     public Ricetta findById(Long id) {
@@ -93,39 +96,29 @@ public class RicettaService {
     }
     
     @Transactional
-    public void updateRicetta(Long id, Ricetta updatedRicetta, MultipartFile[] files, List<Long> ingredientiIds, List<String> quantitaList) throws IOException {
-        Ricetta existingRicetta = findById(id);
-        if (existingRicetta != null) {
-            existingRicetta.setNome(updatedRicetta.getNome());
-            existingRicetta.setDescrizione(updatedRicetta.getDescrizione());
+    public void registerRicetta(Ricetta ricetta, Long cuocoId, MultipartFile[] files, List<Long> ingredientiIds, List<String> quantitaList) throws IOException {
+        Cuoco cuoco = cuocoService.findById(cuocoId);
+        ricetta.setCuoco(cuoco);
 
-            if (files != null && files.length > 0 && !files[0].isEmpty()) {
-                List<String> urlsImages = handleFileUpload(files);
-                existingRicetta.setUrlsImages(urlsImages);
-            }
+        List<String> urlsImages = handleFileUpload(files);
+        ricetta.setUrlsImages(urlsImages);
 
-            updateRigheRicetta(existingRicetta, ingredientiIds, quantitaList);
-            save(existingRicetta);
-        }
-    }
-    
-    private void updateRigheRicetta(Ricetta existingRicetta, List<Long> ingredientiIds, List<String> quantitaList) {
-        List<RigaRicetta> existingRigheRicetta = existingRicetta.getRigheRicetta();
-        existingRigheRicetta.clear();  // Clear existing collection
-
+        List<RigaRicetta> righeRicetta = new ArrayList<>();
         for (int i = 0; i < ingredientiIds.size(); i++) {
             Ingrediente ingrediente = ingredienteService.findById(ingredientiIds.get(i));
             if (ingrediente != null) {
                 RigaRicetta riga = new RigaRicetta();
                 riga.setIngrediente(ingrediente);
                 riga.setQuantita(quantitaList.get(i));
-                riga.setRicetta(existingRicetta);
-                existingRigheRicetta.add(riga);
+                riga.setRicetta(ricetta);
+                righeRicetta.add(riga);
             }
         }
+        ricetta.setRigheRicetta(righeRicetta);
+
+        save(ricetta);
     }
-
-
+    
     private List<String> handleFileUpload(MultipartFile[] files) throws IOException {
         List<String> urlsImages = new ArrayList<>();
         for (MultipartFile file : files) {
