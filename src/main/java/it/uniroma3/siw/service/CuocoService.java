@@ -17,90 +17,102 @@ import java.util.Optional;
 @Service
 public class CuocoService {
 
-    @Autowired
-    private CuocoRepository cuocoRepository;
+	@Autowired
+	private CuocoRepository cuocoRepository;
 
-    @Autowired
-    private CredenzialiRepository credenzialiRepository;
+	@Autowired
+	private CredenzialiRepository credenzialiRepository;
 
-    @Autowired
-    private FileService fileService;
+	@Autowired
+	private FileService fileService;
 
-    private static final String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
+	private static final String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
 
-    public Cuoco findById(Long id) {
-        return cuocoRepository.findById(id).orElse(null);
-    }
+	// Trova un cuoco per ID
+	public Cuoco findById(Long id) {
+		return cuocoRepository.findById(id).orElse(null);
+	}
 
-    public boolean existsByNomeAndCognome(String nome, String cognome) {
-        return cuocoRepository.existsByNomeAndCognome(nome, cognome);
-    }
+	// Verifica se esiste un cuoco con il nome e cognome specificati
+	public boolean existsByNomeAndCognome(String nome, String cognome) {
+		return cuocoRepository.existsByNomeAndCognome(nome, cognome);
+	}
 
-    public void save(Cuoco cuoco) {
-        cuocoRepository.save(cuoco);
-    }
+	// Ritorna una lista di tutti i cuochi
+	public List<Cuoco> findAll() {
+		return (List<Cuoco>) cuocoRepository.findAll();
+	}
 
-    @Transactional
-    public void registerCuoco(Cuoco cuoco, Credenziali credenziali) {
-        if (!existsByNomeAndCognome(cuoco.getNome(), cuoco.getCognome())) {
-            cuocoRepository.save(cuoco);
-            credenzialiRepository.save(credenziali);
-        }
-    }
+	// Registra un nuovo cuoco e le sue credenziali, se non esiste già
+	@Transactional
+	public void registerCuoco(Cuoco cuoco, Credenziali credenziali) {
+		if (!existsByNomeAndCognome(cuoco.getNome(), cuoco.getCognome())) {
+			cuocoRepository.save(cuoco);
+			credenzialiRepository.save(credenziali);
+		}
+	}
 
-    @Transactional
-    public void deleteById(Long id) {
-        Optional<Cuoco> cuoco = cuocoRepository.findById(id);
-        if (cuoco.isPresent()) {
-            // Elimina le credenziali associate
-            Credenziali credenziali = credenzialiRepository.findByCuoco(cuoco.get());
-            if (credenziali != null) {
-                credenzialiRepository.delete(credenziali);
-            }
+	// Elimina un cuoco per ID, inclusi i suoi file associati e le credenziali
+	@Transactional
+	public void deleteById(Long id) {
+		Optional<Cuoco> cuoco = cuocoRepository.findById(id);
+		if (cuoco.isPresent()) {
+			deleteCuocoAndCredenziali(cuoco.get());
+		} else {
+			System.out.println("Cuoco non trovato con ID: " + id);
+		}
+	}
 
-            // Elimina l'immagine del cuoco
-            if (!cuoco.get().getUrlsImages().isEmpty()) {
-                try {
-                    fileService.deleteFile(cuoco.get().getUrlsImages().get(0), UPLOADED_FOLDER);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+	// Aggiorna le informazioni di un cuoco esistente
+	@Transactional
+	public void updateCuoco(Long id, Cuoco updatedCuoco, MultipartFile file) throws IOException {
+		Cuoco existingCuoco = cuocoRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Cuoco non trovato"));
 
-            // Elimina il cuoco dal database
-            cuocoRepository.deleteById(id);
-        } else {
-            // Log se il cuoco non viene trovato
-            System.out.println("Cuoco non trovato con ID: " + id);
-        }
-    }
+		// Aggiorna i campi del cuoco
+		existingCuoco.setNome(updatedCuoco.getNome());
+		existingCuoco.setCognome(updatedCuoco.getCognome());
+		existingCuoco.setDataDiNascita(updatedCuoco.getDataDiNascita());
 
-    public void updateCuoco(Cuoco existingCuoco, Cuoco updatedCuoco, MultipartFile file) throws IOException {
-        existingCuoco.setNome(updatedCuoco.getNome());
-        existingCuoco.setCognome(updatedCuoco.getCognome());
-        existingCuoco.setDataDiNascita(updatedCuoco.getDataDiNascita());
+		// Se è presente un nuovo file di immagine, aggiorna l'immagine del cuoco
+		if (!file.isEmpty()) {
+			updateCuocoImage(existingCuoco, file);
+		}
 
-        if (!file.isEmpty()) {
-            if (!existingCuoco.getUrlsImages().isEmpty()) {
-                fileService.deleteFile(existingCuoco.getUrlsImages().get(0), UPLOADED_FOLDER);
-            }
+		// Salva le modifiche del cuoco
+		cuocoRepository.save(existingCuoco);
+	}
 
-            String newImageUrl = fileService.saveFile(file, UPLOADED_FOLDER);
-            existingCuoco.setUrlsImages(List.of(newImageUrl));
-        }
+	// Aggiorna l'immagine del cuoco
+	private void updateCuocoImage(Cuoco cuoco, MultipartFile file) throws IOException {
+		// Elimina l'immagine esistente se presente
+		if (!cuoco.getUrlsImages().isEmpty()) {
+			fileService.deleteFile(cuoco.getUrlsImages().get(0), UPLOADED_FOLDER);
+		}
 
-        cuocoRepository.save(existingCuoco);
-    }
+		// Salva la nuova immagine e aggiorna il cuoco
+		String newImageUrl = fileService.saveFile(file, UPLOADED_FOLDER);
+		cuoco.setUrlsImages(List.of(newImageUrl));
+	}
 
-    public Cuoco getCuoco(Long id) {
-        return cuocoRepository.findById(id).orElse(null);
-    }
+	// Elimina un cuoco e le sue credenziali
+	private void deleteCuocoAndCredenziali(Cuoco cuoco) {
+		// Trova e elimina le credenziali associate
+		Credenziali credenziali = credenzialiRepository.findByCuoco(cuoco);
+		if (credenziali != null) {
+			credenzialiRepository.delete(credenziali);
+		}
 
-    public Cuoco saveCuoco(Cuoco cuoco) {
-        return cuocoRepository.save(cuoco);
-    }
+		// Elimina l'immagine del cuoco se presente
+		if (!cuoco.getUrlsImages().isEmpty()) {
+			try {
+				fileService.deleteFile(cuoco.getUrlsImages().get(0), UPLOADED_FOLDER);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
-    public Iterable<Cuoco> findAll() {
-        return cuocoRepository.findAll();
-    }
+		// Elimina il cuoco dal database
+		cuocoRepository.delete(cuoco);
+	}
 }
