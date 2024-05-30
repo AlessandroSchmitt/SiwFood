@@ -1,0 +1,21 @@
+/* Generale */
+body {
+    padding-top: 3rem !important;
+    padding-bottom: 60px; /* Altezza del footer */
+    margin: 0;
+    background: #e6e2dc;
+}
+
+html, body {
+    height: 100%;
+}
+
+a {
+    text-decoration: underline;
+    color: #4a5e54; /* Verde scuro elegante */
+}
+
+.jumbotron {
+    text-align: center;
+    background-color: #f8f5f0 !important; /* Panna */
+}

@@ -1,0 +1,54 @@
+/* Card */
+.card {
+    margin: 20px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Aggiungere un'ombra per la profondità */
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body .btn {
+    margin-top: auto;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: #4a5e54; /* Verde scuro elegante */
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+/* Ingredient Card */
+.ingredient-card {
+    margin-bottom: 1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.ingredient-card h5 {
+    margin-bottom: 0.5rem;
+    color: #343a40;
+}
+
+.ingredient-card p {
+    margin-bottom: 0;
+    color: #6c757d;
+}

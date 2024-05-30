@@ -1,0 +1,68 @@
+/* Media queries per la reattività */
+@media (max-width: 1200px) {
+    .card {
+        margin: 15px;
+    }
+
+    .form-container {
+        padding: 1.5rem;
+    }
+
+    footer .container {
+        padding: 1.5rem 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .card {
+        margin: 10px;
+    }
+
+    .form-container {
+        padding: 1rem;
+    }
+
+    footer .container {
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-inline {
+        margin-right: 5px;
+    }
+
+    .navbar .btn {
+        margin-right: 5px;
+    }
+
+    .card {
+        margin: 10px 5px;
+    }
+
+    .form-container {
+        padding: 0.5rem;
+    }
+
+    footer .container {
+        padding: 0.5rem 0;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        padding-top: 2rem !important;
+    }
+
+    .card {
+        margin: 5px;
+    }
+
+    .form-container {
+        padding: 0.5rem;
+    }
+
+    footer .container {
+        padding: 0.5rem 0;
+    }
+}

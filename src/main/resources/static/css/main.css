@@ -1,0 +1,13 @@
+/* main.css */
+@import url('base.css');
+@import url('buttons.css');
+@import url('navbar.css');
+@import url('footer.css');
+@import url('forms.css');
+@import url('cards.css');
+@import url('recipe-list.css');
+@import url('image.css');
+@import url('carousel.css');
+@import url('animations.css');
+@import url('modal.css');
+@import url('media-queries.css');

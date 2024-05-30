@@ -1,0 +1,28 @@
+/* Footer */
+footer {
+    background-color: #e6e2dc;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    color: #3d5048; /* Cambiato il colore del testo */
+}
+
+footer .container {
+    padding: 2rem 0;
+}
+
+footer a {
+    color: #3d5048; /* Cambiato il colore del testo */
+}
+
+footer a:hover {
+    color: #f8f5f0 !important; /* Panna */
+}
+
+footer .text-white {
+    color: #3d5048 !important; /* Forza il colore del testo */
+}
+
+footer p, footer h6 {
+    color: #3d5048; /* Cambiato il colore del testo */
+}

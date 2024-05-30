@@ -1,0 +1,26 @@
+/* Navbar */
+.navbar {
+    background-color: #3d5048;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Ombreggiatura tra la navbar e la parte principale */
+}
+
+.navbar .btn {
+    margin-right: 10px; /* Aggiungi spazio a destra tra i pulsanti */
+}
+
+/* Scritte della navbar in bianco */
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .form-inline input {
+    color: white;
+}
+
+/* Cambia colore del testo dei link al passaggio del mouse */
+.navbar .nav-link:hover,
+.navbar .navbar-brand:hover {
+    color: #b0c4de !important; /* Colore leggermente più chiaro per l'hover */
+}
+
+.form-inline {
+    margin-right: 10px; /* Aggiungi spazio a destra tra i pulsanti */
+}

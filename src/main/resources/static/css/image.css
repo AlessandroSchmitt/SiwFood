@@ -1,0 +1,24 @@
+/* Image Container */
+.image-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px; /* Per un aspetto più morbido */
+}
+
+/* Cuoco Image */
+.cuoco-img {
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+/* Logo Hover */
+.logo-hover {
+    transition: transform 0.3s ease; /* Transizione fluida per l'effetto di zoom */
+}
+
+.logo-hover:hover {
+    transform: scale(1.1); /* Aumenta la dimensione del logo del 10% quando il mouse passa sopra */
+}

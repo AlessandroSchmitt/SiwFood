@@ -1,0 +1,45 @@
+/* Bottoni */
+.btn-primary,
+.btn-success,
+.form-container .btn-primary,
+.form-container .btn-success,
+.btn-outline-primary,
+.btn-outline-success {
+    border-radius: 0; /* Bottoni quadrati */
+    border-color: #000; /* Bordo nero */
+}
+
+.btn-primary,
+.btn-success {
+    color: #fff;
+    background-color: #3d5048; /* verde elegante */
+}
+
+.btn-outline-primary,
+.btn-outline-success {
+    color: #b0c4de; /* Testo oro elegante */
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+.navbar .btn-outline-primary:hover,
+.navbar .btn-outline-success:hover,
+.form-container .btn-primary:hover,
+.form-container .btn-success:hover {
+    color: #fff; /* Testo bianco */
+    background-color: #b0c4de; /* Oro elegante scuro per hover */
+}
+
+.btn:hover {
+    background-color: #b0c4de; /* Cambia colore del pulsante su hover */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.form-container .btn-primary,
+.form-container .btn-success {
+    background-color: #3d5048; /* Oro elegante */
+}
+
+.form-container .btn-primary:hover {
+    background-color: #b0c4de !important;
+}
