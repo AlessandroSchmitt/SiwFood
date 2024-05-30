@@ -24,7 +24,8 @@ public class CuocoService {
 	@Autowired
 	private FileService fileService;
 
-	private static final String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
+	// Costante per il percorso della cartella di upload
+	private static final String UPLOAD_DIR = "uploads/cuochiAggiunti/";
 
 	// Trova un cuoco per ID
 	public Cuoco findById(Long id) {
@@ -85,11 +86,11 @@ public class CuocoService {
 	private void updateCuocoImage(Cuoco cuoco, MultipartFile file) throws IOException {
 		// Elimina l'immagine esistente se presente
 		if (!cuoco.getUrlsImages().isEmpty()) {
-			fileService.deleteFile(cuoco.getUrlsImages().get(0), UPLOADED_FOLDER);
+			fileService.deleteFile(cuoco.getUrlsImages().get(0), UPLOAD_DIR);
 		}
 
 		// Salva la nuova immagine e aggiorna il cuoco
-		String newImageUrl = fileService.saveFile(file, UPLOADED_FOLDER);
+		String newImageUrl = fileService.saveFile(file, UPLOAD_DIR);
 		cuoco.setUrlsImages(List.of(newImageUrl));
 	}
 
@@ -104,7 +105,7 @@ public class CuocoService {
 		// Elimina l'immagine del cuoco se presente
 		if (!cuoco.getUrlsImages().isEmpty()) {
 			try {
-				fileService.deleteFile(cuoco.getUrlsImages().get(0), UPLOADED_FOLDER);
+				fileService.deleteFile(cuoco.getUrlsImages().get(0), UPLOAD_DIR);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

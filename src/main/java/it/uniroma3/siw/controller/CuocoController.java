@@ -27,6 +27,7 @@ public class CuocoController {
 	private PasswordEncoder passwordEncoder;
 
 	private static final Logger logger = Logger.getLogger(CuocoController.class.getName());
+	// Costante per il percorso della cartella di upload
 	private static final String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
 
 	//Mostra la pagina con l'elenco dei cuochi da aggiornare per l'admin.

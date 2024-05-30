@@ -29,7 +29,8 @@ public class RicettaService {
     private CuocoService cuocoService;
     @Autowired
     private FileService fileService;
-
+    
+    // Costante per il percorso della cartella di upload
     private static final String UPLOAD_DIR = "uploads/ricetteCuoco/";
 
     // Trova una ricetta per ID
