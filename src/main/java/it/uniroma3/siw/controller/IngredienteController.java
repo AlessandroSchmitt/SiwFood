@@ -16,6 +16,11 @@ public class IngredienteController {
 
     @Autowired
     private IngredienteService ingredienteService;
+    
+    @GetMapping("/admin/indexAdmin")
+    public String showAdminIndex(Model model) {
+        return "/admin/indexAdmin"; 
+    }
 
     @GetMapping("/aggiungiIngredienti")
     public String showAggiungiIngredienteForm(Model model) {
@@ -26,5 +31,16 @@ public class IngredienteController {
     public String aggiungiIngrediente(@RequestParam("ingredienti") List<String> ingredienti, Model model) {
         ingredienteService.aggiungiIngredienti(ingredienti);
         return "redirect:/cuoco/aggiungiRicetta";
+    }
+    
+    @GetMapping("/admin/aggiungiIngredienti")
+    public String showAggiungiIngredienteFormAdmin(Model model) {
+        return "aggiungiIngredienti";
+    }
+
+    @PostMapping("/admin/aggiungiIngredienti")
+    public String aggiungiIngredienteAdmin(@RequestParam("ingredienti") List<String> ingredienti, Model model) {
+        ingredienteService.aggiungiIngredienti(ingredienti);
+        return "redirect:/admin/indexAdmin";
     }
 }
