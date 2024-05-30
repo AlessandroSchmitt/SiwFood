@@ -55,12 +55,27 @@ public class RicettaController {
         return "cuoco/ricetteCuoco";
     }
     
-    // Elimina una ricetta in base all'ID
+ // Elimina una ricetta in base all'ID
     @PostMapping("/delete/ricetta/{id}")
     public String deleteRicetta(@PathVariable("id") Long id) {
         ricettaService.deleteById(id);
         return "redirect:/cuoco/ricetteCuoco";
     }
+    
+    
+    //admin visualizza tutte le ricette
+    @GetMapping("/admin/tutteRicette")
+	public String tutteRicette(Model model) {
+		model.addAttribute("ricette", ricettaService.findAll());
+		return "admin/tutteRicette";
+	}
+    
+    //l'admin elimina una ricetta in basse all'ID
+    @PostMapping("/admin/delete/ricetta/{id}")
+	public String deleteRicettaByAdmin(@PathVariable("id") Long id) {
+		ricettaService.deleteById(id);
+		return "redirect:/admin/tutteRicette";
+	}
     
     // Mostra il form per aggiungere una nuova ricetta
     @GetMapping("/cuoco/aggiungiRicetta")

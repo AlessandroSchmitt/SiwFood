@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head th:replace="~{fragments/header :: header(title='SiwFood - Gestione Ricette')}"></head>
+
+<body>
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+	<div class="container mt-3" style="max-width: 800px;"> <!-- Limita la larghezza del contenitore -->
+		<h2 class="text-center mb-4">Ricette</h2>
+		<div th:if="${ricette == null || ricette.isEmpty()}" class="alert alert-warning">
+			Non ci sono ricette nel sistema!!
+		</div>
+		<div class="table-responsive">
+			<table class="table table-hover table-sm">
+				<thead>
+					<tr>
+						<th scope="col">Immagine</th>
+						<th scope="col">Nome</th>
+						<th scope="col">Azioni</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="ricetta : ${ricette}">
+						<td>
+							<div style="height: 100px; width: 100px;">
+								<img th:if="${ricetta.urlsImages != null and !ricetta.urlsImages.isEmpty()}"
+									th:src="${ricetta.urlsImages[0]}" alt="Immagine Ricetta"
+									style="height: 100%; width: 100%; object-fit: cover; object-position: center;">
+							</div>
+						</td>
+						<td style="width: 50%;">
+							<h6 style="font-size: 0.8rem;" th:text="${ricetta.nome}">Nome Ricetta</h6>
+						</td>
+						<td style="width: 20%;">
+							<div class="d-flex justify-content-between">
+								<form th:action="@{'/admin/delete/ricetta/' + ${ricetta.id}}" method="post">
+									<button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<!-- Include il footer -->
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>
