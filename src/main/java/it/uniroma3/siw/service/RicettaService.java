@@ -18,23 +18,20 @@ import it.uniroma3.siw.repository.CuocoRepository;
 
 @Service
 public class RicettaService {
+
     @Autowired
     private RicettaRepository ricettaRepository;
-    
     @Autowired
     private CuocoRepository cuocoRepository;
-    
     @Autowired
     private IngredienteService ingredienteService;
-    
     @Autowired
     private CuocoService cuocoService;
-    
     @Autowired
     private FileService fileService;
-    
+
     private static final String UPLOAD_DIR = "uploads/ricetteCuoco/";
-    
+
     // Trova una ricetta per ID
     public Ricetta findById(Long id) {
         return ricettaRepository.findById(id).orElse(null);
@@ -94,7 +91,8 @@ public class RicettaService {
             deleteById(ricettaId);
         }
     }
-    
+
+    // Registra una nuova ricetta con relativi file e ingredienti
     @Transactional
     public void registerRicetta(Ricetta ricetta, Long cuocoId, MultipartFile[] files, List<Long> ingredientiIds, List<String> quantitaList) throws IOException {
         Cuoco cuoco = cuocoService.findById(cuocoId);
@@ -118,7 +116,8 @@ public class RicettaService {
 
         save(ricetta);
     }
-    
+
+    // Gestisce il caricamento dei file
     private List<String> handleFileUpload(MultipartFile[] files) throws IOException {
         List<String> urlsImages = new ArrayList<>();
         for (MultipartFile file : files) {
@@ -129,7 +128,8 @@ public class RicettaService {
         }
         return urlsImages;
     }
-    
+
+    // Aggiorna una ricetta esistente con nuovi file e ingredienti
     @Transactional
     public void updateRicetta(Long id, Ricetta updatedRicetta, MultipartFile[] files, List<Long> ingredientiIds, List<String> quantitaList) throws IOException {
         Ricetta existingRicetta = findById(id);
@@ -147,9 +147,10 @@ public class RicettaService {
         }
     }
 
+    // Aggiorna le righe della ricetta con i nuovi ingredienti e quantità
     private void updateRigheRicetta(Ricetta existingRicetta, List<Long> ingredientiIds, List<String> quantitaList) {
         List<RigaRicetta> existingRigheRicetta = existingRicetta.getRigheRicetta();
-        existingRigheRicetta.clear();  // Clear existing collection
+        existingRigheRicetta.clear(); // Svuota la collezione esistente
 
         for (int i = 0; i < ingredientiIds.size(); i++) {
             Ingrediente ingrediente = ingredienteService.findById(ingredientiIds.get(i));

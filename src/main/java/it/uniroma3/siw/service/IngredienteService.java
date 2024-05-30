@@ -10,13 +10,16 @@ import java.util.List;
 
 @Service
 public class IngredienteService {
+
     @Autowired
     private IngredienteRepository ingredienteRepository;
 
+    // Recupera tutti gli ingredienti
     public Iterable<Ingrediente> findAll() {
         return ingredienteRepository.findAll();
     }
 
+    // Aggiunge una lista di ingredienti
     public void addIngredienti(List<String> ingredienti) {
         for (String nomeIngrediente : ingredienti) {
             Ingrediente ingrediente = new Ingrediente();
@@ -25,7 +28,8 @@ public class IngredienteService {
         }
     }
     
+    // Trova un ingrediente per ID
     public Ingrediente findById(Long id) {
-    	return ingredienteRepository.findById(id).orElse(null);
+        return ingredienteRepository.findById(id).orElse(null);
     }
 }

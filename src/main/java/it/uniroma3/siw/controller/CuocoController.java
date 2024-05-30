@@ -21,57 +21,55 @@ public class CuocoController {
 
 	@Autowired
 	private CuocoService cuocoService;
-
 	@Autowired
 	private FileService fileService;
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	private static final Logger logger = Logger.getLogger(CuocoController.class.getName());
 	private static final String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
 
-	// Mostra la pagina con l'elenco dei cuochi da aggiornare per l'admin
+	//Mostra la pagina con l'elenco dei cuochi da aggiornare per l'admin.
 	@GetMapping("/admin/indexUpdateCuoco")
 	public String indexUpdateCuochi(Model model) {
 		model.addAttribute("cuochi", cuocoService.findAll());
-		return "admin/indexUpdateCuoco.html";
+		return "admin/indexUpdateCuoco";
 	}
 
-	// Mostra la pagina con l'elenco di tutti i cuochi
+	// Mostra la pagina con l'elenco di tutti i cuochi.
 	@GetMapping("/cuochi")
 	public String showCuochi(Model model) {
 		model.addAttribute("cuochi", cuocoService.findAll());
-		return "cuochi.html";
+		return "cuochi";
 	}
 
-	// Mostra la pagina principale del cuoco
+	// Mostra la pagina principale del cuoco.
 	@GetMapping("/cuoco/indexCuoco")
 	public String indexCuoco() {
 		return "cuoco/indexCuoco";
 	}
 
-	// Mostra i dettagli di un cuoco specifico
+	//Mostra i dettagli di un cuoco specifico.
 	@GetMapping("/cuoco/{id}")
 	public String getCuoco(@PathVariable("id") Long id, Model model) {
 		Cuoco cuoco = cuocoService.findById(id);
 		if (cuoco != null) {
 			model.addAttribute("cuoco", cuoco);
-			return "cuoco.html";
+			return "cuoco";
 		} else {
 			model.addAttribute("messaggioErrore", "Cuoco non trovato");
-			return "cuoco.html";
+			return "cuoco";
 		}
 	}
 
-	// Mostra il form per aggiungere un nuovo cuoco
+	//Mostra il form per aggiungere un nuovo cuoco.
 	@GetMapping("/admin/new/cuoco")
 	public String formNewCuoco(Model model) {
 		model.addAttribute("cuoco", new Cuoco());
-		return "admin/formNewCuoco.html";
+		return "admin/formNewCuoco";
 	}
 
-	// Gestisce l'invio del form per aggiungere un nuovo cuoco
+	//Gestisce l'invio del form per aggiungere un nuovo cuoco.
 	@PostMapping("/admin/new/cuoco")
 	public String addNewCuoco(@ModelAttribute("cuoco") Cuoco cuoco, @RequestParam("username") String username,
 			@RequestParam("email") String email, @RequestParam("password") String password,
@@ -100,7 +98,7 @@ public class CuocoController {
 		return "redirect:/admin/indexUpdateCuoco";
 	}
 
-	// Metodo per creare le credenziali di un cuoco
+	// Metodo per creare le credenziali di un cuoco.
 	private Credenziali createCredenziali(String username, String password, Cuoco cuoco) {
 		Credenziali credenziali = new Credenziali();
 		credenziali.setUsername(username);
@@ -110,20 +108,20 @@ public class CuocoController {
 		return credenziali;
 	}
 
-	// Mostra il form per modificare un cuoco esistente
+	//Mostra il form per modificare un cuoco esistente.
 	@GetMapping("/admin/edit/cuoco/{id}")
 	public String formModifyCuoco(@PathVariable("id") Long id, Model model) {
 		Cuoco cuoco = cuocoService.findById(id);
 		if (cuoco != null) {
 			model.addAttribute("cuoco", cuoco);
-			return "admin/formModifyCuoco.html";
+			return "admin/formModifyCuoco";
 		} else {
 			model.addAttribute("messaggioErrore", "Cuoco non trovato");
 			return "redirect:/admin/indexUpdateCuoco";
 		}
 	}
 
-	// Gestisce l'invio del form per modificare un cuoco esistente
+	//Gestisce l'invio del form per modificare un cuoco esistente.
 	@PostMapping("/admin/update/cuoco/{id}")
 	public String updateCuoco(@PathVariable("id") Long id, @ModelAttribute("cuoco") Cuoco cuoco,
 			@RequestParam("fileImage") MultipartFile file, Model model) {
@@ -133,14 +131,14 @@ public class CuocoController {
 		} catch (IOException e) {
 			logger.severe("Errore nella gestione dell'immagine: " + e.getMessage());
 			model.addAttribute("messaggioErrore", "Errore nella gestione dell'immagine");
-			return "admin/formModifyCuoco.html";
+			return "admin/formModifyCuoco";
 		} catch (IllegalArgumentException e) {
 			model.addAttribute("messaggioErrore", "Cuoco non trovato");
-			return "admin/formModifyCuoco.html";
+			return "admin/formModifyCuoco";
 		}
 	}
 
-	// Gestisce l'eliminazione di un cuoco
+	//Gestisce l'eliminazione di un cuoco.
 	@PostMapping("/admin/delete/cuoco/{id}")
 	public String deleteCuoco(@PathVariable("id") Long id, Model model) {
 		try {

@@ -19,10 +19,8 @@ public class CuocoService {
 
 	@Autowired
 	private CuocoRepository cuocoRepository;
-
 	@Autowired
 	private CredenzialiRepository credenzialiRepository;
-
 	@Autowired
 	private FileService fileService;
 

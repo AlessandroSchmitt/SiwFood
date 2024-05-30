@@ -16,18 +16,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @ControllerAdvice
 public class GlobalController {
-	@Autowired
-	private CredenzialiService credenzialiService;
-	
-	@ModelAttribute("userDetails")
-	public UserDetails getUtente() {
-		UserDetails  utente = null;
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (!(authentication instanceof AnonymousAuthenticationToken)) {
-			utente = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();}
-		return utente;
-	}
-	
+    
+    @Autowired
+    private CredenzialiService credenzialiService;
+    
+    //Aggiunge l'attributo userDetails al modello, contenente i dettagli dell'utente autenticato.
+    @ModelAttribute("userDetails")
+    public UserDetails getUtente() {
+        UserDetails utente = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            utente = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }
+        return utente;
+    }
+    //Aggiunge l'attributo ruolo al modello, contenente il ruolo dell'utente autenticato.
     @ModelAttribute("ruolo")
     public String getAuthorityAsString() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -38,6 +41,7 @@ public class GlobalController {
         return null;
     }
     
+    //Aggiunge l'attributo cuocoCorrente al modello, contenente l'oggetto Cuoco dell'utente autenticato.
     @ModelAttribute("cuocoCorrente")
     public Cuoco getCuoco() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -17,16 +17,17 @@ import it.uniroma3.siw.service.RicettaService;
 
 @Controller
 public class RicettaController {
+	
     @Autowired
     private RicettaService ricettaService;
     @Autowired
-	private IngredienteService ingredienteService;
+    private IngredienteService ingredienteService;
     
     // Visualizza tutte le ricette
     @GetMapping("/ricette")
     public String showRicette(Model model) {
         model.addAttribute("ricette", ricettaService.findAll());
-        return "ricette.html"; 
+        return "ricette"; 
     }
     
     // Visualizza una singola ricetta in base all'ID
@@ -35,89 +36,95 @@ public class RicettaController {
         Ricetta ricetta = ricettaService.findById(id);
         if (ricetta != null) {
             model.addAttribute("ricetta", ricetta);
-            return "ricetta.html";
+            return "ricetta";
         }
         return "redirect:/ricette";
     }
     
- // Visualizza tutte le ricette per l'amministratore
+    // Visualizza tutte le ricette per l'amministratore
     @GetMapping("/admin/ricette")
     public String indexRicette(Model model) {
         model.addAttribute("ricette", ricettaService.findAll());
-        return "admin/ricette.html";
+        return "admin/ricette";
     }
     
+    // Visualizza le ricette del cuoco
     @GetMapping("/cuoco/ricetteCuoco")
-	public String showLeMieRicette(Model model) {
-		model.addAttribute("ricette", ricettaService.findAll());
-		return "cuoco/ricetteCuoco";
-	}
-	
-	@PostMapping("/delete/ricetta/{id}")
-	public String deleteRicetta(@PathVariable("id") Long id) {
-		ricettaService.deleteById(id);
-		return "redirect:/cuoco/ricetteCuoco";
-	}
-	
-	@GetMapping("/cuoco/aggiungiRicetta")
-	public String aggiungiRicetta(Model model) {
-		List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
-		model.addAttribute("ingredienti", ingredienti);
+    public String showLeMieRicette(Model model) {
+        model.addAttribute("ricette", ricettaService.findAll());
+        return "cuoco/ricetteCuoco";
+    }
+    
+    // Elimina una ricetta in base all'ID
+    @PostMapping("/delete/ricetta/{id}")
+    public String deleteRicetta(@PathVariable("id") Long id) {
+        ricettaService.deleteById(id);
+        return "redirect:/cuoco/ricetteCuoco";
+    }
+    
+    // Mostra il form per aggiungere una nuova ricetta
+    @GetMapping("/cuoco/aggiungiRicetta")
+    public String aggiungiRicetta(Model model) {
+        List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+        model.addAttribute("ingredienti", ingredienti);
 
-		if (ingredienti.isEmpty()) {
-			Ingrediente ingrediente = new Ingrediente();
-			model.addAttribute("ingredienti", List.of(ingrediente));
-		}
+        if (ingredienti.isEmpty()) {
+            Ingrediente ingrediente = new Ingrediente();
+            model.addAttribute("ingredienti", List.of(ingrediente));
+        }
 
-		return "cuoco/aggiungiRicetta";
-	}
+        return "cuoco/aggiungiRicetta";
+    }
 
-	@PostMapping("/cuoco/aggiungiRicetta")
-	public String aggiungiRicetta(@ModelAttribute("ricetta") Ricetta ricetta, BindingResult ricettaBindingResult,
-			@RequestParam("fileImages") MultipartFile[] files, @RequestParam("cuocoId") Long cuocoId,
-			@RequestParam("ingredientiIds") List<Long> ingredientiIds,
-			@RequestParam("quantita") List<String> quantitaList, Model model) {
-		if (ricettaBindingResult.hasErrors()) {
-			List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
-			model.addAttribute("ingredienti", ingredienti);
-			return "cuoco/aggiungiRicetta.html";
-		}
+    // Gestisce l'invio del form per aggiungere una nuova ricetta
+    @PostMapping("/cuoco/aggiungiRicetta")
+    public String aggiungiRicetta(@ModelAttribute("ricetta") Ricetta ricetta, BindingResult ricettaBindingResult,
+                                  @RequestParam("fileImages") MultipartFile[] files, @RequestParam("cuocoId") Long cuocoId,
+                                  @RequestParam("ingredientiIds") List<Long> ingredientiIds,
+                                  @RequestParam("quantita") List<String> quantitaList, Model model) {
+        if (ricettaBindingResult.hasErrors()) {
+            List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+            model.addAttribute("ingredienti", ingredienti);
+            return "cuoco/aggiungiRicetta";
+        }
 
-		try {
-			ricettaService.registerRicetta(ricetta, cuocoId, files, ingredientiIds, quantitaList);
-			return "redirect:/cuoco/ricetteCuoco";
-		} catch (IOException e) {
-			model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
-			return "cuoco/aggiungiRicetta";
-		}
-	}
-	
-	@GetMapping("/update/ricetta/{id}")
-	public String formModifyRicetta(@PathVariable("id") Long id, Model model) {
-		Ricetta ricetta = ricettaService.findById(id);
-		List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
-		model.addAttribute("ricetta", ricetta);
-		model.addAttribute("ingredienti", ingredienti);
-		return "cuoco/formModifyRicetta";
-	}
+        try {
+            ricettaService.registerRicetta(ricetta, cuocoId, files, ingredientiIds, quantitaList);
+            return "redirect:/cuoco/ricetteCuoco";
+        } catch (IOException e) {
+            model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
+            return "cuoco/aggiungiRicetta";
+        }
+    }
+    
+    // Mostra il form per modificare una ricetta esistente
+    @GetMapping("/update/ricetta/{id}")
+    public String modificaRicetta(@PathVariable("id") Long id, Model model) {
+        Ricetta ricetta = ricettaService.findById(id);
+        List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+        model.addAttribute("ricetta", ricetta);
+        model.addAttribute("ingredienti", ingredienti);
+        return "cuoco/modificaRicetta";
+    }
 
-	@PostMapping("/update/ricetta/{id}")
-	public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute("ricetta") Ricetta ricetta,
-			BindingResult ricettaBindingResult, @RequestParam("fileImages") MultipartFile[] files,
-			@RequestParam("ingredientiIds") List<Long> ingredientiIds,
-			@RequestParam("quantita") List<String> quantitaList, Model model) {
-		if (ricettaBindingResult.hasErrors()) {
-			List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
-			model.addAttribute("ingredienti", ingredienti);
-			return "cuoco/formModifyRicetta";
-		}
+    // Gestisce l'invio del form per modificare una ricetta esistente
+    @PostMapping("/update/ricetta/{id}")
+    public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute("ricetta") Ricetta ricetta,
+                                BindingResult ricettaBindingResult, @RequestParam("fileImages") MultipartFile[] files,
+                                @RequestParam("ingredientiIds") List<Long> ingredientiIds,
+                                @RequestParam("quantita") List<String> quantitaList, Model model) {
+        if (ricettaBindingResult.hasErrors()) {
+            List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+            model.addAttribute("ingredienti", ingredienti);
+            return "cuoco/modificaRicetta";
+        }
 
-		try {
-			ricettaService.updateRicetta(id, ricetta, files, ingredientiIds, quantitaList);
-			return "redirect:/ricetteCuoco";
-		} catch (IOException e) {
-			model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
-			return "cuoco/formModifyRicetta";
-		}
-	}
+        try {
+            ricettaService.updateRicetta(id, ricetta, files, ingredientiIds, quantitaList);
+            return "redirect:/ricetteCuoco";
+        } catch (IOException e) {
+            model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
+            return "cuoco/modificaRicetta";
+        }
+    }
 }
