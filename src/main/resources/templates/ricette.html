@@ -12,15 +12,13 @@
         <div th:if="${ricette == null || ricette.isEmpty()}" class="alert alert-warning text-center">
             Non ci sono ricette nel sistema
         </div>
-        <div id="recipeCarousel" class="carousel slide mx-auto" style="max-width: 600px;" data-ride="carousel">
-            <div class="carousel-inner">
+        <div id="recipeCarousel" class="carousel slide mx-auto" style="max-width: 500px;" data-ride="carousel">
+            <div class="carousel-inner" style="max-height: 400px;">
                 <div th:each="ricetta, stat : ${ricette}"
                     th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
-                    <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="d-block position-relative">
-                        <img th:src="${ricetta.urlsImages[0]}" class="d-block w-100 rounded"
-                            th:alt="'Slide ' + ${stat.count}">
-                        <div
-                            class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3 position-absolute bottom-0 start-50 translate-middle-x w-75">
+                    <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="d-block position-relative" style="height: 400px;">
+                        <img th:if="${ricetta.urlsImages != null && !ricetta.urlsImages.isEmpty()}" th:src="${ricetta.urlsImages[0]}" class="d-block w-100 h-100 rounded" style="object-fit: cover;" th:alt="'Slide ' + ${stat.count}">
+                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3 position-absolute bottom-0 start-50 translate-middle-x w-75">
                             <h5 th:text="${ricetta.nome}" class="text-white mb-0"></h5>
                         </div>
                     </a>
@@ -44,7 +42,7 @@
                         <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="text-decoration-none text-dark d-block">
                             <div class="row align-items-center m-3">
                                 <div class="col-md-2">
-                                    <img th:src="${ricetta.urlsImages[0]}" class="img-fluid rounded" alt="Immagine Ricetta">
+                                    <img th:src="${ricetta.urlsImages[0]}" class="img-fluid rounded" alt="Immagine Ricetta" style="width: 100px; height: 100px; object-fit: cover;">
                                 </div>
                                 <div class="col-md-10">
                                     <h5 th:text="${ricetta.nome}"></h5>
