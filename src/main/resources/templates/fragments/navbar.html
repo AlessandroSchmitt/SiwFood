@@ -47,11 +47,11 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 </form>
 
-                <!-- Bottone di Login per utenti non autenticati -->
-                <a class="btn btn-success me-2" th:if="${userDetails == null}" href="/login">Login</a>
+                <!-- Link di Login per utenti non autenticati -->
+                <a class="nav-link" th:if="${userDetails == null}" href="/login">Login</a>
                 
-                <!-- Bottone di Logout per cuochi e admin -->
-                <a class="btn btn-danger" th:if="${ruolo == 'CUOCO' or ruolo == 'ADMIN'}" href="/logout">Logout</a>
+                <!-- Link di Logout per cuochi e admin -->
+                <a class="nav-link" th:if="${ruolo == 'CUOCO' or ruolo == 'ADMIN'}" href="/logout">Logout</a>
             </div>
         </div>
     </nav>
