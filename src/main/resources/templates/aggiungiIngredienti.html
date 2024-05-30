@@ -13,14 +13,14 @@
 	</style>
 </head>
 
-<body>
+<body style="background: #e6e2dc; background-image: url('/images/sfondo.jpeg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
 	<!-- Include la navbar dal frammento specificato -->
 	<div th:replace="fragments/navbar :: navbar"></div>
-	<div class="container mt-5 mb-5">
-		<div class="form-container">
+	<div class="container mt-5 mb-5 d-flex justify-content-center">
+		<div class="form-container" style="max-width: 600px; width: 100%; padding: 20px; background: rgba(255, 255, 255, 0.9); border-radius: 8px;">
 			<h2 class="text-center mb-4">Aggiungi Ingredienti</h2>
-			<div class="row">
-				<div class="col-md-5">
+			<div class="row justify-content-center">
+				<div class="col-md-10">
 					<!-- Form per l'aggiunta degli ingredienti -->
 					<form th:if="${ruolo == 'ADMIN'}" th:action="@{/admin/aggiungiIngredienti}" method="post">
 						<!-- CSRF token per la sicurezza -->
@@ -45,7 +45,9 @@
 							</button>
 						</div>
 						<!-- Bottone per salvare gli ingredienti -->
-						<button type="submit" class="btn btn-success mt-3">Salva Ingredienti</button>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success mt-3">Salva Ingredienti</button>
+						</div>
 					</form>
 
 					<form th:if="${ruolo != 'ADMIN'}" th:action="@{/aggiungiIngredienti}" method="post">
@@ -71,7 +73,9 @@
 							</button>
 						</div>
 						<!-- Bottone per salvare gli ingredienti -->
-						<button type="submit" class="btn btn-success mt-3">Salva Ingredienti</button>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success mt-3">Salva Ingredienti</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -100,9 +104,7 @@
 					<input type="text" class="form-control" id="nome-${ingredienteIndex}" name="ingredienti" placeholder="Nome dell'ingrediente" required>
 					<div class="input-group-append">
 						<button class="btn btn-danger remove-ingrediente ms-3" type="button" onclick="eliminaIngrediente(this)">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-								<img src="/images/trash.svg" alt="Remove" style="filter: invert(1);">
-							</svg>
+							<img src="/images/cestino.svg" alt="Remove" style="filter: invert(1);">
 						</button>
 					</div>
 				</div>

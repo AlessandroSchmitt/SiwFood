@@ -17,18 +17,17 @@
 	</style>
 </head>
 
-<body>
+<body style="background: #e6e2dc; background-image: url('/images/sfondo.jpeg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
 	<div th:replace="fragments/navbar :: navbar"></div>
-	<div class="container mt-5 form-container ">
+	<div class="container mt-5 mb-5 form-container" style="max-width: 900px; margin: 0 auto; padding: 20px;">
 		<h2 class="text-center mb-4">Aggiungi Ricetta</h2>
 		<form th:action="@{/cuoco/aggiungiRicetta}" method="post" enctype="multipart/form-data">
-			<!-- Aggiungi il campo nascosto per l'ID del cuoco -->
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			<input type="hidden" id="cuocoId" name="cuocoId" th:value="${cuocoCorrente.id}" />
 
 			<div class="row">
 				<!-- Colonna Immagini -->
-				<div class="col-md-4">
+				<div class="col-md-4" style="flex: 0 0 33.3333%; max-width: 33.3333%;">
 					<div class="card mb-4">
 						<div class="card-header">
 							<h5 class="card-title mb-0">Immagine attuale</h5>
@@ -37,17 +36,14 @@
 							<div id="ricettaCarousel" class="carousel slide" data-bs-ride="carousel">
 								<div class="carousel-inner" id="carouselInner">
 									<div class="carousel-item active">
-										<img src="/images/nessunaRicetta.jpg" class="d-block w-100"
-											alt="Immagine Ricetta" />
+										<img src="/images/nessunaRicetta.jpg" class="d-block w-100" alt="Immagine Ricetta" />
 									</div>
 								</div>
-								<button class="carousel-control-prev" type="button" data-bs-target="#ricettaCarousel"
-									data-bs-slide="prev">
+								<button class="carousel-control-prev" type="button" data-bs-target="#ricettaCarousel" data-bs-slide="prev">
 									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 									<span class="visually-hidden">Previous</span>
 								</button>
-								<button class="carousel-control-next" type="button" data-bs-target="#ricettaCarousel"
-									data-bs-slide="next">
+								<button class="carousel-control-next" type="button" data-bs-target="#ricettaCarousel" data-bs-slide="next">
 									<span class="carousel-control-next-icon" aria-hidden="true"></span>
 									<span class="visually-hidden">Next</span>
 								</button>
@@ -57,42 +53,36 @@
 				</div>
 
 				<!-- Colonna Inserimento Dati -->
-				<div class="col-md-4">
+				<div class="col-md-4" style="flex: 0 0 33.3333%; max-width: 33.3333%;">
 					<div class="mb-3">
 						<label for="nome" class="form-label">Nome</label>
-						<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome della ricetta"
-							required>
+						<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome della ricetta" required>
 					</div>
 					<div class="mb-3">
 						<label for="descrizione" class="form-label">Descrizione</label>
-						<textarea class="form-control" id="descrizione" name="descrizione" rows="4"
-							placeholder="Descrizione della ricetta"></textarea>
+						<textarea class="form-control" id="descrizione" name="descrizione" rows="4" placeholder="Descrizione della ricetta"></textarea>
 					</div>
-
 					<div class="mb-3">
 						<label for="fileImages" class="form-label">Carica immagini della ricetta</label>
-						<input type="file" class="form-control" id="fileImages" name="fileImages" accept="image/*"
-							multiple required onchange="loadFiles(event)">
+						<input type="file" class="form-control" id="fileImages" name="fileImages" accept="image/*" multiple required onchange="loadFiles(event)">
 						<div class="form-text">Assicurati di caricare foto chiare e invitanti della ricetta.</div>
 					</div>
 				</div>
-				<div class="col-md-4">
-					<!-- Sezione Ingredienti -->
-					<div></div>
+
+				<!-- Colonna Ingredienti -->
+				<div class="col-md-4" style="flex: 0 0 33.3333%; max-width: 33.3333%;">
 					<div id="ingredienti-section" class="scrollable-container overflow-auto" style="max-height: 350px;">
-						<!-- Template per gli ingredienti -->
 						<template id="ingredient-template">
 							<div class="row align-items-center mb-2 ingredienti-group">
 								<div class="col-md-6 p-1">
 									<select class="form-control" name="ingredientiIds" required>
-										<option th:each="ing : ${ingredienti}" th:value="${ing.id}"
-											th:text="${ing.nome}">Ingrediente</option>
+										<option th:each="ing : ${ingredienti}" th:value="${ing.id}" th:text="${ing.nome}">Ingrediente</option>
 									</select>
 								</div>
-								<div class="col-md-4  p-2">
+								<div class="col-md-4 p-2">
 									<input type="text" class="form-control" name="quantita" placeholder="Quantità">
 								</div>
-								<div class="col-md-1  p-0">
+								<div class="col-md-1 p-0">
 									<button type="button" class="btn btn-danger remove-ingrediente">
 										<img src="/images/cestino.svg" alt="Remove" style="filter: invert(1);">
 									</button>
@@ -104,15 +94,16 @@
 					<div class="d-flex justify-content-center">
 						<button type="button" class="btn btn-primary mb-3" id="add-ingrediente">Aggiungi Ingrediente</button>
 					</div>
-
 					<div class="d-flex justify-content-center">
-						<a href="/aggiungiIngredienti" class=" text-primary mb-3">Non trovi l'ingrediente che cerchi?</a>
+						<a href="/aggiungiIngredienti" class="text-primary mb-3">Aggiungi nuovo ingrediente!</a>
 					</div>
 				</div>
+			</div>
 
+			<div class="d-flex justify-content-center">
 				<button type="submit" class="btn btn-success mt-1">Salva Ricetta</button>
+			</div>
 		</form>
-	</div>
 	</div>
 
 	<div th:replace="fragments/footer :: footer"></div>
