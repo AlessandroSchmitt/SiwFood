@@ -13,7 +13,8 @@
 			Benvenuto nella sezione Admin di SiwFood
 			<img src="/images/attrezzi.png" alt="Attrezzi" style="width: 40px; height: auto; margin-left: 10px;">
 		</h1>
-		<div class="accordion" id="adminAccordion" style="border: 1px solid #ddd; border-radius: 8px; background-color: #f8f9fa;">
+		<div class="accordion" id="adminAccordion"
+			style="border: 1px solid #ddd; border-radius: 8px; background-color: #f8f9fa;">
 			<!-- Gestione Cuochi -->
 			<div class="accordion-item" style="border-bottom: 1px solid #ddd;">
 				<h2 class="accordion-header" id="headingCuochi">
@@ -25,9 +26,11 @@
 				</h2>
 				<div id="collapseCuochi" class="accordion-collapse collapse show" aria-labelledby="headingCuochi"
 					data-bs-parent="#adminAccordion">
-					<div class="accordion-body" style="padding: 15px; background-color: #fff;">
-						<a href="/admin/new/cuoco" class="btn btn-primary w-100 mb-2" style="padding: 10px 0;">Aggiungi Nuovo Cuoco</a>
-						<a href="/admin/indexUpdateCuoco" class="btn btn-primary w-100" style="padding: 10px 0;">Visualizza Cuochi</a>
+					<div class="accordion-body" style="padding: 15px; background-color: #f5e6b3;">
+						<a href="/admin/new/cuoco" class="btn btn-primary w-100 mb-2" style="padding: 10px 0;">Aggiungi
+							Nuovo Cuoco</a>
+						<a href="/admin/indexUpdateCuoco" class="btn btn-primary w-100"
+							style="padding: 10px 0;">Visualizza Cuochi</a>
 					</div>
 				</div>
 			</div>
@@ -42,9 +45,25 @@
 				</h2>
 				<div id="collapseIngredienti" class="accordion-collapse collapse" aria-labelledby="headingIngredienti"
 					data-bs-parent="#adminAccordion">
-					<div class="accordion-body" style="padding: 15px; background-color: #fff;">
-						<a href="/admin/formNewIngrediente" class="btn btn-primary w-100 mb-2" style="padding: 10px 0;">Aggiungi Nuovo Ingrediente</a>
-						<a href="/admin/ingredienti" class="btn btn-primary w-100" style="padding: 10px 0;">Visualizza Ingredienti</a>
+					<div class="accordion-body" style="padding: 15px; background-color: #f5e6b3;">
+						<a href="/admin/aggiungiIngredienti" class="btn btn-primary w-100 mb-2"
+							style="padding: 10px 0;">Aggiungi Nuovo Ingrediente</a>
+					</div>
+				</div>
+			</div>
+			<!-- Gestione Ricette -->
+			<div class="accordion-item" style="border-bottom: 1px solid #ddd;">
+				<h2 class="accordion-header" id="headingRicette">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseRicette" aria-expanded="true" aria-controls="collapseRicette"
+						style="font-weight: bold; display: flex; justify-content: center; text-align: center; padding: 10px 20px; background-color: #e9ecef;">
+						Gestione Ricette
+					</button>
+				</h2>
+				<div id="collapseRicette" class="accordion-collapse collapse show" aria-labelledby="headingRicette"
+					data-bs-parent="#cuocoAccordion">
+					<div class="accordion-body" style="padding: 15px; background-color: #f5e6b3;">
+						<a href="/cuoco/ricetteCuoco" class="btn btn-primary w-100" style="padding: 10px 0;">Visualizza Ricette</a>
 					</div>
 				</div>
 			</div>
