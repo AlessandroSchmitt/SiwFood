@@ -20,7 +20,7 @@ public class IngredienteService {
     }
 
     // Aggiunge una lista di ingredienti
-    public void addIngredienti(List<String> ingredienti) {
+    public void aggiungiIngredienti(List<String> ingredienti) {
         for (String nomeIngrediente : ingredienti) {
             Ingrediente ingrediente = new Ingrediente();
             ingrediente.setNome(nomeIngrediente);

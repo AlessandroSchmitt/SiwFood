@@ -17,14 +17,14 @@ public class IngredienteController {
     @Autowired
     private IngredienteService ingredienteService;
 
-    @GetMapping("/addIngredienti")
-    public String showAddIngredienteForm(Model model) {
-        return "addIngredienti";
+    @GetMapping("/aggiungiIngredienti")
+    public String showAggiungiIngredienteForm(Model model) {
+        return "aggiungiIngredienti";
     }
 
     @PostMapping("/aggiungiIngredienti")
-    public String addIngrediente(@RequestParam("ingredienti") List<String> ingredienti, Model model) {
-        ingredienteService.addIngredienti(ingredienti);
+    public String aggiungiIngrediente(@RequestParam("ingredienti") List<String> ingredienti, Model model) {
+        ingredienteService.aggiungiIngredienti(ingredienti);
         return "redirect:/cuoco/aggiungiRicetta";
     }
 }
