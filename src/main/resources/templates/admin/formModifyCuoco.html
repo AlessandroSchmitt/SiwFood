@@ -7,7 +7,7 @@
 	<!-- Include la navbar -->
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-	<div class="container form-container mt-5">
+	<div class="container form-container mt-5 mb-5">
 		<h2 class="text-center mb-4">Modifica Cuoco</h2>
 		<form th:action="@{/admin/update/cuoco/{id}(id=${cuoco.id})}" method="post" enctype="multipart/form-data">
 			<div class="row">
@@ -44,9 +44,8 @@
 							th:value="${cuoco.dataDiNascita}" required>
 					</div>
 					<div class="mb-4">
-						<label for="fileImage" class="form-label">Carica una nuova foto del cuoco (opzionale)</label>
+						<label for="fileImage" class="form-label">Carica una nuova foto del cuoco</label>
 						<input type="file" class="form-control" id="fileImage" name="fileImage" accept="image/*">
-						<div class="form-text">Assicurati di caricare una foto chiara e recente del cuoco.</div>
 					</div>
 					<button type="submit" class="btn btn-primary w-100">Salva Modifiche</button>
 				</div>
