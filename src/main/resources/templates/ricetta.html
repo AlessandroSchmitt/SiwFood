@@ -17,7 +17,7 @@
             <h1 class="text-center mb-5" th:text="${ricetta.nome}">Lasagna</h1>
             <div class="row mb-4">
                 <div class="col-md-6" th:each="urlImage : ${ricetta.urlsImages}">
-                    <img th:src="${urlImage}" class="img-fluid rounded-4 mb-3" />
+                    <img th:src="${urlImage}" class="img-fluid rounded-4 mb-3" style="border: 2px solid #ccc; padding: 5px; width: 430px;" />
                 </div>
                 <div class="col-md-6">
                     <p class="text-justify" th:text="${ricetta.descrizione}"></p>
