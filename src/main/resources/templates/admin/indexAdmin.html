@@ -8,25 +8,26 @@
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 	<!-- Corpo principale della pagina -->
-	<div class="container mt-5 vh-50">
+	<div class="container mt-5 vh-50" style="max-width: 600px; margin: 0 auto; padding: 20px;">
 		<h1 class="text-center">
 			Benvenuto nella sezione Admin di SiwFood
 			<img src="/images/attrezzi.png" alt="Attrezzi" style="width: 40px; height: auto; margin-left: 10px;">
 		</h1>
-		<div class="accordion" id="adminAccordion">
+		<div class="accordion" id="adminAccordion" style="border: 1px solid #ddd; border-radius: 8px; background-color: #f8f9fa;">
 			<!-- Gestione Cuochi -->
-			<div class="accordion-item">
+			<div class="accordion-item" style="border-bottom: 1px solid #ddd;">
 				<h2 class="accordion-header" id="headingCuochi">
 					<button class="accordion-button" type="button" data-bs-toggle="collapse"
-						data-bs-target="#collapseCuochi" aria-expanded="true" aria-controls="collapseCuochi">
+						data-bs-target="#collapseCuochi" aria-expanded="true" aria-controls="collapseCuochi"
+						style="font-weight: bold; display: flex; justify-content: center; text-align: center; padding: 10px 20px; background-color: #e9ecef;">
 						Gestione Cuochi
 					</button>
 				</h2>
 				<div id="collapseCuochi" class="accordion-collapse collapse show" aria-labelledby="headingCuochi"
 					data-bs-parent="#adminAccordion">
-					<div class="accordion-body">
-						<a href="/admin/new/cuoco" class="btn btn-primary w-100 mb-2">Aggiungi Nuovo Cuoco</a>
-						<a href="/admin/indexUpdateCuoco" class="btn btn-primary w-100">Visualizza Cuochi</a>
+					<div class="accordion-body" style="padding: 15px; background-color: #fff;">
+						<a href="/admin/new/cuoco" class="btn btn-primary w-100 mb-2" style="padding: 10px 0;">Aggiungi Nuovo Cuoco</a>
+						<a href="/admin/indexUpdateCuoco" class="btn btn-primary w-100" style="padding: 10px 0;">Visualizza Cuochi</a>
 					</div>
 				</div>
 			</div>
@@ -34,15 +35,16 @@
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingIngredienti">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-						data-bs-target="#collapseIngredienti" aria-expanded="false" aria-controls="collapseIngredienti">
+						data-bs-target="#collapseIngredienti" aria-expanded="false" aria-controls="collapseIngredienti"
+						style="font-weight: bold; display: flex; justify-content: center; text-align: center; padding: 10px 20px; background-color: #e9ecef;">
 						Gestione Ingredienti
 					</button>
 				</h2>
 				<div id="collapseIngredienti" class="accordion-collapse collapse" aria-labelledby="headingIngredienti"
 					data-bs-parent="#adminAccordion">
-					<div class="accordion-body">
-						<a href="/admin/formNewIngrediente" class="btn btn-primary w-100 mb-2">Aggiungi Nuovo Ingrediente</a>
-						<a href="/admin/ingredienti" class="btn btn-primary w-100">Visualizza Ingredienti</a>
+					<div class="accordion-body" style="padding: 15px; background-color: #fff;">
+						<a href="/admin/formNewIngrediente" class="btn btn-primary w-100 mb-2" style="padding: 10px 0;">Aggiungi Nuovo Ingrediente</a>
+						<a href="/admin/ingredienti" class="btn btn-primary w-100" style="padding: 10px 0;">Visualizza Ingredienti</a>
 					</div>
 				</div>
 			</div>

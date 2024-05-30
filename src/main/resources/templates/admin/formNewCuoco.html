@@ -2,49 +2,66 @@
 <html lang="it" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/header :: header(title='SiwFood - Inserimento Cuoco')}">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 	<!-- Include la navbar -->
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-	<div class="container form-container d-flex justify-content-center align-items-center mt-5 vh-50">
-		<div class="col-md-6">
+	<div class="container form-container d-flex justify-content-center align-items-center mt-5 mb-5 vh-50" style="width: 60%; margin: auto;">
+		<div class="col-md-8">
 			<h2 class="text-center mb-4">Aggiungi Nuovo Cuoco</h2>
-			<form th:action="@{/admin/new/cuoco}" method="post" enctype="multipart/form-data">
-				<div class="mb-3">
-					<label for="nome" class="form-label">Nome</label>
-					<input type="text" class="form-control" id="nome" name="nome" required>
-				</div>
-				<div class="mb-3">
-					<label for="cognome" class="form-label">Cognome</label>
-					<input type="text" class="form-control" id="cognome" name="cognome" required>
-				</div>
-				<div class="mb-3">
-					<label for="dataDiNascita" class="form-label">Data di Nascita</label>
-					<input type="date" class="form-control" id="dataDiNascita" name="dataDiNascita" required>
-				</div>
-				<div class="mb-3">
-					<label for="username" class="form-label">Username</label>
-					<input type="text" class="form-control" id="username" name="username" required>
-				</div>
-				<div class="mb-3">
-					<label for="email" class="form-label">Email</label>
-					<input type="email" class="form-control" id="email" name="email" required>
-				</div>
-				<div class="mb-3">
-					<label for="password" class="form-label">Password</label>
-					<input type="password" class="form-control" id="password" name="password" required>
-				</div>
-				<div class="mb-3">
-					<label for="confirmPassword" class="form-label">Conferma Password</label>
-					<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-				</div>
-				<div class="mb-3">
-					<label for="fileImage" class="form-label">Carica una foto del cuoco</label>
-					<input type="file" class="form-control" id="fileImage" name="fileImage" accept="image/*" required>
-					<div class="form-text">Assicurati di caricare una foto chiara e recente del cuoco.</div>
+			<form th:action="@{/admin/new/cuoco}" method="post" enctype="multipart/form-data" onsubmit="return validatePasswords()">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required>
+							<label for="nome">Nome</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" id="cognome" name="cognome" placeholder="Cognome" required>
+							<label for="cognome">Cognome</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="date" class="form-control" id="dataDiNascita" name="dataDiNascita" placeholder="Data di Nascita" required>
+							<label for="dataDiNascita">Data di Nascita</label>
+						</div>
+						<div class="form-floating mb-3">
+							<input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+							<label for="username">Username</label>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-floating mb-3">
+							<input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+							<label for="email">Email</label>
+						</div>
+						<div class="form-floating mb-3">
+							<div class="input-group">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+								<button type="button" class="btn btn-outline-secondary" id="togglePassword">
+									<i class="bi bi-eye"></i>
+								</button>
+								<label for="password"></label>
+							</div>
+						</div>
+						<div class="form-floating mb-3">
+							<div class="input-group">
+								<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Conferma Password" required>
+								<button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword">
+									<i class="bi bi-eye"></i>
+								</button>
+								<label for="confirmPassword"></label>
+							</div>
+						</div>
+						<div id="passwordError" class="text-danger mb-2" style="display: none;">Le password non corrispondono.</div>
+						<div class="mb-4">
+							<label for="fileImage" class="form-label">Carica una foto del cuoco</label>
+							<input type="file" class="form-control" id="fileImage" name="fileImage" accept="image/*" required>
+							<div class="form-text">Assicurati di caricare una foto chiara e recente del cuoco.</div>
+						</div>
+					</div>
 				</div>
 				<button type="submit" class="btn btn-primary w-100">Salva Cuoco</button>
 			</form>
@@ -54,6 +71,49 @@
 	<!-- Include il footer -->
 	<div th:replace="~{fragments/footer :: footer}"></div>
 
+	<!-- Includi gli script di Bootstrap e jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+	<!-- Icone di Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+
+	<script>
+		document.getElementById('togglePassword').addEventListener('click', function () {
+			var passwordField = document.getElementById('password');
+			var passwordFieldType = passwordField.getAttribute('type');
+			if (passwordFieldType === 'password') {
+				passwordField.setAttribute('type', 'text');
+				this.innerHTML = '<i class="bi bi-eye-slash"></i>';
+			} else {
+				passwordField.setAttribute('type', 'password');
+				this.innerHTML = '<i class="bi bi-eye"></i>';
+			}
+		});
+
+		document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
+			var confirmPasswordField = document.getElementById('confirmPassword');
+			var confirmPasswordFieldType = confirmPasswordField.getAttribute('type');
+			if (confirmPasswordFieldType === 'password') {
+				confirmPasswordField.setAttribute('type', 'text');
+				this.innerHTML = '<i class="bi bi-eye-slash"></i>';
+			} else {
+				confirmPasswordField.setAttribute('type', 'password');
+				this.innerHTML = '<i class="bi bi-eye"></i>';
+			}
+		});
+
+		function validatePasswords() {
+			var password = document.getElementById('password').value;
+			var confirmPassword = document.getElementById('confirmPassword').value;
+			if (password !== confirmPassword) {
+				document.getElementById('passwordError').style.display = 'block';
+				return false;
+			}
+			document.getElementById('passwordError').style.display = 'none';
+			return true;
+		}
+	</script>
 </body>
 
 </html>
