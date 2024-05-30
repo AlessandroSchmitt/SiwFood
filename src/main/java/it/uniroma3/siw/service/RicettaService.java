@@ -129,4 +129,37 @@ public class RicettaService {
         }
         return urlsImages;
     }
+    
+    @Transactional
+    public void updateRicetta(Long id, Ricetta updatedRicetta, MultipartFile[] files, List<Long> ingredientiIds, List<String> quantitaList) throws IOException {
+        Ricetta existingRicetta = findById(id);
+        if (existingRicetta != null) {
+            existingRicetta.setNome(updatedRicetta.getNome());
+            existingRicetta.setDescrizione(updatedRicetta.getDescrizione());
+
+            if (files != null && files.length > 0 && !files[0].isEmpty()) {
+                List<String> urlsImages = handleFileUpload(files);
+                existingRicetta.setUrlsImages(urlsImages);
+            }
+
+            updateRigheRicetta(existingRicetta, ingredientiIds, quantitaList);
+            save(existingRicetta);
+        }
+    }
+
+    private void updateRigheRicetta(Ricetta existingRicetta, List<Long> ingredientiIds, List<String> quantitaList) {
+        List<RigaRicetta> existingRigheRicetta = existingRicetta.getRigheRicetta();
+        existingRigheRicetta.clear();  // Clear existing collection
+
+        for (int i = 0; i < ingredientiIds.size(); i++) {
+            Ingrediente ingrediente = ingredienteService.findById(ingredientiIds.get(i));
+            if (ingrediente != null) {
+                RigaRicetta riga = new RigaRicetta();
+                riga.setIngrediente(ingrediente);
+                riga.setQuantita(quantitaList.get(i));
+                riga.setRicetta(existingRicetta);
+                existingRigheRicetta.add(riga);
+            }
+        }
+    }
 }

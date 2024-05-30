@@ -91,4 +91,33 @@ public class RicettaController {
 			return "cuoco/aggiungiRicetta";
 		}
 	}
+	
+	@GetMapping("/update/ricetta/{id}")
+	public String formModifyRicetta(@PathVariable("id") Long id, Model model) {
+		Ricetta ricetta = ricettaService.findById(id);
+		List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+		model.addAttribute("ricetta", ricetta);
+		model.addAttribute("ingredienti", ingredienti);
+		return "cuoco/formModifyRicetta";
+	}
+
+	@PostMapping("/update/ricetta/{id}")
+	public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute("ricetta") Ricetta ricetta,
+			BindingResult ricettaBindingResult, @RequestParam("fileImages") MultipartFile[] files,
+			@RequestParam("ingredientiIds") List<Long> ingredientiIds,
+			@RequestParam("quantita") List<String> quantitaList, Model model) {
+		if (ricettaBindingResult.hasErrors()) {
+			List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+			model.addAttribute("ingredienti", ingredienti);
+			return "cuoco/formModifyRicetta";
+		}
+
+		try {
+			ricettaService.updateRicetta(id, ricetta, files, ingredientiIds, quantitaList);
+			return "redirect:/ricetteCuoco";
+		} catch (IOException e) {
+			model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
+			return "cuoco/formModifyRicetta";
+		}
+	}
 }
