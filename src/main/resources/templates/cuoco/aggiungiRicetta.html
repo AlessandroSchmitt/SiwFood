@@ -16,7 +16,7 @@
     <!-- Includi la navbar dal frammento specificato -->
     <div th:replace="fragments/navbar :: navbar"></div>
     <!-- Contenitore principale per il form -->
-    <div class="container mt-5 mb-5 form-container" style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    <div class="container mt-5 mb-5 form-container" style="background-color: #f8f9fa; max-width: 800px; margin: 0 auto; padding: 20px;">
         <h2 class="text-center mb-4" style="background-color: #3d5048; color: white; padding: 10px; border-radius: 5px;">Aggiungi Ricetta</h2>
         <form th:action="@{/cuoco/aggiungiRicetta}" method="post" enctype="multipart/form-data">
             <!-- Token CSRF per la sicurezza -->

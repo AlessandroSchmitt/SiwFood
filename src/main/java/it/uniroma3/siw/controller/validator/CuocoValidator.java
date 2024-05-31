@@ -9,7 +9,7 @@ import it.uniroma3.siw.model.Cuoco;
 @Component
 public class CuocoValidator implements Validator{
 	
-	final Integer MAX_NAME_LENGTH = 100;
+	final Integer MAX_NAME_LENGTH = 20;
     final Integer MIN_NAME_LENGTH = 2;
 
     @Override

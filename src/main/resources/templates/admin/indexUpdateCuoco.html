@@ -8,7 +8,7 @@
     <!-- Include la navbar -->
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <div class="container mt-3" style="max-width: 800px;"> <!-- Limita la larghezza del contenitore -->
+    <div class="container mt-3" style="max-width: 800px; "> <!-- Limita la larghezza del contenitore -->
         <h2 class="text-center mb-3">Lista dei Cuochi</h2>
         <div th:if="${cuochi == null || cuochi.isEmpty()}" class="alert alert-warning">
             Non ci sono cuochi nel sistema

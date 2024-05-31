@@ -9,7 +9,7 @@
 	<!-- Include la navbar -->
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-	<div class="container form-container d-flex justify-content-center align-items-center mt-5 mb-5 vh-50" style="width: 60%; margin: auto;">
+	<div class="container form-container d-flex justify-content-center align-items-center mt-5 mb-5 vh-50" style="background-color: #f8f9fa; width: 60%; margin: auto;">
 		<div class="col-md-8">
 			<h2 class="text-center mb-4">Aggiungi Nuovo Cuoco</h2>
 			<form th:action="@{/admin/new/cuoco}" method="post" enctype="multipart/form-data" onsubmit="return validatePasswords()">
