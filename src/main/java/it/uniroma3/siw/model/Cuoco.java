@@ -21,6 +21,7 @@ public class Cuoco {
 	private String nome;
 	@Column(nullable = false)
 	private String cognome;
+	private String descrizione;
 	private LocalDate dataDiNascita;
 	@Column(nullable = false)
 	private List<String> urlsImages;
@@ -52,6 +53,12 @@ public class Cuoco {
 	}
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
+	}
+	public String getDescrizione() {
+		return descrizione;
+	}
+	public void setDescrizione(String descrizione) {
+		this.descrizione = descrizione;
 	}
 	public LocalDate getDataDiNascita() {
 		return dataDiNascita;
