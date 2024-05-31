@@ -78,7 +78,7 @@ public class AuthenticationController {
 		if (credenziali.getRuolo().equals(Credenziali.COUCO_ROLE)) {
 			return "cuoco/indexCuoco"; // Se l'utente è un cuoco, restituisce la vista cuoco
 		}
-		return "success"; // Default: restituisce la vista success
+		return "errore"; 
 	}
 
 	// Gestisce la richiesta POST per la registrazione
