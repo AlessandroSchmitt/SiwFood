@@ -32,6 +32,7 @@
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                 <label for="username">Username</label>
+                <div th:if="${loginError}" class="text-danger" th:text="${loginError['username']}"></div>
             </div>
             <div class="form-floating mb-3">
                 <div class="input-group">
@@ -41,7 +42,9 @@
                     </button>
                     <label for="password"></label>
                 </div>
+                <div th:if="${loginError}" class="text-danger" th:text="${loginError['password']}"></div>
             </div>
+            <div th:if="${loginError?.general}" class="text-danger mb-3" th:text="${loginError['general']}"></div>
             <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
             <hr>
             <div class="text-center">

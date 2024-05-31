@@ -33,24 +33,25 @@
 									<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
 										required>
 									<label for="nome">Nome</label>
-									<div th:if="${utenteErrors}" class="text-danger" th:each="err : ${utenteErrors}" th:text="${err.defaultMessage}"></div>
+									<div th:if="${utenteErrors?.nome}" class="text-danger" th:text="${utenteErrors['nome']}"></div>
 								</div>
 								<div class="form-floating mb-3">
 									<input type="text" class="form-control" id="cognome" name="cognome"
 										placeholder="Cognome" required>
 									<label for="cognome">Cognome</label>
-									<div th:if="${utenteErrors}" class="text-danger" th:each="err : ${utenteErrors}" th:text="${err.defaultMessage}"></div>
+									<div th:if="${utenteErrors?.cognome}" class="text-danger" th:text="${utenteErrors['cognome']}"></div>
 								</div>
 								<div class="form-floating mb-3">
 									<input type="date" class="form-control" id="dataDiNascita" name="dataDiNascita"
 										placeholder="Data di Nascita" required>
 									<label for="dataDiNascita">Data di Nascita</label>
+									<div th:if="${utenteErrors?.dataDiNascita}" class="text-danger" th:text="${utenteErrors['dataDiNascita']}"></div>
 								</div>
 								<div class="form-floating mb-3">
 									<input type="text" class="form-control" id="username" name="username"
 										placeholder="Username" required>
 									<label for="username">Username</label>
-									<div th:if="${credenzialiErrors}" class="text-danger" th:each="err : ${credenzialiErrors}" th:text="${err.defaultMessage}"></div>
+									<div th:if="${credenzialiErrors?.username}" class="text-danger" th:text="${credenzialiErrors['username']}"></div>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -58,6 +59,7 @@
 									<textarea class="form-control" id="descrizione" name="descrizione"
 										placeholder="Descrizione del cuoco" style="height: 100px;" required></textarea>
 									<label for="descrizione">Descrizione del cuoco</label>
+									<div th:if="${utenteErrors?.descrizione}" class="text-danger" th:text="${utenteErrors['descrizione']}"></div>
 								</div>
 								<div class="mb-4">
 									<label for="fileImage" class="form-label">Carica un tua foto</label>
@@ -72,7 +74,7 @@
 										</button>
 										<label for="password"></label>
 									</div>
-									<div th:if="${credenzialiErrors}" class="text-danger" th:each="err : ${credenzialiErrors}" th:text="${err.defaultMessage}"></div>
+									<div th:if="${credenzialiErrors?.password}" class="text-danger" th:text="${credenzialiErrors['password']}"></div>
 								</div>
 								<div class="form-floating mb-3">
 									<div class="input-group">
