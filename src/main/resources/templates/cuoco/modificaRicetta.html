@@ -22,52 +22,6 @@
 			style="background-color: #3d5048; color: white; padding: 10px; border-radius: 5px;">Modifica Ricetta</h2>
 		<form th:action="@{/update/ricetta/{id}(id=${ricetta.id})}" method="post" enctype="multipart/form-data">
 			<div class="row">
-				<!-- Colonna Immagini attuali -->
-				<div class="col-md-3">
-				    <div class="card mb-4" style="width: 100%; margin: 0 auto;">
-				        <div class="card-body p-0">
-				            <!-- Display all images without carousel -->
-				            <div id="ricettaImages" class="image-container">
-				                <div th:each="urlImage : ${ricetta.urlsImages}">
-				                    <img th:src="${urlImage}" class="d-block w-100" alt="Immagine Ricetta" />
-				                </div>
-				            </div>
-				        </div>
-				    </div>
-				</div>
-
-				<!-- Divisore verticale -->
-				<div class="col-md-1 d-flex justify-content-center align-items-center"
-					style="flex: 0 0 2%; max-width: 2%;">
-					<div style="border-left: 1px solid rgba(0, 0, 0, 0.1); height: 100%;"></div>
-				</div>
-
-				<!-- Colonna Modifica Ricetta -->
-				<div class="col-md-4">
-					<div class="md-3">
-						<label for="nome" class="form-label">Nome:</label>
-						<input type="text" class="form-control" id="nome" name="nome" th:value="${ricetta.nome}"
-							required>
-					</div>
-					<div class="md-4">
-						<label for="fileImages" class="form-label">Carica immagine della ricetta:</label>
-						<input type="file" class="form-control" id="fileImages" name="fileImages" accept="image/*"
-							multiple onchange="loadFiles(event)">
-					</div>
-					<div class="md-3">
-						<label for="descrizione" class="form-label">Descrizione:</label>
-						<textarea class="form-control" id="descrizione" name="descrizione" rows="5" required
-							th:text="${ricetta.descrizione}"></textarea>
-					</div>
-				</div>
-
-
-				<!-- Divisore verticale -->
-				<div class="col-md-1 d-flex justify-content-center align-items-center"
-					style="flex: 0 0 2%; max-width: 2%;">
-					<div style="border-left: 1px solid rgba(0, 0, 0, 0.1); height: 100%;"></div>
-				</div>
-
 				<!-- Colonna Ingredienti -->
 				<div class="col-md-4">
 					<div id="ingredienti-section">
@@ -121,9 +75,53 @@
 							prima di continuare...</p>
 					</div>
 				</div>
+				<!-- Divisore verticale -->
+				<div class="col-md-1 d-flex justify-content-center align-items-center"
+					style="flex: 0 0 2%; max-width: 2%;">
+					<div style="border-left: 1px solid rgba(0, 0, 0, 0.1); height: 100%;"></div>
+				</div>
+
+				<!-- Colonna Modifica Ricetta -->
+				<div class="col-md-4">
+					<div class="md-3">
+						<label for="nome" class="form-label">Nome:</label>
+						<input type="text" class="form-control" id="nome" name="nome" th:value="${ricetta.nome}"
+							required>
+					</div>
+					<div class="md-4">
+						<label for="fileImages" class="form-label">Carica immagine della ricetta:</label>
+						<input type="file" class="form-control" id="fileImages" name="fileImages" accept="image/*"
+							multiple onchange="loadFiles(event)">
+					</div>
+					<div class="md-3">
+						<label for="descrizione" class="form-label">Descrizione:</label>
+						<textarea class="form-control" id="descrizione" name="descrizione" rows="5" required
+							th:text="${ricetta.descrizione}"></textarea>
+					</div>
+				</div>
+				<!-- Divisore verticale -->
+				<div class="col-md-1 d-flex justify-content-center align-items-center"
+					style="flex: 0 0 2%; max-width: 2%;">
+					<div style="border-left: 1px solid rgba(0, 0, 0, 0.1); height: 100%;"></div>
+				</div>
+
+
+				<!-- Colonna Immagini attuali -->
+				<div class="col-md-3">
+					<div class="card mb-4" style="width: 100%; margin: 0 auto;">
+						<div class="card-body p-0">
+							<!-- Display all images without carousel -->
+							<div id="ricettaImages" class="image-container">
+								<div th:each="urlImage : ${ricetta.urlsImages}">
+									<img th:src="${urlImage}" class="d-block w-100" alt="Immagine Ricetta" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class=" mt-5 d-flex justify-content-center">
-				<button type="submit" class="btn btn-primary">Salva Modifiche</button>
+			<div style="position: relative;">
+				<button type="submit" style="position: absolute; bottom: 10px; left: 10px; width: 20px; height: 20px; background-color: #28a745; border: none; border-radius: 4px; color: white; font-size: 10px; display: flex; align-items: center; justify-content: center;">✔</button>
 			</div>
 		</form>
 	</div>
