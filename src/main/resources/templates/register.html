@@ -34,11 +34,13 @@
 									<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
 										required>
 									<label for="nome">Nome</label>
+									<div th:if="${utenteErrors}" class="text-danger" th:each="err : ${utenteErrors}" th:text="${err.defaultMessage}"></div>
 								</div>
 								<div class="form-floating mb-3">
 									<input type="text" class="form-control" id="cognome" name="cognome"
 										placeholder="Cognome" required>
 									<label for="cognome">Cognome</label>
+									<div th:if="${utenteErrors}" class="text-danger" th:each="err : ${utenteErrors}" th:text="${err.defaultMessage}"></div>
 								</div>
 								<div class="form-floating mb-3">
 									<input type="date" class="form-control" id="dataDiNascita" name="dataDiNascita"
@@ -49,6 +51,7 @@
 									<input type="text" class="form-control" id="username" name="username"
 										placeholder="Username" required>
 									<label for="username">Username</label>
+									<div th:if="${credenzialiErrors}" class="text-danger" th:each="err : ${credenzialiErrors}" th:text="${err.defaultMessage}"></div>
 								</div>
 							</div>
 							<div class="col-md-6">
@@ -70,6 +73,7 @@
 										</button>
 										<label for="password"></label>
 									</div>
+									<div th:if="${credenzialiErrors}" class="text-danger" th:each="err : ${credenzialiErrors}" th:text="${err.defaultMessage}"></div>
 								</div>
 								<div class="form-floating mb-3">
 									<div class="input-group">
