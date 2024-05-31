@@ -24,6 +24,7 @@ public class Ricetta {
 	@Column(nullable = false)
 	private List<String> urlsImages;
 	
+	@Column(nullable = false)
 	@OneToMany(mappedBy = "ricetta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RigaRicetta> righeRicetta;
     @ManyToOne 

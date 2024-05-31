@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.controller.validator.CredenzialiValidator;
 import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Cuoco;
 import it.uniroma3.siw.service.CredenzialiService;
 import it.uniroma3.siw.service.FileService;
+import jakarta.validation.Valid;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +31,8 @@ public class AuthenticationController {
 	private CredenzialiService credenzialiService;
 	@Autowired
 	private FileService fileService;
+	@Autowired
+    private CredenzialiValidator credenzialiValidator;
 
 	// Costante per il percorso della cartella di upload
 	private static final String UPLOADED_FOLDER = "uploads/cuochiAggiunti/";
@@ -81,28 +85,35 @@ public class AuthenticationController {
 		return "errore"; 
 	}
 
-	// Gestisce la richiesta POST per la registrazione
 	@PostMapping(value = "/register")
-	public String registerUser(@ModelAttribute("cuoco") Cuoco cuoco, BindingResult utenteBindingResult,
-			@ModelAttribute("credenziali") Credenziali credenziali, BindingResult credenzialiBindingResult,
-			@RequestParam("fileImage") MultipartFile fileImage, Model model) {
-		if (!utenteBindingResult.hasErrors() && !credenzialiBindingResult.hasErrors()) {
-			try {
-				if (!fileImage.isEmpty()) {
-					// Salva il file immagine e ottiene l'URL
-					String imageUrl = fileService.saveFile(fileImage, UPLOADED_FOLDER);
-					cuoco.setUrlsImages(List.of(imageUrl)); // Imposta l'URL dell'immagine nel cuoco
-				}
-				credenziali.setCuoco(cuoco); // Associa il cuoco alle credenziali
-				credenzialiService.saveCredenziali(credenziali); // Salva le credenziali nel database
-				model.addAttribute("cuoco", cuoco); // Aggiunge il cuoco al modello
-				return "redirect:/login"; // Redirect alla pagina di login
-			} catch (IOException e) {
-				e.printStackTrace();
-				model.addAttribute("errorMessage", "Errore nel caricamento dell'immagine."); // Aggiunge un messaggio di errore al modello
-				return "register"; // Restituisce la vista di registrazione
-			}
-		}
-		return "register"; // Restituisce la vista di registrazione in caso di errori di validazione
-	}
+    public String registerUser(@Valid @ModelAttribute("cuoco") Cuoco cuoco, BindingResult utenteBindingResult,
+                               @ModelAttribute("credenziali") Credenziali credenziali, BindingResult credenzialiBindingResult,
+                               @RequestParam("fileImage") MultipartFile fileImage, Model model) {
+        this.credenzialiValidator.validate(credenziali, credenzialiBindingResult);
+        
+        // Check for validation errors
+        if (!credenzialiBindingResult.hasErrors()) {
+            try {
+                // Handle file upload if not empty
+                if (!fileImage.isEmpty()) {
+                    String imageUrl = fileService.saveFile(fileImage, UPLOADED_FOLDER);
+                    cuoco.setUrlsImages(List.of(imageUrl));
+                }
+                
+                // Set Cuoco and save credentials
+                credenziali.setCuoco(cuoco);
+                credenzialiService.saveCredenziali(credenziali);
+                model.addAttribute("cuoco", cuoco);
+                
+                // Redirect to login on successful registration
+                return "redirect:/login";
+            } catch (IOException e) {
+                e.printStackTrace();
+                model.addAttribute("errorMessage", "Errore nel caricamento dell'immagine.");
+                return "register";
+            }
+        }
+        return "register";
+    }
+
 }

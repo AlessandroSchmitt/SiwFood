@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,24 +123,34 @@ public class RicettaController {
         return "cuoco/modificaRicetta";
     }
 
-    // Gestisce l'invio del form per modificare una ricetta esistente
+ // Gestisce l'invio del form per modificare una ricetta esistente
     @PostMapping("/update/ricetta/{id}")
     public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute("ricetta") Ricetta ricetta,
                                 BindingResult ricettaBindingResult, @RequestParam("fileImages") MultipartFile[] files,
-                                @RequestParam("ingredientiIds") List<Long> ingredientiIds,
-                                @RequestParam("quantita") List<String> quantitaList, Model model) {
+                                @RequestParam(value = "ingredientiIds", required = false) List<Long> ingredientiIds,
+                                @RequestParam(value = "quantita", required = false) List<String> quantitaList, Model model) {
         if (ricettaBindingResult.hasErrors()) {
             List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
             model.addAttribute("ingredienti", ingredienti);
             return "cuoco/modificaRicetta";
         }
 
+        // Controlla se ingredientiIds è null o vuoto
+        if (ingredientiIds == null) {
+            ingredientiIds = new ArrayList<>();
+        }
+
+        if (quantitaList == null) {
+            quantitaList = new ArrayList<>();
+        }
+
         try {
             ricettaService.updateRicetta(id, ricetta, files, ingredientiIds, quantitaList);
-            return "redirect:/ricetteCuoco";
+            return "redirect:/cuoco/ricetteCuoco";
         } catch (IOException e) {
             model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
             return "cuoco/modificaRicetta";
         }
     }
+
 }
