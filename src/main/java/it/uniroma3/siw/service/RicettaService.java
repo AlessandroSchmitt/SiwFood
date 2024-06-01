@@ -19,149 +19,153 @@ import it.uniroma3.siw.repository.CuocoRepository;
 @Service
 public class RicettaService {
 
-    @Autowired
-    private RicettaRepository ricettaRepository;
-    @Autowired
-    private CuocoRepository cuocoRepository;
-    @Autowired
-    private IngredienteService ingredienteService;
-    @Autowired
-    private CuocoService cuocoService;
-    @Autowired
-    private FileService fileService;
-    
-    // Costante per il percorso della cartella di upload
-    private static final String UPLOAD_DIR = "uploads/ricetteCuoco/";
+	@Autowired
+	private RicettaRepository ricettaRepository;
+	@Autowired
+	private CuocoRepository cuocoRepository;
+	@Autowired
+	private IngredienteService ingredienteService;
+	@Autowired
+	private CuocoService cuocoService;
+	@Autowired
+	private FileService fileService;
 
-    // Trova una ricetta per ID
-    public Ricetta findById(Long id) {
-        return ricettaRepository.findById(id).orElse(null);
-    }
+	// Costante per il percorso della cartella di upload
+	private static final String UPLOAD_DIR = "uploads/ricetteCuoco/";
 
-    // Trova tutte le ricette
-    public Iterable<Ricetta> findAll() {
-        return ricettaRepository.findAll();
-    }
+	// Trova una ricetta per ID
+	public Ricetta findById(Long id) {
+		return ricettaRepository.findById(id).orElse(null);
+	}
 
-    // Salva una nuova ricetta o aggiorna una esistente
-    public Ricetta save(Ricetta ricetta) {
-        return ricettaRepository.save(ricetta);
-    }
+	// Trova tutte le ricette
+	public Iterable<Ricetta> findAll() {
+		return ricettaRepository.findAll();
+	}
 
-    // Cancella una ricetta per ID
-    public void deleteById(Long id) {
-        ricettaRepository.deleteById(id);
-    }
+	// Salva una nuova ricetta o aggiorna una esistente
+	public Ricetta save(Ricetta ricetta) {
+		return ricettaRepository.save(ricetta);
+	}
 
-    // Aggiunge una nuova ricetta per un dato cuoco
-    public boolean addNewRicetta(Long cuocoId, Ricetta ricetta) {
-        Cuoco cuoco = cuocoRepository.findById(cuocoId).orElse(null);
-        if (cuoco != null) {
-            ricetta.setCuoco(cuoco);
-            save(ricetta);
-            return true;
-        }
-        return false;
-    }
+	// Cancella una ricetta per ID
+	public void deleteById(Long id) {
+		ricettaRepository.deleteById(id);
+	}
 
-    // Trova una ricetta da modificare se appartiene al cuoco dato
-    public Ricetta getRicettaForModification(Long cuocoId, Long ricettaId) {
-        Ricetta ricetta = findById(ricettaId);
-        if (ricetta != null && ricetta.getCuoco().getId().equals(cuocoId)) {
-            return ricetta;
-        }
-        return null;
-    }
+	// Aggiunge una nuova ricetta per un dato cuoco
+	public boolean addNewRicetta(Long cuocoId, Ricetta ricetta) {
+		Cuoco cuoco = cuocoRepository.findById(cuocoId).orElse(null);
+		if (cuoco != null) {
+			ricetta.setCuoco(cuoco);
+			save(ricetta);
+			return true;
+		}
+		return false;
+	}
 
-    // Aggiorna una ricetta esistente se appartiene al cuoco dato
-    public boolean updateRicetta(Long cuocoId, Long ricettaId, Ricetta ricetta) {
-        Ricetta existingRicetta = findById(ricettaId);
-        if (existingRicetta != null && existingRicetta.getCuoco().getId().equals(cuocoId)) {
-            existingRicetta.setNome(ricetta.getNome());
-            existingRicetta.setDescrizione(ricetta.getDescrizione());
-            save(existingRicetta);
-            return true;
-        }
-        return false;
-    }
+	// Trova una ricetta da modificare se appartiene al cuoco dato
+	public Ricetta getRicettaForModification(Long cuocoId, Long ricettaId) {
+		Ricetta ricetta = findById(ricettaId);
+		if (ricetta != null && ricetta.getCuoco().getId().equals(cuocoId)) {
+			return ricetta;
+		}
+		return null;
+	}
 
-    // Cancella una ricetta se appartiene al cuoco dato
-    public void deleteRicetta(Long cuocoId, Long ricettaId) {
-        Ricetta ricetta = findById(ricettaId);
-        if (ricetta != null && ricetta.getCuoco().getId().equals(cuocoId)) {
-            deleteById(ricettaId);
-        }
-    }
+	// Aggiorna una ricetta esistente se appartiene al cuoco dato
+	public boolean updateRicetta(Long cuocoId, Long ricettaId, Ricetta ricetta) {
+		Ricetta existingRicetta = findById(ricettaId);
+		if (existingRicetta != null && existingRicetta.getCuoco().getId().equals(cuocoId)) {
+			existingRicetta.setNome(ricetta.getNome());
+			existingRicetta.setDescrizione(ricetta.getDescrizione());
+			save(existingRicetta);
+			return true;
+		}
+		return false;
+	}
 
-    // Registra una nuova ricetta con relativi file e ingredienti
-    @Transactional
-    public void registerRicetta(Ricetta ricetta, Long cuocoId, MultipartFile[] files, List<Long> ingredientiIds, List<String> quantitaList) throws IOException {
-        Cuoco cuoco = cuocoService.findById(cuocoId);
-        ricetta.setCuoco(cuoco);
+	// Cancella una ricetta se appartiene al cuoco dato
+	public void deleteRicetta(Long cuocoId, Long ricettaId) {
+		Ricetta ricetta = findById(ricettaId);
+		if (ricetta != null && ricetta.getCuoco().getId().equals(cuocoId)) {
+			deleteById(ricettaId);
+		}
+	}
 
-        List<String> urlsImages = handleFileUpload(files);
-        ricetta.setUrlsImages(urlsImages);
+	// Registra una nuova ricetta con relativi file e ingredienti
+	@Transactional
+	public void registerRicetta(Ricetta ricetta, Long cuocoId, MultipartFile[] files, List<Long> ingredientiIds,
+			List<String> quantitaList) throws IOException {
+		Cuoco cuoco = cuocoService.findById(cuocoId);
+		ricetta.setCuoco(cuoco);
 
-        List<RigaRicetta> righeRicetta = new ArrayList<>();
-        for (int i = 0; i < ingredientiIds.size(); i++) {
-            Ingrediente ingrediente = ingredienteService.findById(ingredientiIds.get(i));
-            if (ingrediente != null) {
-                RigaRicetta riga = new RigaRicetta();
-                riga.setIngrediente(ingrediente);
-                riga.setQuantita(quantitaList.get(i));
-                riga.setRicetta(ricetta);
-                righeRicetta.add(riga);
-            }
-        }
-        ricetta.setRigheRicetta(righeRicetta);
+		List<String> urlsImages = handleFileUpload(files);
+		ricetta.setUrlsImages(urlsImages);
 
-        save(ricetta);
-    }
+		List<RigaRicetta> righeRicetta = new ArrayList<>();
+		for (int i = 0; i < ingredientiIds.size(); i++) {
+			Ingrediente ingrediente = ingredienteService.findById(ingredientiIds.get(i));
+			if (ingrediente != null) {
+				RigaRicetta riga = new RigaRicetta();
+				riga.setIngrediente(ingrediente);
+				riga.setQuantita(quantitaList.get(i));
+				riga.setRicetta(ricetta);
+				righeRicetta.add(riga);
+			}
+		}
+		ricetta.setRigheRicetta(righeRicetta);
 
-    // Gestisce il caricamento dei file
-    private List<String> handleFileUpload(MultipartFile[] files) throws IOException {
-        List<String> urlsImages = new ArrayList<>();
-        for (MultipartFile file : files) {
-            if (!file.isEmpty()) {
-                String imageUrl = fileService.saveFile(file, UPLOAD_DIR);
-                urlsImages.add(imageUrl);
-            }
-        }
-        return urlsImages;
-    }
+		save(ricetta);
+	}
 
-    // Aggiorna una ricetta esistente con nuovi file e ingredienti
-    @Transactional
-    public void updateRicetta(Long id, Ricetta updatedRicetta, MultipartFile[] files, List<Long> ingredientiIds, List<String> quantitaList) throws IOException {
-        Ricetta existingRicetta = findById(id);
-        if (existingRicetta != null) {
-            existingRicetta.setNome(updatedRicetta.getNome());
-            existingRicetta.setDescrizione(updatedRicetta.getDescrizione());
+	// Gestisce il caricamento dei file
+	private List<String> handleFileUpload(MultipartFile[] files) throws IOException {
+		List<String> urlsImages = new ArrayList<>();
+		for (MultipartFile file : files) {
+			if (!file.isEmpty()) {
+				String imageUrl = fileService.saveFile(file, UPLOAD_DIR);
+				urlsImages.add(imageUrl);
+			}
+		}
+		return urlsImages;
+	}
 
-            if (files != null && files.length > 0 && !files[0].isEmpty()) {
-                List<String> urlsImages = handleFileUpload(files);
-                existingRicetta.setUrlsImages(urlsImages);
-            }
+	// Aggiorna una ricetta esistente con nuovi file e ingredienti
+	@Transactional
+	public void updateRicetta(Long id, Ricetta updatedRicetta, MultipartFile[] files, List<Long> ingredientiIds,
+			List<String> quantitaList) throws IOException {
+		Ricetta existingRicetta = findById(id);
+		if (existingRicetta != null) {
+			existingRicetta.setNome(updatedRicetta.getNome());
+			existingRicetta.setDescrizione(updatedRicetta.getDescrizione());
 
-            updateRigheRicetta(existingRicetta, ingredientiIds, quantitaList);
-            save(existingRicetta);
-        }
-    }
+			if (files != null && files.length > 0 && !files[0].isEmpty()) {
+				List<String> urlsImages = handleFileUpload(files);
+				existingRicetta.setUrlsImages(urlsImages);
+			}
 
-    // Aggiorna le righe della ricetta con i nuovi ingredienti e quantità
-    private void updateRigheRicetta(Ricetta existingRicetta, List<Long> ingredientiIds, List<String> quantitaList) {
-        List<RigaRicetta> existingRigheRicetta = existingRicetta.getRigheRicetta();
-        existingRigheRicetta.clear(); // Svuota la collezione esistente
+			updateRigheRicetta(existingRicetta, ingredientiIds, quantitaList);
+			save(existingRicetta);
+		}
+	}
 
-        for (int i = 0; i < ingredientiIds.size(); i++) {
-            Ingrediente ingrediente = ingredienteService.findById(ingredientiIds.get(i));
-            if (ingrediente != null) {
-                RigaRicetta riga = new RigaRicetta();
-                riga.setIngrediente(ingrediente);
-                riga.setQuantita(quantitaList.get(i));
-                riga.setRicetta(existingRicetta);
-                existingRigheRicetta.add(riga);
-            }
-        }
-    }
+	// Aggiorna le righe della ricetta con i nuovi ingredienti e quantità
+	private void updateRigheRicetta(Ricetta existingRicetta, List<Long> ingredientiIds, List<String> quantitaList) {
+		List<RigaRicetta> existingRigheRicetta = existingRicetta.getRigheRicetta();
+		existingRigheRicetta.clear(); // Svuota la collezione esistente
+
+		// Aggiungi le nuove righe della ricetta
+		for (int i = 0; i < ingredientiIds.size(); i++) {
+			Ingrediente ingrediente = ingredienteService.findById(ingredientiIds.get(i));
+			if (ingrediente != null) {
+				RigaRicetta riga = new RigaRicetta();
+				riga.setIngrediente(ingrediente);
+				riga.setQuantita(quantitaList.get(i));
+				riga.setRicetta(existingRicetta);
+				existingRigheRicetta.add(riga);
+			}
+		}
+
+	}
 }
