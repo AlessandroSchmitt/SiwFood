@@ -2,60 +2,59 @@
 <html lang="it">
 
 <head th:replace="~{fragments/header :: header(title='SiwFood - Ricetta')}">
-    <!-- Includi i file CSS di Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Includi i file CSS di Bootstrap -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Include la navbar -->
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
+	<!-- Include la navbar -->
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <div class="container mt-5">
-        <div class="text-center mb-5">
-        </div>
-        <div th:if="${ricetta}">
-            <h1 class="text-center mb-5" th:text="${ricetta.nome}">Lasagna</h1>
-            <div class="row mb-4">
-                <div class="col-md-6" th:each="urlImage : ${ricetta.urlsImages}">
-                    <img th:src="${urlImage}" class="img-fluid rounded-4 mb-3" style="border: 2px solid #ccc; padding: 5px; width: 430px;" />
-                </div>
-                <div class="col-md-6">
-                    <p class="text-justify" th:text="${ricetta.descrizione}"></p>
-                </div>
-            </div>
-        </div>
-        <div th:unless="${ricetta}" class="text-center text-danger font-weight-bold">
-            La ricetta richiesta non è disponibile.
-        </div>
+	<div class="container mt-5">
+		<div class="mt-5 mb-5"></div>
+		<div th:if="${ricetta}">
+			<div class="row mb-4">
+				<div class="col-md-4">
+					<img th:src="${ricetta.urlsImages[0]}" class="ricetta-img img-fluid rounded" alt="Immagine Ricetta">
+				</div>
+				<div class="col-md-8">
+					<h1 th:text="${ricetta.nome}">Lasagna</h1>
+					<p th:text="${ricetta.descrizione}"></p>
+				</div>
+			</div>
+		</div>
+		<div th:unless="${ricetta}" class="alert alert-danger text-center font-weight-bold">
+			La ricetta richiesta non è disponibile.
+		</div>
+	</div>
 
-        <div class="row">
-            <div class="col-12">
-                <h2 class="mb-4">Ingredienti</h2>
-                <div th:if="${ricetta.righeRicetta == null || ricetta.righeRicetta.isEmpty()}"
-                     class="alert alert-warning">
-                    Non ci sono ingredienti per la ricetta nel sistema
-                </div>
-                <div th:if="${ricetta.righeRicetta != null && !ricetta.righeRicetta.isEmpty()}">
-                    <div class="row">
-                        <div class="col-md-6" th:each="rigaRicetta : ${ricetta.righeRicetta}">
-                            <div class="ingredient-card">
-                                <h5 th:text="${rigaRicetta.ingrediente.nome}">Nome Ingrediente</h5>
-                                <p th:text="${rigaRicetta.quantita}"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row mx-5">
+		<div class="col-12 mb-5">
+			<h2 class="mb-4">Ingredienti</h2>
+			<div th:if="${ricetta.righeRicetta == null || ricetta.righeRicetta.isEmpty()}" class="alert alert-warning">
+				Non ci sono ingredienti per la ricetta nel sistema
+			</div>
+			<div th:if="${ricetta.righeRicetta != null && !ricetta.righeRicetta.isEmpty()}">
+				<div class="row">
+					<div class="col-md-6" th:each="rigaRicetta : ${ricetta.righeRicetta}">
+						<div class="ingredient-card">
+							<h5 th:text="${rigaRicetta.ingrediente.nome}">Nome Ingrediente</h5>
+							<p th:text="${rigaRicetta.quantita}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 
-    <!-- Include il footer -->
-    <div th:replace="~{fragments/footer :: footer}"></div>
+	<!-- Include il footer -->
+	<div th:replace="~{fragments/footer :: footer}"></div>
 
-    <!-- Includi gli script di Bootstrap e jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Includi gli script di Bootstrap e jQuery -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

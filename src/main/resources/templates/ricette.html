@@ -1,69 +1,84 @@
 <!DOCTYPE html>
 <html lang="it">
 
+<!-- Include l'header' -->
 <head th:replace="~{fragments/header :: header(title='SiwFood - Ricette')}"></head>
+
 <body>
-    <!-- Include la navbar -->
-    <div th:replace="~{fragments/navbar :: navbar}"></div>
+	<!-- Include la navbar -->
+	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <!-- Carosello per Ricette -->
-    <div class="container mt-5">
-        <h1 class="mb-4 text-center">Ricette</h1>
-        <div th:if="${ricette == null || ricette.isEmpty()}" class="alert alert-warning text-center">
-            Non ci sono ricette nel sistema
-        </div>
-        <div id="recipeCarousel" class="carousel slide mx-auto" style="max-width: 500px;" data-ride="carousel">
-            <div class="carousel-inner" style="max-height: 400px;">
-                <div th:each="ricetta, stat : ${ricette}"
-                    th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
-                    <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="d-block position-relative" style="height: 400px;">
-                        <img th:if="${ricetta.urlsImages != null && !ricetta.urlsImages.isEmpty()}" th:src="${ricetta.urlsImages[0]}" class="d-block w-100 h-100 rounded" style="object-fit: cover;" th:alt="'Slide ' + ${stat.count}">
-                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3 position-absolute bottom-0 start-50 translate-middle-x w-75">
-                            <h5 th:text="${ricetta.nome}" class="text-white mb-0"></h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only"></span>
-            </a>
-            <a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </a>
-        </div>
+	<!-- Carosello per Ricette -->
+	<div class="container mt-5">
+		<h1 class="mb-4 text-center">Ricette</h1>
 
-        <!-- Lista delle Ricette -->
-        <div class="mt-5">
-            <h2 class="text-center">Lista delle Ricette</h2>
-            <div class="card">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item p-0" th:each="ricetta : ${ricette}">
-                        <a th:href="@{'/ricetta/' + ${ricetta.id}}" class="text-decoration-none text-dark d-block">
-                            <div class="row align-items-center m-3">
-                                <div class="col-md-2">
-                                    <img th:src="${ricetta.urlsImages[0]}" class="img-fluid rounded" alt="Immagine Ricetta" style="width: 100px; height: 100px; object-fit: cover;">
-                                </div>
-                                <div class="col-md-10">
-                                    <h5 th:text="${ricetta.nome}"></h5>
-                                    <p class="mb-0" th:text="${ricetta.descrizione}"></p>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+		<div th:if="${ricette == null || ricette.isEmpty()}" class="alert alert-warning text-center">
+			Non ci sono ricette nel sistema
+		</div>
 
-    <!-- Include il footer -->
-    <div th:replace="~{fragments/footer :: footer}"></div>
+		<div id="recipeCarousel" class="carousel slide mx-auto" data-ride="carousel">
+			<div class="carousel-inner">
+				<!-- Cicla attraverso le ricette e crea un elemento del carosello per ciascuna -->
+				<div th:each="ricetta, stat : ${ricette}"
+					th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
 
-    <!-- Includi gli script di Bootstrap e jQuery -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+					<a th:href="@{'/ricetta/' + ${ricetta.id}}" class="carousel-height d-block position-relative">
+						<img th:if="${ricetta.urlsImages != null && !ricetta.urlsImages.isEmpty()}"
+							th:src="${ricetta.urlsImages[0]}" class="d-block w-100 h-100 rounded"
+							th:alt="'Slide ' + ${stat.count}">
+
+						<div
+							class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3 position-absolute bottom-0 start-50 translate-middle-x w-75">
+							<h5 th:text="${ricetta.nome}" class="text-white mb-0"></h5>
+							<!-- Mostra il nome della ricetta come didascalia -->
+						</div>
+					</a>
+				</div>
+			</div>
+			<!-- Controlli del carosello -->
+			<a class="carousel-control-prev" href="#recipeCarousel" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only"></span>
+			</a>
+			<a class="carousel-control-next" href="#recipeCarousel" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			</a>
+		</div>
+
+		<!-- Lista delle Ricette -->
+		<div class="mt-5 mb-5">
+			<h2 class="text-center">Lista delle Ricette</h2>
+
+			<div>
+				<ul class="list-group list-group-flush">
+					<!-- Cicla attraverso le ricette e crea un elemento della lista per ciascuna -->
+					<li class="list-group-item p-0" th:each="ricetta : ${ricette}">
+						<a th:href="@{'/ricetta/' + ${ricetta.id}}" class="text-decoration-none text-dark d-block">
+							<div class="row align-items-center m-3">
+								<div class="col-md-2">
+									<img th:src="${ricetta.urlsImages[0]}" class="img-fluid rounded"
+										alt="Immagine Ricetta">
+								</div>
+								<div class="col-md-10">
+									<h5 th:text="${ricetta.nome}"></h5>
+									<p class="mb-0" th:text="${ricetta.descrizione}"></p>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- Include il footer -->
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
+	<!-- Includi gli script di Bootstrap e jQuery -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

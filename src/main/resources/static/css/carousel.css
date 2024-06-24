@@ -1,5 +1,6 @@
 /* Carousel */
 .carousel {
+	max-width: 500px;
     border: 1px solid #ddd;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
@@ -14,6 +15,10 @@
     background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 5px;
+}
+
+.carousel-height{
+	height: 350px;
 }
 
 .carousel-control-prev-icon,

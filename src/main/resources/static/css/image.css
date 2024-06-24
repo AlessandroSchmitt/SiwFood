@@ -7,11 +7,14 @@
 }
 
 /* Cuoco Image */
-.cuoco-img {
+.cuoco-img,
+.ricetta-img {
     height: auto;
     object-fit: cover;
     border-radius: 10px;
     max-width: 100%;
+    border: 2px solid #ccc; 
+    padding: 5px;
 }
 
 .immagineIndice {

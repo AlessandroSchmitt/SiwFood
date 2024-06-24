@@ -10,16 +10,21 @@
     <!-- Carosello per Cuochi -->
     <div class="container mt-5">
         <h1 class="mb-4 text-center">Cuochi</h1>
+		
         <div th:if="${cuochi==null || cuochi.isEmpty()}" class="alert alert-warning">
             Non ci sono cuochi nel sistema
         </div>
-        <div id="recipeCarousel" class="carousel slide mx-auto" style="max-width: 500px;" data-ride="carousel">
-            <div class="carousel-inner" style="max-height: 400px;">
+		
+        <div id="recipeCarousel" class="carousel slide mx-auto" data-ride="carousel">
+            <div class="carousel-inner">
+				<!-- Cicla attraverso i cuochi e crea un elemento del carosello per ciascuno -->
                 <div th:each="cuoco, stat : ${cuochi}"
                     th:classappend="${stat.first} ? 'carousel-item active' : 'carousel-item'">
-                    <a th:href="@{'/cuoco/' + ${cuoco.id}}" class="d-block position-relative" style="height: 400px;">
-                        <img th:if="${cuoco.urlsImages != null and !cuoco.urlsImages.isEmpty()}" th:src="${cuoco.urlsImages[0]}" class="d-block w-100 h-100 rounded" style="object-fit: cover;"
+					
+                    <a th:href="@{'/cuoco/' + ${cuoco.id}}" class="carousel-height d-block position-relative">
+                        <img th:if="${cuoco.urlsImages != null and !cuoco.urlsImages.isEmpty()}" th:src="${cuoco.urlsImages[0]}" class="d-block w-100 h-100 rounded"
                             th:alt="'Slide ' + ${stat.count}">
+							
                         <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-3 position-absolute bottom-0 start-50 translate-middle-x w-75">
                             <h5 th:text="${cuoco.nome + ' ' + cuoco.cognome}" class="text-white mb-0"></h5>
                         </div>
@@ -37,15 +42,15 @@
         </div>
 
 		<!-- Lista dei Cuochi -->
-		<div class="mt-5">
+		<div class="mt-5 mb-5">
 		    <h2 class="text-center">Lista dei Cuochi</h2>
-		    <div class="card">
+		    <div>
 		        <ul class="list-group list-group-flush">
 		            <li class="list-group-item p-0" th:each="cuoco : ${cuochi}">
 		                <a th:if="${cuoco.urlsImages != null and !cuoco.urlsImages.isEmpty()}" th:href="@{'/cuoco/' + ${cuoco.id}}" class="text-decoration-none text-dark d-block">
 		                    <div class="row align-items-center m-3">
 		                        <div class="col-md-2">
-		                            <img th:src="${cuoco.urlsImages[0]}" class="img-fluid rounded" alt="Immagine Cuoco" style="width: 100px; height: 100px; object-fit: cover;">
+		                            <img th:src="${cuoco.urlsImages[0]}" class="img-fluid rounded" alt="Immagine Cuoco" >
 		                        </div>
 		                        <div class="col-md-10">
 		                            <h5 th:text="${cuoco.nome + ' ' + cuoco.cognome}"></h5>
