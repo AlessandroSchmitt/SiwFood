@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="it">
 
+<!-- Include l'header -->
+
 <head th:replace="~{fragments/header :: header(title='SiwFood - Admin')}"></head>
 
-<body style="background: #e6e2dc; background-image: url('/images/sfondo.jpeg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+<body class="sfondoBody">
 	<!-- Include la navbar -->
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 	<!-- Corpo principale della pagina -->
-	<div class="container mt-5 vh-50" style="max-width: 600px; margin: 0 auto; padding: 20px;">
+	<div class="containerAdmin mt-5 mb-5 vh-50">
 		<h1 class="text-center">
 			Benvenuto nella sezione Admin di SiwFood
-			<img src="/images/attrezzi.png" alt="Attrezzi" style="width: 40px; height: auto; margin-left: 10px;">
+			<img src="/images/attrezzi.png" alt="Attrezzi" class="icone">
 		</h1>
-		<div class="accordion" id="adminAccordion"
-			style="border: 1px solid #ddd; border-radius: 8px; background-color: #f8f9fa;">
+		<div class="accordion" id="adminAccordion">
 			<!-- Gestione Cuochi -->
-			<div class="accordion-item" style="border-bottom: 1px solid #ddd;">
+			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingCuochi">
 					<button class="accordion-button" type="button" data-bs-toggle="collapse"
-						data-bs-target="#collapseCuochi" aria-expanded="true" aria-controls="collapseCuochi"
-						style="font-weight: bold; display: flex; justify-content: center; text-align: center; padding: 10px 20px; background-color: #e9ecef;">
+						data-bs-target="#collapseCuochi" aria-expanded="true" aria-controls="collapseCuochi">
 						Gestione Cuochi
 					</button>
 				</h2>
 				<div id="collapseCuochi" class="accordion-collapse collapse show" aria-labelledby="headingCuochi"
 					data-bs-parent="#adminAccordion">
-					<div class="accordion-body" style="padding: 15px; background-color: rgb(242, 240, 238);">
-						<a href="/admin/new/cuoco" class="btn btn-primary w-100 mb-2" style="padding: 10px 0;">Aggiungi
+					<div class="accordion-body">
+						<a href="/admin/new/cuoco" class="btn btn-primary w-100 mb-2">Aggiungi
 							Nuovo Cuoco</a>
-						<a href="/admin/indexUpdateCuoco" class="btn btn-primary w-100"
-							style="padding: 10px 0;">Visualizza Cuochi</a>
+						<a href="/admin/indexUpdateCuoco" class="btn btn-primary w-100">Visualizza Cuochi</a>
 					</div>
 				</div>
 			</div>
@@ -38,32 +37,30 @@
 			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingIngredienti">
 					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-						data-bs-target="#collapseIngredienti" aria-expanded="false" aria-controls="collapseIngredienti"
-						style="font-weight: bold; display: flex; justify-content: center; text-align: center; padding: 10px 20px; background-color: #e9ecef;">
+						data-bs-target="#collapseIngredienti" aria-expanded="false" aria-controls="collapseIngredienti">
 						Gestione Ingredienti
 					</button>
 				</h2>
 				<div id="collapseIngredienti" class="accordion-collapse collapse" aria-labelledby="headingIngredienti"
 					data-bs-parent="#adminAccordion">
-					<div class="accordion-body" style="padding: 15px; background-color: rgb(242, 240, 238);">
-						<a href="/admin/aggiungiIngredienti" class="btn btn-primary w-100 mb-2"
-							style="padding: 10px 0;">Aggiungi Nuovo Ingrediente</a>
+					<div class="accordion-body">
+						<a href="/admin/aggiungiIngredienti" class="btn btn-primary w-100 mb-2">Aggiungi Nuovo Ingrediente</a>
 					</div>
 				</div>
 			</div>
 			<!-- Gestione Ricette -->
-			<div class="accordion-item" style="border-bottom: 1px solid #ddd;">
+			<div class="accordion-item">
 				<h2 class="accordion-header" id="headingRicette">
 					<button class="accordion-button" type="button" data-bs-toggle="collapse"
-						data-bs-target="#collapseRicette" aria-expanded="true" aria-controls="collapseRicette"
-						style="font-weight: bold; display: flex; justify-content: center; text-align: center; padding: 10px 20px; background-color: #e9ecef;">
+						data-bs-target="#collapseRicette" aria-expanded="true" aria-controls="collapseRicette">
 						Gestione Ricette
 					</button>
 				</h2>
 				<div id="collapseRicette" class="accordion-collapse collapse show" aria-labelledby="headingRicette"
 					data-bs-parent="#adminAccordion">
-					<div class="accordion-body" style="padding: 15px; background-color: rgb(242, 240, 238);">
-						<a href="/admin/tutteRicette" class="btn btn-primary w-100" style="padding: 10px 0;">Visualizza Ricette</a>
+					<div class="accordion-body">
+						<a href="/admin/tutteRicette" class="btn btn-primary w-100">Visualizza
+							Ricette</a>
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
 
+<!-- Include l'header -->
 <head th:replace="~{fragments/header :: header(title='SiwFood - Homepage')}"></head>
 
 <body>
@@ -13,9 +14,11 @@
 				<div class="col-md-6 d-flex justify-content-center">
 					<div class="text-center">
 						<div class="text-center mt-5">
-							<img src="/images/logo.jpeg" class="rounded-4 img-fluid mb-4 logo-hover" alt="Logo SiwFood"
-								style="width: 30%; max-width: 350px;">
-							<p class="lead mb-4" style="text-align: justify;">
+							<!-- Logo del sito -->
+							<img src="/images/logo.jpeg" class="immagineIndice rounded-4 img-fluid mb-4 logo-hover"
+								alt="Logo SiwFood">
+							<!-- Descrizione del sito -->
+							<p class="lead mb-4 text-justify">
 								Scoprite l'arte di trasformare ogni ingrediente in un'opera d'arte culinaria, dove la
 								semplicità si eleva alla perfezione e ogni piatto diventa un affascinante racconto di
 								sapori, aromi e texture. In questo spazio, celebreremo insieme l'essenza di una cucina
@@ -29,16 +32,15 @@
 						</div>
 					</div>
 				</div>
+				<!-- Bottoni per accedere alle pagine: Ricette e Cuochi -->
 				<div class="text-center mt-4 mb-5">
 					<a class="btn btn-primary btn-lg" href="/ricette" role="button">
 						Ricette
-						<img src="/images/forchetta.png" alt="Forchetta"
-							style="width: 20px; height: 20px; margin-left: 5px;">
+						<img class="icone" src="/images/forchetta.png" alt="Forchetta">
 					</a>
 					<a class="btn btn-success btn-lg" href="/cuochi" role="button">
 						Cuochi
-						<img src="/images/cappello.png" alt="Cappello da Chef"
-							style="width: 20px; height: 20px; margin-left: 5px;">
+						<img src="/images/cappello.png" alt="Cappello da Chef" class="icone">
 					</a>
 				</div>
 			</div>
@@ -53,33 +55,34 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<p>
-				Benvenuti su SiwFood! 
-				Questo sito vi permette di consultare cuochi e le relative ricette, nel caso anche voi voleste condividere le vostre creazioni.. aggiungere le vostre ricette e gestire i vostri ingredienti. 
+				Benvenuti su SiwFood!
+				Questo sito vi permette di consultare cuochi e le relative ricette, nel caso anche voi voleste
+				condividere le vostre creazioni.. aggiungere le vostre ricette e gestire i vostri ingredienti.
 				cosa aspettate fate subito la registrazione e travestitevi da cuochi!!
-				Vi invitiamo a rispettare le regole del sito: non condividete contenuti offensivi o inappropriati e 
-				assicuratevi di mantenere un comportamento rispettoso verso tutti gli utenti. 
+				Vi invitiamo a rispettare le regole del sito: non condividete contenuti offensivi o inappropriati e
+				assicuratevi di mantenere un comportamento rispettoso verso tutti gli utenti.
 				Grazie e buon divertimento!
 			</p>
 			<button id="ok-button" class="btn btn-primary">OK</button>
 		</div>
 	</div>
 
-	<!-- Optional JavaScript -->
+	<!-- JavaScript per gestione del modale -->
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
 			var modal = document.getElementById("rules-modal");
 			var span = document.getElementsByClassName("close")[0];
 			var okButton = document.getElementById("ok-button");
 
-			// Mostra il modale automaticamente al caricamento della pagina
+			// Mostra il modale al caricamento della pagina
 			modal.style.display = "block";
 
-			span.onclick = function () {
-				modal.style.display = "none";
-			}
+			// Chiudi il modale quando si clicca sul bottone 'OK'
 			okButton.onclick = function () {
 				modal.style.display = "none";
 			}
+
+			// Chiudi il modale quando si clicca fuori dal modale
 			window.onclick = function (event) {
 				if (event.target == modal) {
 					modal.style.display = "none";
@@ -88,12 +91,13 @@
 		})
 	</script>
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-		integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1" crossorigin="anonymous">
-	</script>
+	<!-- Includi librerie JavaScript necessarie -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
+		integrity="sha384-L2j5YpXvGOsj6zU6+49axwFeVQxwOrCdEaeJIpK7oXaIxpTtmKxaL3CZVCG+ABm1"
+		crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/dist/umd/popper.min.js"
-		integrity="sha384-lOUI+NRDwAS0FqNkuHSzpJvDkpZ4P97XjWehoGQnoa7eS+bv3WumZNnq6q5nqdJX" crossorigin="anonymous">
-	</script>
+		integrity="sha384-lOUI+NRDwAS0FqNkuHSzpJvDkpZ4P97XjWehoGQnoa7eS+bv3WumZNnq6q5nqdJX"
+		crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha384-XXXXXX"
 		crossorigin="anonymous"></script>
 </body>
