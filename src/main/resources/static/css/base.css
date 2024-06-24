@@ -16,6 +16,19 @@ body {
 	background-attachment: fixed;
 }
 
+.loginBody,
+.registerBody{
+	background-image: url('/images/sfondo.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
 html,
 body {
 	height: 100%;

@@ -6,28 +6,9 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <style>
-        body {
-            background-image: url('/images/sfondo.jpeg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .form-container {
-            background-color: rgb(242, 240, 238);
-            padding: 1rem;
-            border-radius: 10px;
-        }
-    </style>
-    <div class="form-container">
-        <h2 class="mb-4" style="font-size: 1.5rem;">Login</h2>
+<body class="loginBody">
+    <div class="login-container">
+        <h2 class="mb-4 text-center">Login</h2>
         <form th:action="@{/login}" method="post">
             <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
