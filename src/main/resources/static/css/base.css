@@ -55,6 +55,41 @@ a {
 	padding: 20px;
 }
 
+.colonnaIngredienti{
+	flex: 0 0 48%; 
+	max-width: 48%;
+}
+
+.containerTitle{
+	background-color: #3d5048; 
+	color: white;
+	padding: 10px; 
+	border-radius: 5px;
+}
+
+.divisoreVerticale{
+	border-left: 1px solid rgba(0, 0, 0, 0.1); 
+	height: 100%;
+}
+
+.divisoreVerticale2{
+	flex: 0 0 4%; 
+	max-width: 4%;
+}
+
+.checkButton{
+	position: absolute; bottom: 10px;
+	 left: 10px; width: 20px; height: 20px; 
+	 background-color: #28a745; 
+	 border: none; 
+	 border-radius: 4px; 
+	 color: white; 
+	 font-size: 10px; 
+	 display: flex; 
+	 align-items: center; 
+	justify-content: center;
+}
+
 .accordion{
 	border: 1px solid #ddd; 
 	border-radius: 8px; 

@@ -4,12 +4,12 @@
 <head th:replace="fragments/header :: header('Aggiungi Ingrediente')">
 </head>
 
-<body style="background: #e6e2dc; background-image: url('/images/sfondo.jpeg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+<body class="sfondoBody">
 	<!-- Include la navbar dal frammento specificato -->
 	<div th:replace="fragments/navbar :: navbar"></div>
 	<div class="container mt-5 mb-5 d-flex justify-content-center">
-		<div class="form-container" style="max-width: 600px; width: 100%; padding: 20px; background-color: #f8f9fa; border-radius: 8px; position: relative;">
-			<h2 class="text-center mb-4" style="background-color: #3d5048; color: white; padding: 10px; border-radius: 5px;">Aggiungi Ingredienti</h2>
+		<div class="form-container2">
+			<h2 class="text-center mb-4 containerTitle">Aggiungi Ingredienti</h2>
 			<div class="row justify-content-center">
 				<div class="col-md-10">
 					<!-- Form per l'aggiunta degli ingredienti -->
@@ -21,7 +21,7 @@
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="nome-0" name="ingredienti" placeholder="Nome del nuovo ingrediente" required>
 									<div class="input-group-append">
-										<button class="btn btn-danger remove-ingrediente ms-3" type="button" onclick="eliminaIngrediente(this)" style="border-radius: 50%; width: 40px; height: 40px;">
+										<button class="btn btn-danger remove-ingrediente ms-3" type="button" onclick="eliminaIngrediente(this)">
 											<img src="/images/differenza.svg" alt="Remove" style="filter: invert(100%);">
 										</button>
 									</div>
@@ -30,12 +30,12 @@
 						</div>
 						<div class="text-center">
 							<!-- Bottone per aggiungere un altro ingrediente -->
-							<button type="button" class="btn btn-primary mt-3" onclick="aggiungiIngrediente()" style="border: none; background: none; padding: 0;">
-								<img src="/images/somma.svg" alt="Aggiungi" style="border-radius: 50%; width: 40px; height: 40px;">
+							<button type="button" class="btn mt-3" onclick="aggiungiIngrediente()" >
+								<img src="/images/somma.svg" alt="Aggiungi" class="icone">
 							</button>
 						</div>
 						<!-- Bottone per salvare gli ingredienti -->
-						<button type="submit" style="position: absolute; bottom: 10px; left: 10px; width: 20px; height: 20px; background-color: #28a745; border: none; border-radius: 4px; color: white; font-size: 10px; display: flex; align-items: center; justify-content: center;">✔</button>
+						<button type="submit" class="checkButton">✔</button>
 					</form>
 
 					<form th:if="${ruolo != 'ADMIN'}" th:action="@{/aggiungiIngredienti}" method="post">
@@ -46,7 +46,7 @@
 								<div class="input-group mb-3">
 									<input type="text" class="form-control" id="nome-0" name="ingredienti" placeholder="Nome del nuovo ingrediente" required>
 									<div class="input-group-append">
-										<button class="btn btn-danger remove-ingrediente ms-3" type="button" onclick="eliminaIngrediente(this)" style="border-radius: 50%; width: 40px; height: 40px;">
+										<button class="btn btn-danger remove-ingrediente ms-3" type="button" onclick="eliminaIngrediente(this)">
 											<img src="/images/differenza.svg" alt="Remove" style="filter: invert(100%);">
 										</button>
 									</div>
@@ -55,12 +55,12 @@
 						</div>
 						<div class="text-center">
 							<!-- Bottone per aggiungere un altro ingrediente -->
-							<button type="button" class="btn btn-primary mt-3" onclick="aggiungiIngrediente()" style="border: none; background: none; padding: 0;">
-								<img src="/images/somma.svg" alt="Aggiungi" style="border-radius: 50%; width: 40px; height: 40px;">
+							<button type="button" class="btn mt-3" onclick="aggiungiIngrediente()">
+								<img src="/images/somma.svg" alt="Aggiungi" class="icone">
 							</button>
 						</div>
 						<!-- Bottone per salvare gli ingredienti -->
-						<button type="submit" style="position: absolute; bottom: 10px; left: 10px; width: 20px; height: 20px; background-color: #28a745; border: none; border-radius: 4px; color: white; font-size: 10px; display: flex; align-items: center; justify-content: center;">✔</button>
+						<button type="submit" class="checkButton">✔</button>
 					</form>
 				</div>
 			</div>
@@ -87,7 +87,7 @@
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" id="nome-${ingredienteIndex}" name="ingredienti" placeholder="Nome del nuovo ingrediente" required>
 					<div class="input-group-append">
-						<button class="btn btn-danger remove-ingrediente ms-3" type="button" onclick="eliminaIngrediente(this)" style="border-radius: 50%; width: 40px; height: 40px;">
+						<button class="btn btn-danger remove-ingrediente ms-3" type="button" onclick="eliminaIngrediente(this)">
 							<img src="/images/differenza.svg" alt="Remove" style="filter: invert(100%);">
 						</button>
 					</div>

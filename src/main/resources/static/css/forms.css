@@ -21,6 +21,15 @@
     margin-bottom: 1.5rem;
 }
 
+.form-container2{
+	 max-width: 600px;
+	 width: 100%; 
+	 padding: 20px; 
+	 background-color: #f8f9fa; 
+	 border-radius: 8px; 
+	 position: relative;
+}
+
 .login-container {
     background-color: rgb(242, 240, 238);
     padding: 1rem;
