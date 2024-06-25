@@ -6,12 +6,12 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body style="background: #e6e2dc; background-image: url('/images/sfondo.jpeg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+<body class="sfondoBody">
 	<!-- Include la navbar -->
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-	<div class="container form-container mt-5 mb-5" style="background-color: rgb(242, 240, 238);">
-		<h2 class="text-center mb-4">Modifica Cuoco</h2>
+	<div class="container form-container mt-5 mb-5" style="background-color: whitesmoke">
+		<h3 class="text-center mb-4 containerTitle">Modifica Cuoco</h3>
 		<form th:action="@{/admin/update/cuoco/{id}(id=${cuoco.id})}" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<!-- Colonna Modifica Cuoco -->
@@ -40,7 +40,7 @@
 					<div class="card mb-4">
 						<div class="card-body p-0">
 							<div class="image-container overflow-hidden">
-								<img th:src="${cuoco.urlsImages[0]}" class="img-fluid rounded" style="object-fit: cover; object-position: top;" alt="Immagine Cuoco" />
+								<img th:src="${cuoco.urlsImages[0]}" class="img-fluid rounded" alt="Immagine Cuoco" />
 							</div>
 						</div>
 					</div>

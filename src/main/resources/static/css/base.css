@@ -67,6 +67,12 @@ a {
 	border-radius: 5px;
 }
 
+.containerNuovoCuoco{
+	background-color: whitesmoke; 
+	width: 60%; 
+	margin: auto;
+}
+
 .divisoreVerticale{
 	border-left: 1px solid rgba(0, 0, 0, 0.1); 
 	height: 100%;

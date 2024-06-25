@@ -3,7 +3,7 @@
 
 <head th:replace="~{fragments/header :: header(title='SiwFood - Gestione Ricette')}"></head>
 
-<body  style="background: #e6e2dc; background-image: url('/images/sfondo.jpeg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+<body  class="sfondoBody">
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 	<div class="container mt-3" style="max-width: 800px;"> <!-- Limita la larghezza del contenitore -->
@@ -30,7 +30,7 @@
 							</div>
 						</td>
 						<td style="width: 50%;">
-							<h6 style="font-size: 0.8rem;" th:text="${ricetta.nome}">Nome Ricetta</h6>
+							<h6 th:text="${ricetta.nome}">Nome Ricetta</h6>
 						</td>
 						<td style="width: 20%;">
 							<div class="d-flex justify-content-between">

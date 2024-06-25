@@ -5,13 +5,13 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body  style="background: #e6e2dc; background-image: url('/images/sfondo.jpeg'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed;">
+<body class="sfondoBody">
 	<!-- Include la navbar -->
 	<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-	<div class="container form-container d-flex justify-content-center align-items-center mt-5 mb-5 vh-50" style="background-color: #f8f9fa; width: 60%; margin: auto;">
+	<div class="container mt-5 mb-5 form-container d-flex justify-content-center align-items-center containerNuovoCuoco">
 		<div class="col-md-8">
-			<h2 class="text-center mb-4">Aggiungi Nuovo Cuoco</h2>
+			<h3 class="text-center mb-4 containerTitle">Aggiungi Nuovo Cuoco</h3>
 			<form th:action="@{/admin/new/cuoco}" method="post" enctype="multipart/form-data" onsubmit="return validatePasswords()">
 				<div class="row">
 					<div class="col-md-6">
