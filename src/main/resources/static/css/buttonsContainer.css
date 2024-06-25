@@ -43,3 +43,28 @@
 .form-container .btn-primary:hover {
     background-color: #b0c4de !important;
 }
+
+.containerCuoco, 
+.containerAdmin{
+	max-width: 700px; 
+	margin: 0 auto; 
+	padding: 20px;
+}
+
+.colonnaIngredienti{
+	flex: 0 0 48%; 
+	max-width: 48%;
+}
+
+.containerTitle{
+	background-color: #3d5048; 
+	color: white;
+	padding: 10px; 
+	border-radius: 5px;
+}
+
+.containerNuovoCuoco{
+	background-color: whitesmoke; 
+	width: 60%; 
+	margin: auto;
+}

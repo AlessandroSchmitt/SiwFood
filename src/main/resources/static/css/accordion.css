@@ -1,0 +1,23 @@
+.accordion{
+	border: 1px solid #ddd; 
+	border-radius: 8px; 
+	background-color: #f8f9fa;
+}
+
+.accordion-button{
+	font-weight: bold; 
+	display: flex; 
+	justify-content: center; 
+	text-align: center; 
+	padding: 10px 20px; 
+	background-color: #e9ecef;
+}
+
+.accordion-item{
+	border-bottom: 1px solid #ddd;
+}
+
+.accordion-body{
+	padding: 15px; 
+	background-color: #f8f9fa;
+}

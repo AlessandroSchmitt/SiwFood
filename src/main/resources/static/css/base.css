@@ -48,31 +48,6 @@ a {
 	background-attachment: fixed;
 }
 
-.containerCuoco, 
-.containerAdmin{
-	max-width: 700px; 
-	margin: 0 auto; 
-	padding: 20px;
-}
-
-.colonnaIngredienti{
-	flex: 0 0 48%; 
-	max-width: 48%;
-}
-
-.containerTitle{
-	background-color: #3d5048; 
-	color: white;
-	padding: 10px; 
-	border-radius: 5px;
-}
-
-.containerNuovoCuoco{
-	background-color: whitesmoke; 
-	width: 60%; 
-	margin: auto;
-}
-
 .divisoreVerticale{
 	border-left: 1px solid rgba(0, 0, 0, 0.1); 
 	height: 100%;
@@ -94,28 +69,4 @@ a {
 	 display: flex; 
 	 align-items: center; 
 	justify-content: center;
-}
-
-.accordion{
-	border: 1px solid #ddd; 
-	border-radius: 8px; 
-	background-color: #f8f9fa;
-}
-
-.accordion-button{
-	font-weight: bold; 
-	display: flex; 
-	justify-content: center; 
-	text-align: center; 
-	padding: 10px 20px; 
-	background-color: #e9ecef;
-}
-
-.accordion-item{
-	border-bottom: 1px solid #ddd;
-}
-
-.accordion-body{
-	padding: 15px; 
-	background-color: #f8f9fa;
 }
