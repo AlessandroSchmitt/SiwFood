@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="it">
 
-<head th:replace="fragments/header :: header('Aggiungi Ricetta')"></head>
+<head th:replace="~{fragments/header :: header('Aggiungi Ricetta')}"></head>
 
 <body class="sfondoBody">
     <!-- Includi la navbar dal frammento specificato -->
-    <div th:replace="fragments/navbar :: navbar"></div>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
     <!-- Contenitore principale per il form -->
     <div class="container mt-5 mb-5 containerCuoco form-container">
         <h3 class="text-center mb-4 containerTitle">Aggiungi Ricetta</h3>
@@ -82,7 +82,7 @@
     </div>
 
     <!-- Includi il footer dal frammento specificato -->
-    <div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
 
     <!-- Script per la gestione dinamica degli ingredienti -->
     <script>

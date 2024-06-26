@@ -3,6 +3,8 @@ package it.uniroma3.siw.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,19 +20,19 @@ import it.uniroma3.siw.service.RicettaService;
 
 @Controller
 public class RicettaController {
-	
+
     @Autowired
     private RicettaService ricettaService;
     @Autowired
     private IngredienteService ingredienteService;
-    
+
     // Visualizza tutte le ricette
     @GetMapping("/ricette")
     public String showRicette(Model model) {
         model.addAttribute("ricette", ricettaService.findAll());
         return "ricette"; 
     }
-    
+
     // Visualizza una singola ricetta in base all'ID
     @GetMapping("/ricetta/{id}")
     public String getRicetta(@PathVariable("id") Long id, Model model) {
@@ -41,47 +43,48 @@ public class RicettaController {
         }
         return "redirect:/ricette";
     }
-    
+
     // Visualizza tutte le ricette per l'amministratore
     @GetMapping("/admin/ricette")
     public String indexRicette(Model model) {
         model.addAttribute("ricette", ricettaService.findAll());
         return "admin/ricette";
     }
-    
+
     // Visualizza le ricette del cuoco
     @GetMapping("/cuoco/ricetteCuoco")
     public String showLeMieRicette(Model model) {
         model.addAttribute("ricette", ricettaService.findAll());
         return "cuoco/ricetteCuoco";
     }
-    
- // Elimina una ricetta in base all'ID
+
+    // Elimina una ricetta in base all'ID
     @PostMapping("/delete/ricetta/{id}")
     public String deleteRicetta(@PathVariable("id") Long id) {
         ricettaService.deleteById(id);
         return "redirect:/cuoco/ricetteCuoco";
     }
-    
-    
-    //admin visualizza tutte le ricette
+
+    // Admin visualizza tutte le ricette
     @GetMapping("/admin/tutteRicette")
-	public String tutteRicette(Model model) {
-		model.addAttribute("ricette", ricettaService.findAll());
-		return "admin/tutteRicette";
-	}
-    
-    //l'admin elimina una ricetta in basse all'ID
+    public String tutteRicette(Model model) {
+        model.addAttribute("ricette", ricettaService.findAll());
+        return "admin/tutteRicette";
+    }
+
+    // Admin elimina una ricetta in base all'ID
     @PostMapping("/admin/delete/ricetta/{id}")
-	public String deleteRicettaByAdmin(@PathVariable("id") Long id) {
-		ricettaService.deleteById(id);
-		return "redirect:/admin/tutteRicette";
-	}
-    
+    public String deleteRicettaByAdmin(@PathVariable("id") Long id) {
+        ricettaService.deleteById(id);
+        return "redirect:/admin/tutteRicette";
+    }
+
     // Mostra il form per aggiungere una nuova ricetta
     @GetMapping("/cuoco/aggiungiRicetta")
     public String aggiungiRicetta(Model model) {
-        List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+        List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
+                .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
+                .collect(Collectors.toList());
         model.addAttribute("ingredienti", ingredienti);
 
         if (ingredienti.isEmpty()) {
@@ -96,12 +99,23 @@ public class RicettaController {
     @PostMapping("/cuoco/aggiungiRicetta")
     public String aggiungiRicetta(@ModelAttribute("ricetta") Ricetta ricetta, BindingResult ricettaBindingResult,
                                   @RequestParam("fileImages") MultipartFile[] files, @RequestParam("cuocoId") Long cuocoId,
-                                  @RequestParam("ingredientiIds") List<Long> ingredientiIds,
-                                  @RequestParam("quantita") List<String> quantitaList, Model model) {
+                                  @RequestParam(value = "ingredientiIds", required = false) List<Long> ingredientiIds,
+                                  @RequestParam(value = "quantita", required = false) List<String> quantitaList, Model model) {
         if (ricettaBindingResult.hasErrors()) {
-            List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+            List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
+                    .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
+                    .collect(Collectors.toList());
             model.addAttribute("ingredienti", ingredienti);
             return "cuoco/aggiungiRicetta";
+        }
+
+        // Verifica se ingredientiIds e quantitaList sono null o vuoti
+        if (ingredientiIds == null) {
+            ingredientiIds = new ArrayList<>();
+        }
+
+        if (quantitaList == null) {
+            quantitaList = new ArrayList<>();
         }
 
         try {
@@ -112,25 +126,29 @@ public class RicettaController {
             return "cuoco/aggiungiRicetta";
         }
     }
-    
+
     // Mostra il form per modificare una ricetta esistente
     @GetMapping("/update/ricetta/{id}")
     public String modificaRicetta(@PathVariable("id") Long id, Model model) {
         Ricetta ricetta = ricettaService.findById(id);
-        List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+        List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
+                .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
+                .collect(Collectors.toList());
         model.addAttribute("ricetta", ricetta);
         model.addAttribute("ingredienti", ingredienti);
         return "cuoco/modificaRicetta";
     }
 
- // Gestisce l'invio del form per modificare una ricetta esistente
+    // Gestisce l'invio del form per modificare una ricetta esistente
     @PostMapping("/update/ricetta/{id}")
     public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute("ricetta") Ricetta ricetta,
                                 BindingResult ricettaBindingResult, @RequestParam("fileImages") MultipartFile[] files,
                                 @RequestParam(value = "ingredientiIds", required = false) List<Long> ingredientiIds,
                                 @RequestParam(value = "quantita", required = false) List<String> quantitaList, Model model) {
         if (ricettaBindingResult.hasErrors()) {
-            List<Ingrediente> ingredienti = (List<Ingrediente>) ingredienteService.findAll();
+            List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
+                    .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
+                    .collect(Collectors.toList());
             model.addAttribute("ingredienti", ingredienti);
             return "cuoco/modificaRicetta";
         }

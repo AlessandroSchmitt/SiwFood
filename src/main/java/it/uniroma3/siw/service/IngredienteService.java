@@ -20,12 +20,18 @@ public class IngredienteService {
     }
 
     // Aggiunge una lista di ingredienti
-    public void aggiungiIngredienti(List<String> ingredienti) {
+    public boolean aggiungiIngredienti(List<String> ingredienti) {
+        boolean tuttiAggiunti = true;
         for (String nomeIngrediente : ingredienti) {
-            Ingrediente ingrediente = new Ingrediente();
-            ingrediente.setNome(nomeIngrediente);
-            ingredienteRepository.save(ingrediente);
+            if (ingredienteRepository.findByNome(nomeIngrediente).isPresent()) {
+                tuttiAggiunti = false;
+            } else {
+                Ingrediente ingrediente = new Ingrediente();
+                ingrediente.setNome(nomeIngrediente);
+                ingredienteRepository.save(ingrediente);
+            }
         }
+        return tuttiAggiunti;
     }
     
     // Trova un ingrediente per ID

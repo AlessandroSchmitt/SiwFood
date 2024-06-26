@@ -16,19 +16,19 @@ public class CredenzialiService {
     @Autowired
     protected PasswordEncoder passwordEncoder;
     @Autowired
-    protected CredenzialiRepository credentialsRepository;
+    protected CredenzialiRepository credenzialiRepository;
 
     // Recupera le credenziali per ID
     @Transactional
     public Credenziali getCredentiziali(Long id) {
-        Optional<Credenziali> result = this.credentialsRepository.findById(id);
+        Optional<Credenziali> result = this.credenzialiRepository.findById(id);
         return result.orElse(null);
     }
 
     // Recupera le credenziali per nome utente
     @Transactional
     public Credenziali getCredenziali(String username) {
-        Optional<Credenziali> result = this.credentialsRepository.findByUsername(username);
+        Optional<Credenziali> result = this.credenzialiRepository.findByUsername(username);
         return result.orElse(null);
     }
 
@@ -37,6 +37,6 @@ public class CredenzialiService {
     public Credenziali saveCredenziali(Credenziali credentials) {
         credentials.setRuolo(Credenziali.COUCO_ROLE);
         credentials.setPassword(this.passwordEncoder.encode(credentials.getPassword()));
-        return this.credentialsRepository.save(credentials);
+        return this.credenzialiRepository.save(credentials);
     }
 }

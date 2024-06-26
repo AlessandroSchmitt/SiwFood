@@ -29,7 +29,11 @@ public class IngredienteController {
 
     @PostMapping("/aggiungiIngredienti")
     public String aggiungiIngrediente(@RequestParam("ingredienti") List<String> ingredienti, Model model) {
-        ingredienteService.aggiungiIngredienti(ingredienti);
+        boolean tuttiAggiunti = ingredienteService.aggiungiIngredienti(ingredienti);
+        if (!tuttiAggiunti) {
+            model.addAttribute("errore", "Alcuni ingredienti esistono già nel database. aggiunti solo gli ingredienti non presenti");
+            return "aggiungiIngredienti";
+        }
         return "redirect:/cuoco/aggiungiRicetta";
     }
     
@@ -40,7 +44,11 @@ public class IngredienteController {
 
     @PostMapping("/admin/aggiungiIngredienti")
     public String aggiungiIngredienteAdmin(@RequestParam("ingredienti") List<String> ingredienti, Model model) {
-        ingredienteService.aggiungiIngredienti(ingredienti);
+        boolean tuttiAggiunti = ingredienteService.aggiungiIngredienti(ingredienti);
+        if (!tuttiAggiunti) {
+            model.addAttribute("errore", "Alcuni ingredienti esistono già nel database. aggiunti solo gli ingredienti non presenti");
+            return "aggiungiIngredienti";
+        }
         return "redirect:/admin/indexAdmin";
     }
 }
