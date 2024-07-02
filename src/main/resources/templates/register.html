@@ -12,12 +12,13 @@
 				<div class="register-container">
 					<form id="registrationForm" th:action="@{/register}" method="post" th:object="${credenziali}"
 						enctype="multipart/form-data" onsubmit="return validatePasswords();">
+						<div th:if="${#fields.hasGlobalErrors()}">
+							<div class="alert alert-danger text-center" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-md-6">
-								<div th:if="${#fields.hasGlobalErrors()}">
-									<div class="alert alert-danger" th:each="err : ${#fields.globalErrors()}"
-										th:text="${err}"></div>
-								</div>
+
 								<div class="form-floating mb-3">
 									<input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
 										required>

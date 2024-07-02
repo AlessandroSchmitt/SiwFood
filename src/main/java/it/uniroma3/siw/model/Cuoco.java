@@ -10,6 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 @Entity
 public class Cuoco {
@@ -17,16 +20,20 @@ public class Cuoco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column(nullable = false)
+	@NotBlank
 	private String nome;
-	@Column(nullable = false)
+	@NotBlank
 	private String cognome;
+
+	@Column(length = 2000)
 	private String descrizione;
+	@Past
+	@NotNull
 	private LocalDate dataDiNascita;
-	@Column(nullable = false)
 	private List<String> urlsImages;
 	
-	@OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL, orphanRemoval = true)  
+
+	@OneToMany(mappedBy = "cuoco", cascade = CascadeType.ALL)  
 	private List<Ricetta> ricette;
 	
 	/* getter e setter */
@@ -65,12 +72,10 @@ public class Cuoco {
 	}
 	public void setDataDiNascita(LocalDate dataDiNascita) {
 		this.dataDiNascita = dataDiNascita;
-	}
-	
+	}	
 	public List<String> getUrlsImages() {
 		return urlsImages;
-	}
-	
+	}	
 	public void setUrlsImages(List<String> urlsImages) {
 		this.urlsImages = urlsImages;
 	} 

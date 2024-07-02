@@ -1,6 +1,5 @@
 package it.uniroma3.siw.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,7 +82,6 @@ public class RicettaController {
     @GetMapping("/cuoco/aggiungiRicetta")
     public String aggiungiRicetta(Model model) {
         List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
-                .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
                 .collect(Collectors.toList());
         model.addAttribute("ingredienti", ingredienti);
 
@@ -100,10 +98,9 @@ public class RicettaController {
     public String aggiungiRicetta(@ModelAttribute("ricetta") Ricetta ricetta, BindingResult ricettaBindingResult,
                                   @RequestParam("fileImages") MultipartFile[] files, @RequestParam("cuocoId") Long cuocoId,
                                   @RequestParam(value = "ingredientiIds", required = false) List<Long> ingredientiIds,
-                                  @RequestParam(value = "quantita", required = false) List<String> quantitaList, Model model) {
+                                  @RequestParam(value = "quantita", required = false) List<String> quantitaList, Model model) throws Exception {
         if (ricettaBindingResult.hasErrors()) {
             List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
-                    .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
                     .collect(Collectors.toList());
             model.addAttribute("ingredienti", ingredienti);
             return "cuoco/aggiungiRicetta";
@@ -118,13 +115,9 @@ public class RicettaController {
             quantitaList = new ArrayList<>();
         }
 
-        try {
-            ricettaService.registerRicetta(ricetta, cuocoId, files, ingredientiIds, quantitaList);
-            return "redirect:/cuoco/ricetteCuoco";
-        } catch (IOException e) {
-            model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
-            return "cuoco/aggiungiRicetta";
-        }
+        ricettaService.registerRicetta(ricetta, cuocoId, files, ingredientiIds, quantitaList);
+        return "redirect:/cuoco/ricetteCuoco";
+       
     }
 
     // Mostra il form per modificare una ricetta esistente
@@ -132,7 +125,6 @@ public class RicettaController {
     public String modificaRicetta(@PathVariable("id") Long id, Model model) {
         Ricetta ricetta = ricettaService.findById(id);
         List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
-                .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
                 .collect(Collectors.toList());
         model.addAttribute("ricetta", ricetta);
         model.addAttribute("ingredienti", ingredienti);
@@ -144,10 +136,9 @@ public class RicettaController {
     public String updateRicetta(@PathVariable("id") Long id, @ModelAttribute("ricetta") Ricetta ricetta,
                                 BindingResult ricettaBindingResult, @RequestParam("fileImages") MultipartFile[] files,
                                 @RequestParam(value = "ingredientiIds", required = false) List<Long> ingredientiIds,
-                                @RequestParam(value = "quantita", required = false) List<String> quantitaList, Model model) {
+                                @RequestParam(value = "quantita", required = false) List<String> quantitaList, Model model) throws Exception{
         if (ricettaBindingResult.hasErrors()) {
             List<Ingrediente> ingredienti = StreamSupport.stream(ingredienteService.findAll().spliterator(), false)
-                    .sorted((i1, i2) -> i1.getNome().compareToIgnoreCase(i2.getNome()))
                     .collect(Collectors.toList());
             model.addAttribute("ingredienti", ingredienti);
             return "cuoco/modificaRicetta";
@@ -162,13 +153,8 @@ public class RicettaController {
             quantitaList = new ArrayList<>();
         }
 
-        try {
-            ricettaService.updateRicetta(id, ricetta, files, ingredientiIds, quantitaList);
-            return "redirect:/cuoco/ricetteCuoco";
-        } catch (IOException e) {
-            model.addAttribute("messaggioErrore", "Errore nel caricamento delle immagini");
-            return "cuoco/modificaRicetta";
-        }
+        ricettaService.updateRicetta(id, ricetta, files, ingredientiIds, quantitaList);
+        return "redirect:/cuoco/ricetteCuoco";  
     }
 
 }
